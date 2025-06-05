@@ -24,8 +24,8 @@ class Funcionario {
         this.bonificacaoLucros = 0.0;
         this.valeRefeicao = 300.0;
         this.valeAlimentacao = 300.0;
-        this.planoSaude = 3000.0;
-        this.planoOdontologico = 3000.0;
+        this.planoSaude = 0.0;
+        this.planoOdontologico = 0.0;
 
         ajustarBeneficiosPorCargo();
         this.valeTransporte = calcularValeTransporte();
