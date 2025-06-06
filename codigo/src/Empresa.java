@@ -634,8 +634,9 @@ class Empresa {
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine();
-
+            int opc;
             switch (opcao) {
+                
                 case 1:
                     System.out.print("Nome Completo: ");
                     String nome = scanner.nextLine();
@@ -648,16 +649,44 @@ class Empresa {
                     }
                     System.out.print("Idade: ");
                     int idade = scanner.nextInt();
+                    while(idade < 15){
+                        System.out.println("Idade inválida!");
+                        System.out.print("Idade: ");
+                        idade = scanner.nextInt();
+                    }
                     scanner.nextLine();
-                    System.out.print("Gênero: ");
-                    String genero = scanner.nextLine();
+                    String genero = "";
+                    do {
+                        System.out.print("Gênero (1 - Feminino, 2 - Masculino, 3 - Outros): ");
+                        opc = scanner.nextInt();
+                        switch(opc){
+                            case 1:
+                                genero = "Feminino";
+                                break;
+                            case 2:
+                                genero = "Masculino";
+                                break;
+                            case 3:
+                                genero = "Outros";
+                                break;
+                            default:
+                                System.out.println("Opção inválida!");
+                                break; 
+                        }
+                    } while (opc != 1 && opc != 2 && opc != 3);
                     System.out.print("Cargo: ");
                     String cargo = scanner.nextLine();
-                    System.out.print("Salário Base: ");
+                    scanner.nextLine();
+                    System.out.print("Salário Bruto: ");
                     double salario = scanner.nextDouble();
+                    while(salario < 0){
+                        System.out.println("Salário não pode ser negativo!");
+                        System.out.print("Salário Bruto: ");
+                        salario = scanner.nextDouble();
+                    }
                     scanner.nextLine();
                     System.out.print("Setor (1 - Gerente de Filial, 2 - Atendimento ao Cliente, 3 - Gestão de Pessoas, 4 - Financeiro, 5 - Vendas, 6 - Almoxarifado, 7 - Transportadoras): ");
-                    int opc = scanner.nextInt();
+                    opc = scanner.nextInt();
                     String setorNome = "";
                     switch (opc) {
                         case 1:
