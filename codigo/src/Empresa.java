@@ -639,8 +639,13 @@ class Empresa {
                 case 1:
                     System.out.print("Nome Completo: ");
                     String nome = scanner.nextLine();
-                    System.out.print("ID (ex: EMP021): ");
+                    System.out.print("ID (ex: EMP00021): ");
                     String id = scanner.nextLine();
+                    while (!id.matches("^EMP\\d{5}$")) {
+                        System.out.println("ID inválido! Use o formato EMP seguido de três dígitos (ex: EMP021).");
+                        System.out.print("ID (ex: EMP021): ");
+                        id = scanner.nextLine();
+                    }
                     System.out.print("Idade: ");
                     int idade = scanner.nextInt();
                     scanner.nextLine();
@@ -651,8 +656,36 @@ class Empresa {
                     System.out.print("Salário Base: ");
                     double salario = scanner.nextDouble();
                     scanner.nextLine();
-                    System.out.print("Setor (Gerente de Filial, Atendimento ao Cliente, Gestão de Pessoas, Financeiro, Vendas, Almoxarifado, Transportadoras): ");
-                    String setorNome = scanner.nextLine();
+                    System.out.print("Setor (1 - Gerente de Filial, 2 - Atendimento ao Cliente, 3 - Gestão de Pessoas, 4 - Financeiro, 5 - Vendas, 6 - Almoxarifado, 7 - Transportadoras): ");
+                    int opc = scanner.nextInt();
+                    String setorNome = "";
+                    switch (opc) {
+                        case 1:
+                            setorNome = "Gerente de Filial";
+                            break;
+                        case 2:
+                            setorNome = "Atendimento ao Cliente";
+                            break;
+                        case 3:
+                            setorNome = "Gestão de Pessoas";
+                            break;
+                        case 4:
+                            setorNome = "Financeiro";
+                            break;
+                        case 5:
+                            setorNome = "Vendas";
+                            break;
+                        case 6:
+                            setorNome = "Almoxarifado";
+                            break;
+                        case 7:
+                            setorNome = "Transportadoras";
+                            break;
+                        default:
+                            System.out.println("Opção inválida!");
+                            break;
+                    }
+
                     adicionarFuncionario(new Funcionario(nome, id, idade, genero, cargo, salario), setorNome);
                     break;
                 case 2:
