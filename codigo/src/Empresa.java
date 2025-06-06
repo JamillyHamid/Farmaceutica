@@ -620,7 +620,7 @@ class Empresa {
         } while (opcao != 0);
     }
 
-    private void menuFuncionarios() {
+    void menuFuncionarios() {
         int opcao;
         do {
             System.out.println("\n--- Gerenciar Funcionários ---");

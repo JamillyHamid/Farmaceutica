@@ -38,8 +38,13 @@ class Setor {
     }
 
     // --- Getters ---
-    public String getNomeSetor() { return nomeSetor; }
-    public List<Funcionario> getFuncionarios() { return funcionarios; }
+    public String getNomeSetor() {
+        return nomeSetor;
+    }
+
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
 
     @Override
     public String toString() {
