@@ -1,7 +1,8 @@
+package sistema;
 import java.util.ArrayList;
 import java.util.List;
 
-class Setor {
+public class Setor {
     private String nomeSetor;
     private List<Funcionario> funcionarios;
 

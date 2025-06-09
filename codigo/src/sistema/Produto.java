@@ -1,3 +1,4 @@
+package sistema;
 class Produto {
     private String nome;
     private String codigo;

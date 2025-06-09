@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuRH extends JFrame {
-    public MenuRH(Empresa empresa) {
+    public MenuRH() {
         // setTitle("Menu - Gestão de Pessoas (RH)");
         // setSize(400, 300);
         // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

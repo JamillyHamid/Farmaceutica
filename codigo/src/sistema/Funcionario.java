@@ -1,6 +1,8 @@
-class Funcionario {
+package sistema;
+public class Funcionario {
     private String nomeCompleto;
     private String id;
+    private static int count = 1;
     private String senha;
     private int idade;
     private String genero;
@@ -17,7 +19,8 @@ class Funcionario {
 
     public Funcionario(String nomeCompleto, String senha, int idade, String genero, String cargo, double salarioBase) {
         this.nomeCompleto = nomeCompleto;
-        this.id = ;
+        this.id = gerarId();
+        count++;
         this.senha = senha;
         this.idade = idade;
         this.genero = genero;
@@ -35,10 +38,14 @@ class Funcionario {
         calcularSalarioLiquido();
     }
 
-    private String gerarId(){
-        
-
-        return "";
+    private String gerarId() {
+        // Padrão EMP00001
+        String valor = Integer.toString(count);
+        String idNumber = "";
+        for (int i = 0; i < (5 - valor.length()); i++) {
+            idNumber += "0";
+        }
+        return String.format("EMP".concat(idNumber).concat(valor));
     }
 
     private void ajustarBeneficiosPorCargo() {
@@ -108,6 +115,10 @@ class Funcionario {
 
     public String getId() {
         return id;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 
     public int getIdade() {
