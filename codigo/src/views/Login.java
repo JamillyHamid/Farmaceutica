@@ -32,8 +32,8 @@ public class Login extends JFrame {
         panel.add(setorLabel);
 
         String[] setoresLista = {
-                "Gerente de Filial", "Atendimento ao Cliente", "Gestão de Pessoas",
-                "Financeiro", "Vendas", "Almoxarifado"
+                "Almoxarifado", "Atendimento ao Cliente", "Financeiro",
+                "Gerente de Filial", "Gestão de Pessoas", "Vendas"
         };
         JComboBox<String> setorComboBox = new JComboBox<>(setoresLista);
         setorComboBox.setBounds(190, 60, 150, 25);
@@ -68,9 +68,9 @@ public class Login extends JFrame {
             List<Funcionario> funcionarios = setor.getFuncionarios();
             String senha = new String(senhaField.getPassword());
             String escolha =  (String) (setorComboBox.getSelectedItem());
+            int i = 1;
             for (Funcionario fun : funcionarios) {
-                int i = 1;
-                // if (fun.getId().equals(idField.getText()) && fun.getSenha().equals(senha)) {
+                if (fun.getId().equals(idField.getText()) && fun.getSenha().equals(senha)) {
                     switch (escolha) {
                         case "Gerente de Filial":
                             new MenuGDF();
@@ -93,10 +93,10 @@ public class Login extends JFrame {
                     }
                     frame.dispose();
                     break;
-                // } else if (i == funcionarios.size()) {
-                //     JOptionPane.showMessageDialog(frame, "Dados incorretos!");
-                // }
-                // i++;
+                } else if (i == funcionarios.size()) {
+                    JOptionPane.showMessageDialog(frame, "Dados incorretos!");
+                }
+                i++;
             }
         });
 

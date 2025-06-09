@@ -54,9 +54,14 @@ public class MenuGDF {
         panel.setLayout(null);
 
         JLabel label = new JLabel("MENU GERAL");
-        label.setFont(new Font("Arial", Font.BOLD, 16));
-        label.setBounds(300, 30, 200, 20);
+        label.setFont(new Font("Arial", Font.BOLD, 18));
+        label.setBounds(290, 30, 200, 20);
         panel.add(label);
+
+        JLabel subtitle = new JLabel("GERENTE");
+        subtitle.setFont(new Font("Arial", Font.BOLD, 10));
+        subtitle.setBounds(325, 45, 200, 20);
+        panel.add(subtitle);
 
         int larguraBotao = 250;
         int alturaBotao = 30;
@@ -91,19 +96,20 @@ public class MenuGDF {
             frame.dispose();
         });
         botao2.addActionListener(e -> {
-        
+            new Login();
+            frame.dispose();
         });
         botao3.addActionListener(e -> {
-        
+
         });
         botao4.addActionListener(e -> {
-        
+
         });
         botao5.addActionListener(e -> {
-        
+
         });
         botao6.addActionListener(e -> {
-        
+
         });
 
         frame.add(panel);
