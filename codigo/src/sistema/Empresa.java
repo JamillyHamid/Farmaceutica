@@ -6,11 +6,10 @@ import java.util.*;
 public class Empresa {
     private double caixaTotal;
     private Map<String, Setor> setores;
-
     private Map<String, Produto> produtos;
     private List<Transportadora> transportadoras;
     private List<NegocioEmAndamento> negociosEmAndamento;
-    private Scanner scanner;
+    private Scanner scanner; // Para entrada de dados do usuário
 
     public Empresa() {
         this.caixaTotal = 200000.00;
@@ -82,7 +81,8 @@ public class Empresa {
         adicionarFuncionario(new Funcionario("Xavier Antunes", "EMP020", 29, "Masculino", "Conferente", 3000.00),
                 "Almoxarifado");
 
-        // Adicionar produtos (pelo menos 10)
+        // --- Todos os Produtos em Ordem Crescente de Código (ID) --- Total de 30
+        // produtos
         adicionarProduto(new Produto("Paracetamol 500mg (Cx c/20)", "PROD001", 5.00, 12.50, 1000));
         adicionarProduto(new Produto("Dipirona Sódica 1g (Cx c/10)", "PROD002", 7.50, 18.00, 800));
         adicionarProduto(new Produto("Amoxicilina 500mg (Cx c/21)", "PROD003", 15.00, 35.00, 500));
@@ -94,24 +94,46 @@ public class Empresa {
         adicionarProduto(new Produto("Álcool 70% Líquido (1 Litro)", "PROD009", 4.00, 9.50, 1200));
         adicionarProduto(new Produto("Máscara Cirúrgica Descartável (Cx c/50)", "PROD010", 10.00, 25.00, 3000));
         adicionarProduto(new Produto("Luva de Procedimento (Cx c/100)", "PROD011", 15.00, 35.00, 1000));
+        adicionarProduto(new Produto("Buscopan Duo (Cx c/20)", "PROD012", 8.50, 20.00, 750));
+        adicionarProduto(new Produto("Neosaldina (Cx c/20)", "PROD013", 7.00, 16.50, 900));
+        adicionarProduto(new Produto("Dorflex (Cx c/10)", "PROD014", 5.50, 13.00, 1100));
+        adicionarProduto(new Produto("Losartana Potássica 50mg (Cx c/30)", "PROD015", 12.00, 28.00, 600));
+        adicionarProduto(new Produto("Sinvastatina 20mg (Cx c/30)", "PROD016", 18.00, 42.00, 450));
+        adicionarProduto(new Produto("Cloridrato de Fluoxetina 20mg (Cx c/30)", "PROD017", 20.00, 48.00, 300));
+        adicionarProduto(new Produto("Cloridrato de Ranitidina 150mg (Cx c/30)", "PROD018", 9.50, 23.00, 650));
+        adicionarProduto(new Produto("Acetilcisteína 600mg (Cx c/16)", "PROD019", 11.00, 26.00, 550));
+        adicionarProduto(new Produto("Shampoo Anticaspa (200ml)", "PROD020", 8.00, 19.00, 800));
+        adicionarProduto(new Produto("Condicionador Hidratante (200ml)", "PROD021", 7.00, 17.00, 850));
+        adicionarProduto(new Produto("Sabonete Líquido Antibacteriano (250ml)", "PROD022", 6.00, 14.00, 1000));
+        adicionarProduto(new Produto("Escova de Dente Macia", "PROD023", 2.00, 5.00, 1500));
+        adicionarProduto(new Produto("Creme Dental Flúor (90g)", "PROD024", 3.50, 8.50, 1300));
+        adicionarProduto(new Produto("Termômetro Digital Infravermelho", "PROD025", 25.00, 60.00, 200));
+        adicionarProduto(new Produto("Band-aid Clássico (Cx c/10)", "PROD026", 2.00, 4.50, 2500));
+        adicionarProduto(new Produto("Algodão Hidrófilo (50g)", "PROD027", 1.50, 3.50, 3000));
+        adicionarProduto(new Produto("Gaze Esterilizada (Cx c/10)", "PROD028", 4.00, 9.00, 1800));
+        adicionarProduto(new Produto("Fralda Geriátrica G (Cx c/10)", "PROD029", 30.00, 70.00, 250));
+        adicionarProduto(new Produto("Protetor Solar FPS 30 (120ml)", "PROD030", 15.00, 35.00, 400));
 
         // Adicionar transportadoras (pelo menos 3)
-        Transportadora t1 = new Transportadora("Transportes Veloz");
-        t1.addLocalAtendimento("São Paulo - SP");
-        t1.addLocalAtendimento("Rio de Janeiro - RJ");
-        t1.addLocalAtendimento("Belo Horizonte - MG");
+        Transportadora t1 = new Transportadora("Transportes Veloz", 15.00); // Grande Londrina
+        t1.addLocalAtendimento("Londrina - PR");
+        t1.addLocalAtendimento("Cambé - PR");
+        t1.addLocalAtendimento("Rolândia - PR");
+        t1.addLocalAtendimento("Ibiporâ - PR");
         adicionarTransportadora(t1);
 
-        Transportadora t2 = new Transportadora("Entrega Nacional LTDA");
+        Transportadora t2 = new Transportadora("Entrega Nacional LTDA", 25.00); // Estado do Paraná
         t2.addLocalAtendimento("Curitiba - PR");
-        t2.addLocalAtendimento("Porto Alegre - RS");
-        t2.addLocalAtendimento("Florianópolis - SC");
+        t2.addLocalAtendimento("Maringá - PR");
+        t2.addLocalAtendimento("Cascavel - PR");
+        t2.addLocalAtendimento("Ponta Grossa - PR");
         adicionarTransportadora(t2);
 
-        Transportadora t3 = new Transportadora("Logística Ágil Brasil");
-        t3.addLocalAtendimento("Recife - PE");
-        t3.addLocalAtendimento("Salvador - BA");
-        t3.addLocalAtendimento("Fortaleza - CE");
+        Transportadora t3 = new Transportadora("Logística Ágil Brasil", 35.00); // Estado de São Paulo
+        t3.addLocalAtendimento("São Paulo - SP");
+        t3.addLocalAtendimento("Ourinhos - SP");
+        t3.addLocalAtendimento("Assis - SP");
+        t3.addLocalAtendimento("Marilha - SP");
         adicionarTransportadora(t3);
     }
 
@@ -438,6 +460,7 @@ public class Empresa {
     }
 
     public void registrarVenda() {
+        listarProdutosEmEstoque();
         System.out.print("Digite o código do produto a ser vendido: ");
         String codigoProduto = scanner.nextLine();
         Produto produto = produtos.get(codigoProduto);
@@ -480,9 +503,49 @@ public class Empresa {
             return;
         }
 
-        double valorTotalVenda = produto.getValorVenda() * quantidade;
+        System.out.print("Digite o local de entrega (cidade - estado, ex: Londrina - PR): ");
+        String localEntrega = scanner.nextLine().trim();
+
+        List<Transportadora> transportadorasDisponiveis = new ArrayList<>();
+        System.out.println("\nTransportadoras disponíveis para " + localEntrega + ":");
+        int i = 1;
+        for (Transportadora t : transportadoras) {
+            if (t.atendeLocal(localEntrega)) {
+                transportadorasDisponiveis.add(t);
+                // Mostra o valor de frete fixo da transportadora
+                System.out.println(
+                        i + ". " + t.getNome() + " - Frete Fixo: R$" + String.format("%.2f", t.getValorFreteFixo()));
+                i++;
+            }
+        }
+
+        if (transportadorasDisponiveis.isEmpty()) {
+            System.out.println("Nenhuma transportadora parceira atende o local de entrega informado.");
+            System.out.println("Venda não pode ser concluída sem transportadora.");
+            return;
+        }
+
+        System.out.print("Escolha o número da transportadora desejada: ");
+        int escolhaTransportadora = scanner.nextInt();
+        scanner.nextLine(); // Consumir nova linha
+
+        if (escolhaTransportadora < 1 || escolhaTransportadora > transportadorasDisponiveis.size()) {
+            System.out.println("Escolha de transportadora inválida. Venda cancelada.");
+            return;
+        }
+
+        Transportadora transportadoraSelecionada = transportadorasDisponiveis.get(escolhaTransportadora - 1);
+        // Obtém o valor de frete fixo diretamente da transportadora selecionada
+        double valorFrete = transportadoraSelecionada.getValorFreteFixo();
+
+        double valorTotalVenda = (produto.getValorVenda() * quantidade) + valorFrete; // Adiciona o frete aqui!
         produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - quantidade);
-        registrarEntradaCaixa(valorTotalVenda, "Venda de " + quantidade + " unidades de " + produto.getNome());
+
+        // Registrar a entrada da venda (incluindo frete) no caixa
+        registrarEntradaCaixa(valorTotalVenda,
+                "Venda de " + quantidade + " un. de " + produto.getNome() + " + Frete (R$"
+                        + String.format("%.2f", valorFrete) + ") via " + transportadoraSelecionada.getNome() + " para "
+                        + localEntrega);
 
         // Criar um novo negócio em andamento para a venda
         String idNegocio = "VENDA-" + UUID.randomUUID().toString().substring(0, 8); // ID único
@@ -492,7 +555,10 @@ public class Empresa {
         novaVenda.setStatus("Concluído"); // Uma venda direta pode ser marcada como concluída imediatamente
 
         negociosEmAndamento.add(novaVenda);
-        System.out.println("Venda de " + quantidade + " unidades de " + produto.getNome() + " registrada com sucesso.");
+
+        System.out.println("Venda de " + quantidade + " unidades de " + produto.getNome() + " para " + localEntrega
+                + " (Frete: R$" + String.format("%.2f", valorFrete) + ") registrada com sucesso.");
+        System.out.println("Valor total da transação: R$" + String.format("%.2f", valorTotalVenda));
     }
 
     public void registrarCompra() {
@@ -678,8 +744,9 @@ public class Empresa {
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine();
-
+            int opc;
             switch (opcao) {
+
                 case 1:
                     System.out.print("Nome Completo: ");
                     String nome = scanner.nextLine();
@@ -692,17 +759,45 @@ public class Empresa {
                     }
                     System.out.print("Idade: ");
                     int idade = scanner.nextInt();
+                    while (idade < 15) {
+                        System.out.println("Idade inválida!");
+                        System.out.print("Idade: ");
+                        idade = scanner.nextInt();
+                    }
                     scanner.nextLine();
-                    System.out.print("Gênero: ");
-                    String genero = scanner.nextLine();
+                    String genero = "";
+                    do {
+                        System.out.print("Gênero (1 - Feminino, 2 - Masculino, 3 - Outros): ");
+                        opc = scanner.nextInt();
+                        switch (opc) {
+                            case 1:
+                                genero = "Feminino";
+                                break;
+                            case 2:
+                                genero = "Masculino";
+                                break;
+                            case 3:
+                                genero = "Outros";
+                                break;
+                            default:
+                                System.out.println("Opção inválida!");
+                                break;
+                        }
+                    } while (opc != 1 && opc != 2 && opc != 3);
                     System.out.print("Cargo: ");
                     String cargo = scanner.nextLine();
-                    System.out.print("Salário Base: ");
+                    scanner.nextLine();
+                    System.out.print("Salário Bruto: ");
                     double salario = scanner.nextDouble();
+                    while (salario < 0) {
+                        System.out.println("Salário não pode ser negativo!");
+                        System.out.print("Salário Bruto: ");
+                        salario = scanner.nextDouble();
+                    }
                     scanner.nextLine();
                     System.out.print(
                             "Setor (1 - Gerente de Filial, 2 - Atendimento ao Cliente, 3 - Gestão de Pessoas, 4 - Financeiro, 5 - Vendas, 6 - Almoxarifado, 7 - Transportadoras): ");
-                    int opc = scanner.nextInt();
+                    opc = scanner.nextInt();
                     String setorNome = "";
                     switch (opc) {
                         case 1:
@@ -834,7 +929,10 @@ public class Empresa {
                 case 1:
                     System.out.print("Nome da Transportadora: ");
                     String nomeTransp = scanner.nextLine();
-                    Transportadora novaTransp = new Transportadora(nomeTransp);
+                    System.out.println("Infome o valor do FRETE partindo de Londrina - PR: ");
+                    double freteTransp = scanner.nextDouble();
+                    scanner.nextLine();
+                    Transportadora novaTransp = new Transportadora(nomeTransp, freteTransp);
                     System.out.print("Adicionar locais de atendimento (separados por vírgula): ");
                     String locais = scanner.nextLine();
                     String[] arrayLocais = locais.split(",");
@@ -970,5 +1068,4 @@ public class Empresa {
     public Map<String, Setor> getSetores() {
         return setores;
     }
-
 }
