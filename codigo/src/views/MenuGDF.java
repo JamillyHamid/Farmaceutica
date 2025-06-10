@@ -1,6 +1,9 @@
 package views;
 
 import javax.swing.*;
+
+import sistema.Empresa;
+
 import java.awt.*;
 
 public class MenuGDF {
@@ -43,7 +46,7 @@ public class MenuGDF {
     // 3. Relatório de Funcionários
     // 4. Folha de Pagamento Detalhada
 
-    public MenuGDF() {
+    public MenuGDF(Empresa empresa) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(700, 500);
@@ -92,11 +95,10 @@ public class MenuGDF {
         panel.add(botao6);
 
         botao1.addActionListener(e -> {
-            new MenuAMX();
+            new Login(empresa);
             frame.dispose();
         });
         botao2.addActionListener(e -> {
-            new Login();
             frame.dispose();
         });
         botao3.addActionListener(e -> {

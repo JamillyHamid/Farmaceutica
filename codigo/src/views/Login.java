@@ -11,7 +11,7 @@ import sistema.Setor;
 
 public class Login extends JFrame {
 
-    public Login() {
+    public Login(Empresa empresa) {
 
         JFrame frame = new JFrame("Login - Sistema Farmacêutico");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,9 +32,14 @@ public class Login extends JFrame {
         panel.add(setorLabel);
 
         String[] setoresLista = {
-                "Almoxarifado", "Atendimento ao Cliente", "Financeiro",
-                "Gerente de Filial", "Gestão de Pessoas", "Vendas"
+                "Almoxarifado",
+                "Atendimento ao Cliente",
+                "Financeiro",
+                "Gerente de Filial",
+                "Gestão de Pessoas",
+                "Vendas"
         };
+        
         JComboBox<String> setorComboBox = new JComboBox<>(setoresLista);
         setorComboBox.setBounds(190, 60, 150, 25);
         panel.add(setorComboBox);
@@ -59,27 +64,26 @@ public class Login extends JFrame {
         loginBotao.setBounds(130, 190, 120, 30);
         panel.add(loginBotao);
 
-        Empresa empresa = new Empresa();
-
         loginBotao.addActionListener(e -> {
 
             Map<String, Setor> setores = empresa.getSetores();
             Setor setor = setores.get(setorComboBox.getSelectedItem());
             List<Funcionario> funcionarios = setor.getFuncionarios();
             String senha = new String(senhaField.getPassword());
-            String escolha =  (String) (setorComboBox.getSelectedItem());
+            String escolha = (String) (setorComboBox.getSelectedItem());
+
             int i = 1;
             for (Funcionario fun : funcionarios) {
-                if (fun.getId().equals(idField.getText()) && fun.getSenha().equals(senha)) {
+                // if (fun.getId().equals(idField.getText()) && fun.getSenha().equals(senha)) {
                     switch (escolha) {
                         case "Gerente de Filial":
-                            new MenuGDF();
+                            new MenuGDF(empresa);
                             break;
                         case "Atendimento ao Cliente":
                             new MenuATC();
                             break;
                         case "Gestão de Pessoas":
-                            new MenuGDP();
+                            new MenuGDP(empresa);
                             break;
                         case "Financeiro":
                             new MenuFNC();
@@ -88,15 +92,15 @@ public class Login extends JFrame {
                             new MenuVND();
                             break;
                         case "Almoxarifado":
-                            new MenuAMX();
+                            new MenuAMX(empresa);
                             break;
                     }
                     frame.dispose();
                     break;
-                } else if (i == funcionarios.size()) {
-                    JOptionPane.showMessageDialog(frame, "Dados incorretos!");
-                }
-                i++;
+                // } else if (i == funcionarios.size()) {
+                //     JOptionPane.showMessageDialog(frame, "Dados incorretos!");
+                // }
+                // i++;
             }
         });
 

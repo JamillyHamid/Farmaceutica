@@ -52,11 +52,9 @@ public class MenuATC {
         panel.add(botao4);
 
         botao1.addActionListener(e -> {
-            new Login();
             frame.dispose();
         });
         botao2.addActionListener(e -> {
-            new MenuGDF();
             frame.dispose();
         });
 

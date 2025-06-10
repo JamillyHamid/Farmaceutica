@@ -72,10 +72,10 @@ public class Main {
 
         // frame.add(panel);
         // frame.setVisible(true);
-
-        new Login();
-        // Empresa empresa = new Empresa();
-        // empresa.exibirMenu();
+        
+        Empresa empresa = new Empresa();
+        new Login(empresa);
+        empresa.exibirMenu();
 
     }
 

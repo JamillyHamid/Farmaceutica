@@ -56,15 +56,13 @@ public class MenuVND {
         panel.add(botao4);
 
         JButton botao5 = new JButton("Registrar");
-        botao5.setBounds(margemLateral, 265, larguraBotao, alturaBotao);
+        botao5.setBounds(margemLateral, 325, larguraBotao, alturaBotao);
         panel.add(botao5);
 
         botao1.addActionListener(e -> {
-            new Login();
             frame.dispose();
         });
         botao2.addActionListener(e -> {
-            new MenuGDF();
             frame.dispose();
         });
 

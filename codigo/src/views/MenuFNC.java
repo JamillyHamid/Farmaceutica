@@ -56,11 +56,9 @@ public class MenuFNC {
         panel.add(botao5);
 
         botao1.addActionListener(e -> {
-            new Login();
             frame.dispose();
         });
         botao2.addActionListener(e -> {
-            new MenuGDF();
             frame.dispose();
         });
 

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class NegocioEmAndamento {
+public class NegocioEmAndamento {
     private String idNegocio;
     private String tipo; // "Venda" ou "Compra"
     private List<Funcionario> participantesVenda; // Vendedores

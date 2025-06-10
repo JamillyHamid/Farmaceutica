@@ -1,6 +1,11 @@
 package views;
 
+import views.funcs.AtualizarStatusNegocio;
+
 import javax.swing.*;
+
+import sistema.Empresa;
+
 import java.awt.*;
 
 public class MenuAMX {
@@ -15,7 +20,7 @@ public class MenuAMX {
     // 2. Listar Negócios em Andamento
     // 3. Atualizar Status de Negócio
 
-    public MenuAMX() {
+    public MenuAMX(Empresa empresa) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
@@ -58,11 +63,10 @@ public class MenuAMX {
         panel.add(botao4);
 
         botao1.addActionListener(e -> {
-            new Login();
+            new AtualizarStatusNegocio(empresa);
             frame.dispose();
         });
         botao2.addActionListener(e -> {
-            new MenuGDF();
             frame.dispose();
         });
 

@@ -135,6 +135,25 @@ public class Empresa {
         t3.addLocalAtendimento("Assis - SP");
         t3.addLocalAtendimento("Marilha - SP");
         adicionarTransportadora(t3);
+
+        // Adicionar vendas
+
+        String idNegocio = "VENDA-" + UUID.randomUUID().toString().substring(0, 8); // ID único
+        NegocioEmAndamento novaVenda = new NegocioEmAndamento(idNegocio, "Venda", LocalDate.now());
+        novaVenda.addProduto(produtos.get("PROD012"), 10);
+        Setor setor = setores.get("Vendas");
+        novaVenda.addParticipanteVenda(setor.buscarFuncionario("EMP00014"));
+        novaVenda.setStatus("Em andamento");
+        negociosEmAndamento.add(novaVenda);
+
+        String idNegocio2 = "VENDA-" + UUID.randomUUID().toString().substring(0, 8); // ID único
+        NegocioEmAndamento novaVenda2 = new NegocioEmAndamento(idNegocio2, "Venda", LocalDate.now());
+        novaVenda2.addProduto(produtos.get("PROD016"), 10);
+        Setor setor2 = setores.get("Vendas");
+        novaVenda2.addParticipanteVenda(setor2.buscarFuncionario("EMP0001"));
+        novaVenda2.setStatus("Em andamento");
+        negociosEmAndamento.add(novaVenda2);
+
     }
 
     // --- Métodos de Gerenciamento ---
@@ -488,16 +507,16 @@ public class Empresa {
         System.out.print("Digite os IDs dos vendedores envolvidos (separados por vírgula, ex: EMP013,EMP014): ");
         String idsVendedores = scanner.nextLine();
         String[] ids = idsVendedores.split(",");
-        for (String id : ids) {
-            String trimmedId = id.trim();
-            Funcionario vendedor = buscarFuncionarioPorId(trimmedId);
-            if (vendedor != null && vendedor.getCargo().equals("Vendedor")
-                    || vendedor.getCargo().equals("Gerente de Vendas")) { // Confere se é vendedor
-                vendedoresEnvolvidos.add(vendedor);
-            } else {
-                System.out.println("ID de vendedor inválido ou não encontrado: " + trimmedId);
-            }
-        }
+
+        Setor setor = setores.get("Vendas");
+        List<Funcionario> funcionarios = setor.getFuncionarios();
+        vendedoresEnvolvidos.add(funcionarios.get(3));
+
+        // for (String id : ids) {
+        // String trimmedId = id.trim();
+        // Funcionario vendedor = buscarFuncionarioPorId(trimmedId);
+        // vendedoresEnvolvidos.add(vendedor);
+        // }
         if (vendedoresEnvolvidos.isEmpty()) {
             System.out.println("Nenhum vendedor válido encontrado para registrar a venda.");
             return;
@@ -552,7 +571,7 @@ public class Empresa {
         NegocioEmAndamento novaVenda = new NegocioEmAndamento(idNegocio, "Venda", LocalDate.now());
         novaVenda.addProduto(produto, quantidade);
         vendedoresEnvolvidos.forEach(novaVenda::addParticipanteVenda);
-        novaVenda.setStatus("Concluído"); // Uma venda direta pode ser marcada como concluída imediatamente
+        novaVenda.setStatus("Em andamento"); // Uma venda direta pode ser marcada como concluída imediatamente
 
         negociosEmAndamento.add(novaVenda);
 
@@ -1067,5 +1086,9 @@ public class Empresa {
 
     public Map<String, Setor> getSetores() {
         return setores;
+    }
+
+    public List<NegocioEmAndamento> getNegociosEmAndamento() {
+        return negociosEmAndamento;
     }
 }
