@@ -230,49 +230,33 @@ public class Empresa {
         return funcionario;
     }
 
-    public void calcularFolhaDePagamento() {
-        double totalSalariosLiquidos = 0;
-        double totalImpostosRetidos = 0;
-        double totalCustosBeneficiosEmpresa = 0; // Custos da empresa com benefícios
+public double[] calcularFolhaDePagamentoDetalhada() {
+    double totalSalariosLiquidos = 0;
+    double totalImpostosRetidos = 0;
+    double totalCustosBeneficiosEmpresa = 0;
 
-        System.out.println("\n--- Detalhamento da Folha de Pagamento ---");
-        for (Setor setor : setores.values()) {
-            System.out.println("\nSetor: " + setor.getNomeSetor());
-            if (setor.getFuncionarios().isEmpty()) {
-                System.out.println("  Nenhum funcionário.");
-                continue;
-            }
-            for (Funcionario func : setor.getFuncionarios()) {
-                func.calcularImpostoRenda();
-                func.calcularSalarioLiquido();
+    for (Setor setor : setores.values()) {
+        for (Funcionario func : setor.getFuncionarios()) {
+            func.calcularImpostoRenda();
+            func.calcularSalarioLiquido();
 
-                System.out.println("  - " + func.getNomeCompleto() + " (ID: " + func.getId() + ", Cargo: "
-                        + func.getCargo() + ")");
-                System.out.println("    Salário Base: R$" + String.format("%.2f", func.getSalarioBase()));
-                System.out.println("    Bonificação: R$" + String.format("%.2f", func.getBonificacaoLucros()));
-                System.out.println("    IR Retido: R$" + String.format("%.2f", func.getImpostoRenda()));
-                System.out.println("    Salário Líquido: R$" + String.format("%.2f", func.getSalarioLiquido()));
-                System.out.println("    Custo Benefícios Empresa:");
-                System.out.println("      VT: R$" + String.format("%.2f", func.getValeTransporte()));
-                System.out.println("      VR: R$" + String.format("%.2f", func.getValeRefeicao()));
-                System.out.println("      VA: R$" + String.format("%.2f", func.getValeAlimentacao()));
-                System.out.println("      Plano Saúde: R$" + String.format("%.2f", func.getPlanoSaude()));
-                System.out.println("      Plano Odontológico: R$" + String.format("%.2f", func.getPlanoOdontologico()));
-
-                totalSalariosLiquidos += func.getSalarioLiquido();
-                totalImpostosRetidos += func.getImpostoRenda();
-                totalCustosBeneficiosEmpresa += (func.getValeTransporte() + func.getValeRefeicao() +
-                        func.getValeAlimentacao() + func.getPlanoSaude() + func.getPlanoOdontologico());
-            }
+            totalSalariosLiquidos += func.getSalarioLiquido();
+            totalImpostosRetidos += func.getImpostoRenda();
+            totalCustosBeneficiosEmpresa += (
+                    func.getValeTransporte() + func.getValeRefeicao() +
+                    func.getValeAlimentacao() + func.getPlanoSaude() + func.getPlanoOdontologico());
         }
-        System.out.println("\n--- Resumo da Folha de Pagamento ---");
-        System.out.println("Total de Salários Líquidos Pagos: R$" + String.format("%.2f", totalSalariosLiquidos));
-        System.out.println("Total de Impostos de Renda Retidos: R$" + String.format("%.2f", totalImpostosRetidos));
-        System.out.println(
-                "Total de Custos com Benefícios (Empresa): R$" + String.format("%.2f", totalCustosBeneficiosEmpresa));
-        System.out.println("Custo Total Estimado com Pessoal (Salário Base + Benefícios + Bonificação): R$"
-                + String.format("%.2f", calcularCustoMensalComPessoal()));
     }
+
+    double custoTotal = calcularCustoMensalComPessoal(); // se esse método já soma tudo
+
+    return new double[] {
+        totalSalariosLiquidos,
+        totalImpostosRetidos,
+        totalCustosBeneficiosEmpresa,
+        custoTotal
+    };
+}
 
     // Gerenciamento Financeiro
     public void registrarEntradaCaixa(double valor, String descricao) {
@@ -799,7 +783,7 @@ public class Empresa {
                     listarTodosFuncionarios();
                     break;
                 case 6:
-                    calcularFolhaDePagamento();
+                    // calcularFolhaDePagamento();
                     break;
                 case 0:
                     break;
@@ -1007,7 +991,7 @@ public class Empresa {
                     listarTodosFuncionarios();
                     break;
                 case 4:
-                    calcularFolhaDePagamento();
+                    // calcularFolhaDePagamento();
                     break;
                 case 0:
                     break;
