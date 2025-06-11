@@ -170,92 +170,29 @@ public class Empresa {
         }
     }
 
-    public void atualizarFuncionario(String idFuncionario) {
+    public void atualizarFuncionario(String idFuncionario, String nome, String senha, int idade, String genero,
+            String setor, double salario, String cargo) {
         Funcionario funcParaAtualizar = null;
         String setorDoFuncionario = null;
 
-        // Procura o funcionário em todos os setores
         for (Map.Entry<String, Setor> entry : setores.entrySet()) {
-            Setor setor = entry.getValue();
-            funcParaAtualizar = setor.buscarFuncionario(idFuncionario);
+            Setor procSetor = entry.getValue();
+            funcParaAtualizar = procSetor.buscarFuncionario(idFuncionario);
             if (funcParaAtualizar != null) {
                 setorDoFuncionario = entry.getKey();
                 break;
             }
         }
 
-        if (funcParaAtualizar != null) {
-            System.out.println("\n--- Atualizar Dados do Funcionário: " + funcParaAtualizar.getNomeCompleto() + " ---");
-            System.out.println("1. Nome Completo (Atual: " + funcParaAtualizar.getNomeCompleto() + ")");
-            System.out.println("2. Idade (Atual: " + funcParaAtualizar.getIdade() + ")");
-            System.out.println("3. Gênero (Atual: " + funcParaAtualizar.getGenero() + ")");
-            System.out.println("4. Cargo (Atual: " + funcParaAtualizar.getCargo() + ")");
-            System.out.println(
-                    "5. Salário Base (Atual: R$" + String.format("%.2f", funcParaAtualizar.getSalarioBase()) + ")");
-            System.out.println("6. Bonificação por Lucros (Atual: R$"
-                    + String.format("%.2f", funcParaAtualizar.getBonificacaoLucros()) + ")");
-            System.out.println("7. Mudar Setor (Atual: " + setorDoFuncionario + ")");
-            System.out.println("0. Cancelar");
+        funcParaAtualizar.setNomeCompleto(nome);
+        funcParaAtualizar.setIdade(idade);
+        funcParaAtualizar.mudarSenha(senha);
+        funcParaAtualizar.setGenero(genero);
+        funcParaAtualizar.setSalarioBase(salario);
+        funcParaAtualizar.setCargo(cargo);
 
-            System.out.print("Escolha uma opção para atualizar: ");
-            int escolha = scanner.nextInt();
-            scanner.nextLine(); // Consumir a nova linha
-
-            switch (escolha) {
-                case 1:
-                    System.out.print("Novo Nome Completo: ");
-                    funcParaAtualizar.setNomeCompleto(scanner.nextLine());
-                    break;
-                case 2:
-                    System.out.print("Nova Idade: ");
-                    funcParaAtualizar.setIdade(scanner.nextInt());
-                    scanner.nextLine();
-                    break;
-                case 3:
-                    System.out.print("Novo Gênero: ");
-                    funcParaAtualizar.setGenero(scanner.nextLine());
-                    break;
-                case 4:
-                    System.out.print("Novo Cargo: ");
-                    funcParaAtualizar.setCargo(scanner.nextLine());
-                    break;
-                case 5:
-                    System.out.print("Novo Salário Base: ");
-                    funcParaAtualizar.setSalarioBase(scanner.nextDouble());
-                    scanner.nextLine();
-                    break;
-                case 6:
-                    System.out.print("Nova Bonificação por Lucros: ");
-                    funcParaAtualizar.setBonificacaoLucros(scanner.nextDouble());
-                    scanner.nextLine();
-                    break;
-                case 7:
-                    System.out.print(
-                            "Novo Setor (Gerente de Filial, Atendimento ao Cliente, Gestão de Pessoas, Financeiro, Vendas, Almoxarifado, Transportadoras): ");
-                    String novoSetorNome = scanner.nextLine();
-                    if (setores.containsKey(novoSetorNome)) {
-                        // Remove do setor antigo
-                        setores.get(setorDoFuncionario).removerFuncionario(idFuncionario);
-                        // Adiciona ao novo setor
-                        setores.get(novoSetorNome).addFuncionario(funcParaAtualizar);
-                        System.out.println("Funcionário movido para o setor: " + novoSetorNome);
-                    } else {
-                        System.out.println("Setor inválido. Funcionário permaneceu no setor atual.");
-                    }
-                    break;
-                case 0:
-                    System.out.println("Atualização cancelada.");
-                    return;
-                default:
-                    System.out.println("Opção inválida.");
-            }
-            System.out.println("Dados do funcionário atualizados com sucesso!");
-            funcParaAtualizar.calcularImpostoRenda(); // Recalcula após atualizações
-            funcParaAtualizar.calcularSalarioLiquido(); // Recalcula após atualizações
-
-        } else {
-            System.out.println("Funcionário com ID " + idFuncionario + " não encontrado.");
-        }
+        setores.get(setorDoFuncionario).removerFuncionario(idFuncionario);
+        setores.get(setor).addFuncionario(funcParaAtualizar);
     }
 
     public void removerFuncionario(String idFuncionario) {
@@ -285,16 +222,12 @@ public class Empresa {
         }
     }
 
-    public void listarTodosFuncionarios() {
-        System.out.println("\n--- Lista de Todos os Funcionários por Setor ---");
-        setores.forEach((nomeSetor, setor) -> {
-            System.out.println("\nSetor: " + nomeSetor + " (Total: " + setor.getQuantidadeFuncionarios() + ")");
-            if (setor.getQuantidadeFuncionarios() > 0) {
-                setor.getFuncionarios().forEach(System.out::println);
-            } else {
-                System.out.println("  Nenhum funcionário neste setor.");
-            }
-        });
+    public List<Funcionario> listarTodosFuncionarios() {
+        List<Funcionario> funcionario = new ArrayList<>();
+        for (Setor setor : setores.values()) {
+            funcionario.addAll(setor.getFuncionarios());
+        }
+        return funcionario;
     }
 
     public void calcularFolhaDePagamento() {
@@ -850,7 +783,7 @@ public class Empresa {
                 case 2:
                     System.out.print("Digite o ID do funcionário para atualizar: ");
                     String idAtualizar = scanner.nextLine();
-                    atualizarFuncionario(idAtualizar);
+                    // atualizarFuncionario(idAtualizar);
                     break;
                 case 3:
                     System.out.print("Digite o ID do funcionário para remover: ");

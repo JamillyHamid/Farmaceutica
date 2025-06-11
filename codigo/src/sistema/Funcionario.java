@@ -1,4 +1,5 @@
 package sistema;
+
 public class Funcionario {
     private String nomeCompleto;
     private String id;
@@ -102,6 +103,11 @@ public class Funcionario {
         // Se o VT fosse um desconto, seria: salarioBase + bonificacaoLucros -
         // impostoRenda - valeTransporte;
         this.salarioLiquido = salarioBase + bonificacaoLucros - impostoRenda;
+    }
+
+    // Método para mudar senha
+    public void mudarSenha(String novaSenha) {
+        this.senha = novaSenha;
     }
 
     // --- Getters e Setters ---

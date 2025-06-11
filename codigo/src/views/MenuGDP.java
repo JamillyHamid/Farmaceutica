@@ -3,6 +3,7 @@ package views;
 import javax.swing.*;
 
 import sistema.Empresa;
+import views.funcs.CalcularFolha;
 
 import java.awt.*;
 
@@ -62,6 +63,7 @@ public class MenuGDP {
         panel.add(botao4);
 
         botao1.addActionListener(e -> {
+            new CalcularFolha(empresa);
             frame.dispose();
         });
         botao2.addActionListener(e -> {

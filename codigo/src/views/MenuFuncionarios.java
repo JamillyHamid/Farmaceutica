@@ -4,7 +4,10 @@ import javax.swing.*;
 
 import sistema.Empresa;
 import views.funcs.AdicionarFuncionario;
+import views.funcs.AtualizarFuncionario;
+import views.funcs.ListarFuncionarioPorId;
 import views.funcs.ListarTodosFuncionarios;
+import views.funcs.RemoverFuncionario;
 
 import java.awt.*;
 
@@ -50,10 +53,10 @@ public class MenuFuncionarios {
         botao2.setBounds(margemLateral, 145, larguraBotao, alturaBotao);
         panel.add(botao2);
 
-        JButton botao3 = new JButton("Listar Funcionários por Setor");
+        JButton botao3 = new JButton("Listar Funcionário por ID");
         botao3.setBounds(margemLateral, 205, larguraBotao, alturaBotao);
         panel.add(botao3);
-
+        
         JButton botao4 = new JButton("Listar Todos os Funcionários");
         botao4.setBounds(margemLateral, 265, larguraBotao, alturaBotao);
         panel.add(botao4);
@@ -62,15 +65,32 @@ public class MenuFuncionarios {
         botao5.setBounds(margemLateral, 325, larguraBotao, alturaBotao);
         panel.add(botao5);
 
+        JButton botaoVoltar = new JButton("Voltar");
+        botaoVoltar.setBounds(margemLateral, 385, larguraBotao, alturaBotao);
+        panel.add(botaoVoltar);
+
         botao1.addActionListener(e -> {
             new AdicionarFuncionario(empresa);
             frame.dispose();
         });
         botao2.addActionListener(e -> {
+            new AtualizarFuncionario(empresa);
+            frame.dispose();
+        });
+        botao3.addActionListener(e -> {
+            new ListarFuncionarioPorId(empresa);
             frame.dispose();
         });
         botao4.addActionListener(e -> {
             new ListarTodosFuncionarios(empresa);
+            frame.dispose();
+        });
+        botao5.addActionListener(e -> {
+            new RemoverFuncionario(empresa);
+            frame.dispose();
+        });
+        botaoVoltar.addActionListener(e -> {
+            new MenuGDP(empresa);
             frame.dispose();
         });
 

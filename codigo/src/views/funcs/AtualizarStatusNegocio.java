@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import views.MenuAMX;
-import views.MenuGDF;
 
 import sistema.Empresa;
 import sistema.NegocioEmAndamento;
