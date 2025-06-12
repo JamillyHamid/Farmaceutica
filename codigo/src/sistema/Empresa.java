@@ -9,7 +9,7 @@ public class Empresa {
     private Map<String, Produto> produtos;
     private List<Transportadora> transportadoras;
     private List<NegocioEmAndamento> negociosEmAndamento;
-    private Scanner scanner; // Para entrada de dados do usuário
+    private Scanner scanner;
 
     public Empresa() {
         this.caixaTotal = 200000.00;
@@ -83,36 +83,36 @@ public class Empresa {
 
         // --- Todos os Produtos em Ordem Crescente de Código (ID) --- Total de 30
         // produtos
-        adicionarProduto(new Produto("Paracetamol 500mg (Cx c/20)", "PROD001", 5.00, 12.50, 1000));
-        adicionarProduto(new Produto("Dipirona Sódica 1g (Cx c/10)", "PROD002", 7.50, 18.00, 800));
-        adicionarProduto(new Produto("Amoxicilina 500mg (Cx c/21)", "PROD003", 15.00, 35.00, 500));
-        adicionarProduto(new Produto("Omeprazol 20mg (Cx c/30)", "PROD004", 9.00, 22.00, 700));
-        adicionarProduto(new Produto("Soro Fisiológico 0.9% (500ml)", "PROD005", 3.00, 7.50, 1500));
-        adicionarProduto(new Produto("Vitamina C 1g (Cx c/10)", "PROD006", 6.00, 15.00, 900));
-        adicionarProduto(new Produto("Ibuprofeno 600mg (Cx c/10)", "PROD007", 10.00, 25.00, 600));
-        adicionarProduto(new Produto("Curativo Adesivo (Cx c/50)", "PROD008", 2.50, 6.00, 2000));
-        adicionarProduto(new Produto("Álcool 70% Líquido (1 Litro)", "PROD009", 4.00, 9.50, 1200));
-        adicionarProduto(new Produto("Máscara Cirúrgica Descartável (Cx c/50)", "PROD010", 10.00, 25.00, 3000));
-        adicionarProduto(new Produto("Luva de Procedimento (Cx c/100)", "PROD011", 15.00, 35.00, 1000));
-        adicionarProduto(new Produto("Buscopan Duo (Cx c/20)", "PROD012", 8.50, 20.00, 750));
-        adicionarProduto(new Produto("Neosaldina (Cx c/20)", "PROD013", 7.00, 16.50, 900));
-        adicionarProduto(new Produto("Dorflex (Cx c/10)", "PROD014", 5.50, 13.00, 1100));
-        adicionarProduto(new Produto("Losartana Potássica 50mg (Cx c/30)", "PROD015", 12.00, 28.00, 600));
-        adicionarProduto(new Produto("Sinvastatina 20mg (Cx c/30)", "PROD016", 18.00, 42.00, 450));
-        adicionarProduto(new Produto("Cloridrato de Fluoxetina 20mg (Cx c/30)", "PROD017", 20.00, 48.00, 300));
-        adicionarProduto(new Produto("Cloridrato de Ranitidina 150mg (Cx c/30)", "PROD018", 9.50, 23.00, 650));
-        adicionarProduto(new Produto("Acetilcisteína 600mg (Cx c/16)", "PROD019", 11.00, 26.00, 550));
-        adicionarProduto(new Produto("Shampoo Anticaspa (200ml)", "PROD020", 8.00, 19.00, 800));
-        adicionarProduto(new Produto("Condicionador Hidratante (200ml)", "PROD021", 7.00, 17.00, 850));
-        adicionarProduto(new Produto("Sabonete Líquido Antibacteriano (250ml)", "PROD022", 6.00, 14.00, 1000));
-        adicionarProduto(new Produto("Escova de Dente Macia", "PROD023", 2.00, 5.00, 1500));
-        adicionarProduto(new Produto("Creme Dental Flúor (90g)", "PROD024", 3.50, 8.50, 1300));
-        adicionarProduto(new Produto("Termômetro Digital Infravermelho", "PROD025", 25.00, 60.00, 200));
-        adicionarProduto(new Produto("Band-aid Clássico (Cx c/10)", "PROD026", 2.00, 4.50, 2500));
-        adicionarProduto(new Produto("Algodão Hidrófilo (50g)", "PROD027", 1.50, 3.50, 3000));
-        adicionarProduto(new Produto("Gaze Esterilizada (Cx c/10)", "PROD028", 4.00, 9.00, 1800));
-        adicionarProduto(new Produto("Fralda Geriátrica G (Cx c/10)", "PROD029", 30.00, 70.00, 250));
-        adicionarProduto(new Produto("Protetor Solar FPS 30 (120ml)", "PROD030", 15.00, 35.00, 400));
+        adicionarProduto(new Produto("Paracetamol 500mg (Cx c/20", 5.00, 12.50, 1000));
+        adicionarProduto(new Produto("Dipirona Sódica 1g (Cx c/10)", 7.50, 18.00, 800));
+        adicionarProduto(new Produto("Amoxicilina 500mg (Cx c/21)", 15.00, 35.00, 500));
+        adicionarProduto(new Produto("Omeprazol 20mg (Cx c/30)", 9.00, 22.00, 700));
+        adicionarProduto(new Produto("Soro Fisiológico 0.9% (500ml)", 3.00, 7.50, 1500));
+        adicionarProduto(new Produto("Vitamina C 1g (Cx c/10)", 6.00, 15.00, 900));
+        adicionarProduto(new Produto("Ibuprofeno 600mg (Cx c/10)", 10.00, 25.00, 600));
+        adicionarProduto(new Produto("Curativo Adesivo (Cx c/50)", 2.50, 6.00, 2000));
+        adicionarProduto(new Produto("Álcool 70% Líquido (1 Litro)", 4.00, 9.50, 1200));
+        adicionarProduto(new Produto("Máscara Cirúrgica Descartável (Cx c/50)", 10.00, 25.00, 3000));
+        adicionarProduto(new Produto("Luva de Procedimento (Cx c/100)", 15.00, 35.00, 1000));
+        adicionarProduto(new Produto("Buscopan Duo (Cx c/20)", 8.50, 20.00, 750));
+        adicionarProduto(new Produto("Neosaldina (Cx c/20)", 7.00, 16.50, 900));
+        adicionarProduto(new Produto("Dorflex (Cx c/10)", 5.50, 13.00, 1100));
+        adicionarProduto(new Produto("Losartana Potássica 50mg (Cx c/30)", 12.00, 28.00, 600));
+        adicionarProduto(new Produto("Sinvastatina 20mg (Cx c/30)", 18.00, 42.00, 450));
+        adicionarProduto(new Produto("Cloridrato de Fluoxetina 20mg (Cx c/30)", 20.00, 48.00, 300));
+        adicionarProduto(new Produto("Cloridrato de Ranitidina 150mg (Cx c/30)", 9.50, 23.00, 650));
+        adicionarProduto(new Produto("Acetilcisteína 600mg (Cx c/16)", 11.00, 26.00, 550));
+        adicionarProduto(new Produto("Shampoo Anticaspa (200ml)", 8.00, 19.00, 800));
+        adicionarProduto(new Produto("Condicionador Hidratante (200ml)", 7.00, 17.00, 850));
+        adicionarProduto(new Produto("Sabonete Líquido Antibacteriano (250ml)", 6.00, 14.00, 1000));
+        adicionarProduto(new Produto("Escova de Dente Macia", 2.00, 5.00, 1500));
+        adicionarProduto(new Produto("Creme Dental Flúor (90g)", 3.50, 8.50, 1300));
+        adicionarProduto(new Produto("Termômetro Digital Infravermelho", 25.00, 60.00, 200));
+        adicionarProduto(new Produto("Band-aid Clássico (Cx c/10)", 2.00, 4.50, 2500));
+        adicionarProduto(new Produto("Algodão Hidrófilo (50g)", 1.50, 3.50, 3000));
+        adicionarProduto(new Produto("Gaze Esterilizada (Cx c/10)", 4.00, 9.00, 1800));
+        adicionarProduto(new Produto("Fralda Geriátrica G (Cx c/10)", 30.00, 70.00, 250));
+        adicionarProduto(new Produto("Protetor Solar FPS 30 (120ml)", 15.00, 35.00, 400));
 
         // Adicionar transportadoras (pelo menos 3)
         Transportadora t1 = new Transportadora("Transportes Veloz", 15.00); // Grande Londrina
@@ -230,33 +230,32 @@ public class Empresa {
         return funcionario;
     }
 
-public double[] calcularFolhaDePagamentoDetalhada() {
-    double totalSalariosLiquidos = 0;
-    double totalImpostosRetidos = 0;
-    double totalCustosBeneficiosEmpresa = 0;
+    public double[] calcularFolhaDePagamentoDetalhada() {
+        double totalSalariosLiquidos = 0;
+        double totalImpostosRetidos = 0;
+        double totalCustosBeneficiosEmpresa = 0;
 
-    for (Setor setor : setores.values()) {
-        for (Funcionario func : setor.getFuncionarios()) {
-            func.calcularImpostoRenda();
-            func.calcularSalarioLiquido();
+        for (Setor setor : setores.values()) {
+            for (Funcionario func : setor.getFuncionarios()) {
+                func.calcularImpostoRenda();
+                func.calcularSalarioLiquido();
 
-            totalSalariosLiquidos += func.getSalarioLiquido();
-            totalImpostosRetidos += func.getImpostoRenda();
-            totalCustosBeneficiosEmpresa += (
-                    func.getValeTransporte() + func.getValeRefeicao() +
-                    func.getValeAlimentacao() + func.getPlanoSaude() + func.getPlanoOdontologico());
+                totalSalariosLiquidos += func.getSalarioLiquido();
+                totalImpostosRetidos += func.getImpostoRenda();
+                totalCustosBeneficiosEmpresa += (func.getValeTransporte() + func.getValeRefeicao() +
+                        func.getValeAlimentacao() + func.getPlanoSaude() + func.getPlanoOdontologico());
+            }
         }
+
+        double custoTotal = calcularCustoMensalComPessoal(); // se esse método já soma tudo
+
+        return new double[] {
+                totalSalariosLiquidos,
+                totalImpostosRetidos,
+                totalCustosBeneficiosEmpresa,
+                custoTotal
+        };
     }
-
-    double custoTotal = calcularCustoMensalComPessoal(); // se esse método já soma tudo
-
-    return new double[] {
-        totalSalariosLiquidos,
-        totalImpostosRetidos,
-        totalCustosBeneficiosEmpresa,
-        custoTotal
-    };
-}
 
     // Gerenciamento Financeiro
     public void registrarEntradaCaixa(double valor, String descricao) {
@@ -332,49 +331,15 @@ public double[] calcularFolhaDePagamentoDetalhada() {
         }
     }
 
-    public void atualizarProduto(String codigoProduto) {
-        Produto produto = produtos.get(codigoProduto);
-        if (produto != null) {
-            System.out.println("\n--- Atualizar Dados do Produto: " + produto.getNome() + " ---");
-            System.out.println("1. Nome (Atual: " + produto.getNome() + ")");
-            System.out.println("2. Valor de Compra (Atual: R$" + String.format("%.2f", produto.getValorCompra()) + ")");
-            System.out.println("3. Valor de Venda (Atual: R$" + String.format("%.2f", produto.getValorVenda()) + ")");
-            System.out.println("4. Quantidade em Estoque (Atual: " + produto.getQuantidadeEstoque() + ")");
-            System.out.println("0. Cancelar");
-
-            System.out.print("Escolha uma opção para atualizar: ");
-            int escolha = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (escolha) {
-                case 1:
-                    System.out.print("Novo Nome: ");
-                    produto.setNome(scanner.nextLine());
-                    break;
-                case 2:
-                    System.out.print("Novo Valor de Compra: ");
-                    produto.setValorCompra(scanner.nextDouble());
-                    scanner.nextLine();
-                    break;
-                case 3:
-                    System.out.print("Novo Valor de Venda: ");
-                    produto.setValorVenda(scanner.nextDouble());
-                    scanner.nextLine();
-                    break;
-                case 4:
-                    System.out.print("Nova Quantidade em Estoque: ");
-                    produto.setQuantidadeEstoque(scanner.nextInt());
-                    scanner.nextLine();
-                    break;
-                case 0:
-                    System.out.println("Atualização cancelada.");
-                    return;
-                default:
-                    System.out.println("Opção inválida.");
+    public void atualizarProduto(String nome, String codigoProduto, Double compra, Double venda, int qtd) {
+        for (Produto prod : produtos.values()) {
+            if (prod.getCodigo().equals(codigoProduto)) {              
+                prod.setNome(nome);
+                prod.setValorCompra(compra);
+                prod.setValorVenda(venda);
+                prod.setQuantidadeEstoque(qtd);
+                break;
             }
-            System.out.println("Dados do produto atualizados com sucesso!");
-        } else {
-            System.out.println("Produto com código " + codigoProduto + " não encontrado.");
         }
     }
 
@@ -434,6 +399,7 @@ public double[] calcularFolhaDePagamentoDetalhada() {
         // Funcionario vendedor = buscarFuncionarioPorId(trimmedId);
         // vendedoresEnvolvidos.add(vendedor);
         // }
+
         if (vendedoresEnvolvidos.isEmpty()) {
             System.out.println("Nenhum vendedor válido encontrado para registrar a venda.");
             return;
@@ -516,7 +482,7 @@ public double[] calcularFolhaDePagamentoDetalhada() {
                 System.out.print("Quantidade inicial: ");
                 int quantidadeInicial = scanner.nextInt();
                 scanner.nextLine(); // Consumir nova linha
-                produto = new Produto(nome, codigoProduto, valorCompra, valorVenda, quantidadeInicial);
+                produto = new Produto(nome, valorCompra, valorVenda, quantidadeInicial);
                 adicionarProduto(produto);
                 System.out.println("Novo produto cadastrado e estoque inicial adicionado.");
                 return; // Compra inicial já foi a adição ao estoque
@@ -812,8 +778,6 @@ public double[] calcularFolhaDePagamentoDetalhada() {
                 case 1:
                     System.out.print("Nome do Produto: ");
                     String nome = scanner.nextLine();
-                    System.out.print("Código do Produto: ");
-                    String codigo = scanner.nextLine();
                     System.out.print("Valor de Compra: ");
                     double vCompra = scanner.nextDouble();
                     System.out.print("Valor de Venda: ");
@@ -821,12 +785,12 @@ public double[] calcularFolhaDePagamentoDetalhada() {
                     System.out.print("Quantidade Inicial em Estoque: ");
                     int qtd = scanner.nextInt();
                     scanner.nextLine();
-                    adicionarProduto(new Produto(nome, codigo, vCompra, vVenda, qtd));
+                    adicionarProduto(new Produto(nome, vCompra, vVenda, qtd));
                     break;
                 case 2:
                     System.out.print("Digite o código do produto para atualizar: ");
                     String codAtualizar = scanner.nextLine();
-                    atualizarProduto(codAtualizar);
+                    // atualizarProduto(codAtualizar);
                     break;
                 case 3:
                     System.out.print("Digite o código do produto para remover: ");
@@ -1003,6 +967,10 @@ public double[] calcularFolhaDePagamentoDetalhada() {
 
     public Map<String, Setor> getSetores() {
         return setores;
+    }
+
+    public Map<String, Produto> getProdutos() {
+        return produtos;
     }
 
     public List<NegocioEmAndamento> getNegociosEmAndamento() {

@@ -3,7 +3,6 @@ package views.funcs;
 import javax.swing.*;
 import java.awt.*;
 import sistema.Empresa;
-import views.MenuFuncionarios;
 import views.MenuGDP;
 
 public class CalcularFolha {
@@ -18,35 +17,37 @@ public class CalcularFolha {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        JLabel label = new JLabel("CALCULAR FOLHA DE PAGAMENTO");
+        JLabel label = new JLabel("CÁLCULO DA FOLHA DE PAGAMENTO");
         label.setFont(new Font("Arial", Font.BOLD, 18));
-        label.setBounds(200, 30, 350, 20);
+        label.setBounds(100, 30, 500, 20);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
         JLabel subtitle = new JLabel("GESTÃO DE PESSOAS");
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
-        subtitle.setBounds(295, 45, 200, 20);
+        subtitle.setBounds(100, 45, 500, 20);
+        subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(subtitle);
 
         double[] valores = empresa.calcularFolhaDePagamentoDetalhada();
 
         JLabel labelSalario = new JLabel("Total de Salários Líquidos Pagos: R$ " + String.format("%.2f", valores[0]));
-        labelSalario.setBounds(150, 100, 350, 20);
+        labelSalario.setBounds(150, 140, 350, 20);
         panel.add(labelSalario);
 
         JLabel labelImposto = new JLabel("Total de Impostos de Renda Retidos: R$" + String.format("%.2f", valores[1]));
-        labelImposto.setBounds(150, 170, 350, 20);
+        labelImposto.setBounds(150, 180, 350, 20);
         panel.add(labelImposto);
 
         JLabel labelCusto = new JLabel(
                 "Total de Custos com Benefícios (Empresa): R$" + String.format("%.2f", valores[2]));
-        labelCusto.setBounds(150, 240, 350, 20);
+        labelCusto.setBounds(150, 220, 350, 20);
         panel.add(labelCusto);
 
         JLabel labelTotal = new JLabel(
                 "Custo Total Estimado com Pessoal (Salário Base + Benefícios): R$"
                         + String.format("%.2f", valores[3]));
-        labelTotal.setBounds(150, 310, 450, 20);
+        labelTotal.setBounds(150, 260, 450, 20);
         panel.add(labelTotal);
 
         JButton botaoSair = new JButton("VOLTAR");

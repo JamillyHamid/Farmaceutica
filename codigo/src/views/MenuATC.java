@@ -1,6 +1,9 @@
 package views;
 
 import javax.swing.*;
+
+import sistema.Empresa;
+
 import java.awt.*;
 
 public class MenuATC {
@@ -9,7 +12,7 @@ public class MenuATC {
     // 3. Listar Negócios em Andamento
     // 4. Atualizar Status de Negócio
 
-    public MenuATC() {
+    public MenuATC(Empresa empresa) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
@@ -21,14 +24,25 @@ public class MenuATC {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
+        JButton botaoLogout = new JButton();
+        botaoLogout.setBounds(20, 20, 20, 20);
+        panel.add(botaoLogout);
+
+        botaoLogout.addActionListener(e -> {
+            new Login(empresa);
+            frame.dispose();
+        });
+
         JLabel label = new JLabel("MENU GERAL");
         label.setFont(new Font("Arial", Font.BOLD, 18));
-        label.setBounds(290, 30, 200, 20);
+        label.setBounds(100, 30, 500, 20);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
         JLabel subtitle = new JLabel("ATENDIMENTO AO CLIENTE");
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
-        subtitle.setBounds(285, 45, 200, 20);
+        subtitle.setBounds(100, 45, 500, 20);
+        subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(subtitle);
 
         int larguraBotao = 250;

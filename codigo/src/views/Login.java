@@ -80,16 +80,16 @@ public class Login extends JFrame {
                             new MenuGDF(empresa);
                             break;
                         case "Atendimento ao Cliente":
-                            new MenuATC();
+                            new MenuATC(empresa);
                             break;
                         case "Gestão de Pessoas":
                             new MenuGDP(empresa);
                             break;
                         case "Financeiro":
-                            new MenuFNC();
+                            new MenuFNC(empresa);
                             break;
                         case "Vendas":
-                            new MenuVND();
+                            new MenuVND(empresa);
                             break;
                         case "Almoxarifado":
                             new MenuAMX(empresa);

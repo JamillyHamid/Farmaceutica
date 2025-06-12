@@ -1,33 +1,69 @@
 package sistema;
-class Produto {
+
+public class Produto {
     private String nome;
     private String codigo;
+    private static int count;
     private double valorCompra;
     private double valorVenda;
     private int quantidadeEstoque;
 
-    public Produto(String nome, String codigo, double valorCompra, double valorVenda, int quantidadeEstoque) {
+
+    public Produto(String nome, double valorCompra, double valorVenda, int quantidadeEstoque) {
         this.nome = nome;
-        this.codigo = codigo;
+        this.codigo = gerarId();
+        count++;
         this.valorCompra = valorCompra;
         this.valorVenda = valorVenda;
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
+    private String gerarId() {
+        // Padrão PROD00001
+        String valor = Integer.toString(count);
+        String idNumber = "";
+        for (int i = 0; i < (5 - valor.length()); i++) {
+            idNumber += "0";
+        }
+        return String.format("PROD".concat(idNumber).concat(valor));
+    }
+
     // --- Getters e Setters ---
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public String getNome() {
+        return nome;
+    }
 
-    public String getCodigo() { return codigo; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public double getValorCompra() { return valorCompra; }
-    public void setValorCompra(double valorCompra) { this.valorCompra = valorCompra; }
+    public String getCodigo() {
+        return codigo;
+    }
 
-    public double getValorVenda() { return valorVenda; }
-    public void setValorVenda(double valorVenda) { this.valorVenda = valorVenda; }
+    public double getValorCompra() {
+        return valorCompra;
+    }
 
-    public int getQuantidadeEstoque() { return quantidadeEstoque; }
-    public void setQuantidadeEstoque(int quantidadeEstoque) { this.quantidadeEstoque = quantidadeEstoque; }
+    public void setValorCompra(double valorCompra) {
+        this.valorCompra = valorCompra;
+    }
+
+    public double getValorVenda() {
+        return valorVenda;
+    }
+
+    public void setValorVenda(double valorVenda) {
+        this.valorVenda = valorVenda;
+    }
+
+    public int getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
 
     @Override
     public String toString() {
