@@ -113,7 +113,8 @@ public class MenuGDF {
             frame.dispose();
         });
         botao3.addActionListener(e -> {
-
+            new MenuTransportadora(empresa);
+            frame.dispose();
         });
         botao4.addActionListener(e -> {
 

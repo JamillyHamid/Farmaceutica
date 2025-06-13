@@ -20,7 +20,7 @@ public class AdicionarProduto {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        JLabel label = new JLabel("CADASTRAR PRODUTO");
+        JLabel label = new JLabel("REGISTRAR COMPRA DO PRODUTO");
         label.setFont(new Font("Arial", Font.BOLD, 18));
         label.setBounds(100, 30, 500, 20);
         label.setHorizontalAlignment(SwingConstants.CENTER);

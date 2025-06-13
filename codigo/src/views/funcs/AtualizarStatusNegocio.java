@@ -85,11 +85,11 @@ public class AtualizarStatusNegocio {
         });
 
         botaoSalvar.addActionListener(e -> {
-            new MenuAMX(empresa);
-            frame.dispose();
             empresa.atualizarStatusNegocio(comboBoxid.getSelectedItem().toString(),
-                    comboBoxStatus.getSelectedItem().toString());
+            comboBoxStatus.getSelectedItem().toString());
             empresa.listarNegociosEmAndamento();
+            new AtualizarStatusNegocio(empresa);
+            frame.dispose();
         });
 
         frame.add(panel);

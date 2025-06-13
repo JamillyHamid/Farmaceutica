@@ -170,8 +170,8 @@ public class AtualizarFuncionario {
                     passwordFieldSenha.getPassword().toString(), Integer.parseInt(textFieldIdade.getText()),
                     comboBoxGenero.getSelectedItem().toString(), comboBoxSetor.getSelectedItem().toString(),
                     Double.parseDouble(textFieldSalario.getText()), textFieldCargo.getText());
+            new AtualizarFuncionario(empresa);
             frame.dispose();
-            new MenuFuncionarios(empresa);
         });
 
         frame.add(panel);

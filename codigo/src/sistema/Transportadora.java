@@ -3,7 +3,7 @@ package sistema;
 import java.util.ArrayList;
 import java.util.List;
 
-class Transportadora {
+public class Transportadora {
     private String nome;
     private List<String> locaisAtendimento;
     private double valorFreteFixo; // Novo: Valor de frete único para a transportadora
@@ -24,20 +24,37 @@ class Transportadora {
     }
 
     // --- Getters ---
-    public String getNome() { return nome; }
-    public List<String> getLocaisAtendimento() { return locaisAtendimento; }
-    public double getValorFreteFixo() { return valorFreteFixo; } // Novo getter
-    // Opcional: Setter para valorFreteFixo se precisar mudar dinamicamente
+    public String getNome() {
+        return nome;
+    }
+
+    public List<String> getLocaisAtendimento() {
+        return locaisAtendimento;
+    }
+
+    public double getValorFreteFixo() {
+        return valorFreteFixo;
+    } // Novo getter
+      // Opcional: Setter para valorFreteFixo se precisar mudar dinamicamente
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public void setValorFreteFixo(double valorFreteFixo) {
         this.valorFreteFixo = valorFreteFixo;
+    }
+
+    public void setLocaisAtendimento(List<String> locaisAtendimento) {
+        this.locaisAtendimento = locaisAtendimento;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Transportadora: ").append(nome)
-          .append(" (Frete Fixo: R$").append(String.format("%.2f", valorFreteFixo)).append(")")
-          .append("\n  Locais de Atendimento: ");
+                .append(" (Frete Fixo: R$").append(String.format("%.2f", valorFreteFixo)).append(")")
+                .append("\n  Locais de Atendimento: ");
         if (locaisAtendimento.isEmpty()) {
             sb.append("Nenhum");
         } else {

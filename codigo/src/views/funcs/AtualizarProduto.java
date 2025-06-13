@@ -24,7 +24,7 @@ public class AtualizarProduto {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        JLabel label = new JLabel("ATUALIZAR PRODUTO");
+        JLabel label = new JLabel("EDITAR PRODUTO");
         label.setFont(new Font("Arial", Font.BOLD, 18));
         label.setBounds(100, 30, 500, 20);
         label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -80,6 +80,7 @@ public class AtualizarProduto {
 
         JTextField textFieldQtd = new JTextField();
         textFieldQtd.setBounds(350, 300, 220, 25);
+        textFieldQtd.setEditable(false);
         panel.add(textFieldQtd);
 
         JButton botaoSair = new JButton("VOLTAR");
@@ -92,7 +93,7 @@ public class AtualizarProduto {
 
         comboBoxid.addActionListener(e -> {
             for (Produto prod : empresa.getProdutos().values()) {
-                if(comboBoxid.getSelectedItem().toString().equals(prod.getCodigo())){
+                if (comboBoxid.getSelectedItem().toString().equals(prod.getCodigo())) {
                     idLista.add(prod.getCodigo());
                     textFieldNome.setText(prod.getNome());
                     textFieldValorCompra.setText(String.valueOf(prod.getValorCompra()));
@@ -111,9 +112,9 @@ public class AtualizarProduto {
         botaoSalvar.addActionListener(e -> {
             empresa.atualizarProduto(textFieldNome.getText(), comboBoxid.getSelectedItem().toString(),
                     Double.parseDouble(textFieldValorCompra.getText()),
-                    Double.parseDouble(textFieldValorVenda.getText()), Integer.parseInt(textFieldQtd.getText()));
+                    Double.parseDouble(textFieldValorVenda.getText()));
+            new AtualizarProduto(empresa);
             frame.dispose();
-            new MenuEstoque(empresa);
         });
 
         frame.add(panel);

@@ -116,24 +116,24 @@ public class Empresa {
 
         // Adicionar transportadoras (pelo menos 3)
         Transportadora t1 = new Transportadora("Transportes Veloz", 15.00); // Grande Londrina
-        t1.addLocalAtendimento("Londrina - PR");
-        t1.addLocalAtendimento("Cambé - PR");
-        t1.addLocalAtendimento("Rolândia - PR");
-        t1.addLocalAtendimento("Ibiporâ - PR");
+        String[] locaist1 = { "Londrina - PR", "Cambé - PR", "Rolândia - PR", "Ibiporâ - PR" };
+        for (String local : locaist1) {
+            t1.addLocalAtendimento(local);
+        }
         adicionarTransportadora(t1);
 
-        Transportadora t2 = new Transportadora("Entrega Nacional LTDA", 25.00); // Estado do Paraná
-        t2.addLocalAtendimento("Curitiba - PR");
-        t2.addLocalAtendimento("Maringá - PR");
-        t2.addLocalAtendimento("Cascavel - PR");
-        t2.addLocalAtendimento("Ponta Grossa - PR");
+        Transportadora t2 = new Transportadora("Entrega Nacional LTDA", 25.00); // Estado Paraná
+        String[] locaist2 = { "Curitiba - PR", "Maringá - PR", "Cascavel - PR", "Ponta Grossa - PR" };
+        for (String local : locaist2) {
+            t2.addLocalAtendimento(local);
+        }
         adicionarTransportadora(t2);
 
-        Transportadora t3 = new Transportadora("Logística Ágil Brasil", 35.00); // Estado de São Paulo
-        t3.addLocalAtendimento("São Paulo - SP");
-        t3.addLocalAtendimento("Ourinhos - SP");
-        t3.addLocalAtendimento("Assis - SP");
-        t3.addLocalAtendimento("Marilha - SP");
+        Transportadora t3 = new Transportadora("Logística Ágil Brasil", 35.00); // Estado São Paulo
+        String[] locaist3 = { "São Paulo - SP", "Ourinhos - SP", "Assis - SP", "Marilha - SP" };
+        for (String local : locaist3) {
+            t3.addLocalAtendimento(local);
+        }
         adicionarTransportadora(t3);
 
         // Adicionar vendas
@@ -331,13 +331,12 @@ public class Empresa {
         }
     }
 
-    public void atualizarProduto(String nome, String codigoProduto, Double compra, Double venda, int qtd) {
+    public void atualizarProduto(String nome, String codigoProduto, Double compra, Double venda) {
         for (Produto prod : produtos.values()) {
-            if (prod.getCodigo().equals(codigoProduto)) {              
+            if (prod.getCodigo().equals(codigoProduto)) {
                 prod.setNome(nome);
                 prod.setValorCompra(compra);
                 prod.setValorVenda(venda);
-                prod.setQuantidadeEstoque(qtd);
                 break;
             }
         }
@@ -539,17 +538,27 @@ public class Empresa {
 
     // Gerenciamento de Transportadoras
     public void adicionarTransportadora(Transportadora transportadora) {
-        this.transportadoras.add(transportadora);
-        System.out.println("Transportadora '" + transportadora.getNome() + "' adicionada.");
+        transportadoras.add(transportadora);
     }
 
-    public void listarTransportadoras() {
-        System.out.println("\n--- Transportadoras Parceiras ---");
-        if (transportadoras.isEmpty()) {
-            System.out.println("Nenhuma transportadora cadastrada.");
-            return;
+    public void removerTransportadora(String nome) {
+        for (Transportadora transp : transportadoras) {
+            if (transp.getNome().equals(nome)) {
+                transportadoras.remove(transp);
+                break;
+            }
         }
-        transportadoras.forEach(System.out::println);
+    }
+
+    public void atualizarTransportadora(String nomeFixo, String nome, Double frete, List<String> locais) {
+        for (Transportadora transp : transportadoras) {
+            if (transp.getNome().equals(nomeFixo)) {
+                transp.setNome(nome);
+                transp.setValorFreteFixo(frete);
+                transp.setLocaisAtendimento(locais);
+                break;
+            }
+        }
     }
 
     // Gerenciamento de Negócios em Andamento
@@ -839,10 +848,10 @@ public class Empresa {
                     for (String local : arrayLocais) {
                         novaTransp.addLocalAtendimento(local.trim());
                     }
-                    adicionarTransportadora(novaTransp);
+                    // adicionarTransportadora(novaTransp);
                     break;
                 case 2:
-                    listarTransportadoras();
+                    // listarTransportadoras();
                     break;
                 case 0:
                     break;
@@ -975,5 +984,9 @@ public class Empresa {
 
     public List<NegocioEmAndamento> getNegociosEmAndamento() {
         return negociosEmAndamento;
+    }
+
+    public List<Transportadora> getTransportadoras() {
+        return transportadoras;
     }
 }
