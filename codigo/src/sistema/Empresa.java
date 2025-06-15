@@ -258,29 +258,12 @@ public class Empresa {
     }
 
     // Gerenciamento Financeiro
-    public void registrarEntradaCaixa(double valor, String descricao) {
-        if (valor > 0) {
-            this.caixaTotal += valor;
-            System.out.println("Entrada de caixa registrada: R$" + String.format("%.2f", valor) + " - " + descricao
-                    + ". Novo caixa total: R$" + String.format("%.2f", caixaTotal));
-        } else {
-            System.out.println("Erro: Valor da entrada deve ser positivo.");
-        }
+    public void registrarEntradaCaixa(double valor) {
+        this.caixaTotal += valor;
     }
 
-    public void registrarSaidaCaixa(double valor, String descricao) {
-        if (valor > 0) {
-            if (this.caixaTotal >= valor) {
-                this.caixaTotal -= valor;
-                System.out.println("Saída de caixa registrada: R$" + String.format("%.2f", valor) + " - " + descricao
-                        + ". Novo caixa total: R$" + String.format("%.2f", caixaTotal));
-            } else {
-                System.out.println("Erro: Saldo de caixa insuficiente para a saída de R$" + String.format("%.2f", valor)
-                        + " - " + descricao);
-            }
-        } else {
-            System.out.println("Erro: Valor da saída deve ser positivo.");
-        }
+    public void registrarSaidaCaixa(double valor) {
+        this.caixaTotal -= valor;
     }
 
     public double getCaixaTotal() {
@@ -360,106 +343,63 @@ public class Empresa {
     }
 
     public void registrarVenda() {
-        listarProdutosEmEstoque();
-        System.out.print("Digite o código do produto a ser vendido: ");
+        // Código produto
         String codigoProduto = scanner.nextLine();
         Produto produto = produtos.get(codigoProduto);
 
-        if (produto == null) {
-            System.out.println("Produto com código " + codigoProduto + " não encontrado.");
-            return;
-        }
-
-        System.out.print("Digite a quantidade a ser vendida: ");
+        // Qtd produto
         int quantidade = scanner.nextInt();
-        scanner.nextLine();
 
-        if (quantidade <= 0) {
-            System.out.println("Quantidade de venda inválida.");
-            return;
-        }
+        // Verificação ------ Fazer na view
+        // if (produto.getQuantidadeEstoque() < quantidade) {
+        // System.out.println("Estoque insuficiente. Disponível: " +
+        // produto.getQuantidadeEstoque() + " unidades.");
+        // return;
+        // }
 
-        if (produto.getQuantidadeEstoque() < quantidade) {
-            System.out.println("Estoque insuficiente. Disponível: " + produto.getQuantidadeEstoque() + " unidades.");
-            return;
-        }
-
+        // Vendedores
         List<Funcionario> vendedoresEnvolvidos = new ArrayList<>();
         System.out.print("Digite os IDs dos vendedores envolvidos (separados por vírgula, ex: EMP013,EMP014): ");
         String idsVendedores = scanner.nextLine();
         String[] ids = idsVendedores.split(",");
 
-        Setor setor = setores.get("Vendas");
-        List<Funcionario> funcionarios = setor.getFuncionarios();
-        vendedoresEnvolvidos.add(funcionarios.get(3));
+        // // Buscou o setor vendas
+        // Setor setor = setores.get("Vendas");
+        // List<Funcionario> funcionarios = setor.getFuncionarios();
+        // vendedoresEnvolvidos.add(funcionarios.get(3));
 
-        // for (String id : ids) {
-        // String trimmedId = id.trim();
-        // Funcionario vendedor = buscarFuncionarioPorId(trimmedId);
-        // vendedoresEnvolvidos.add(vendedor);
-        // }
-
-        if (vendedoresEnvolvidos.isEmpty()) {
-            System.out.println("Nenhum vendedor válido encontrado para registrar a venda.");
-            return;
+        // Adicionar ids aos vendedores envolvidos
+        for (String id : ids) {
+            String trimmedId = id.trim();
+            Funcionario vendedor = buscarFuncionarioPorId(trimmedId);
+            vendedoresEnvolvidos.add(vendedor);
         }
 
-        System.out.print("Digite o local de entrega (cidade - estado, ex: Londrina - PR): ");
+        // Trazer tranportadora
+        int escolhaTransportadora = scanner.nextInt();
+
+        // Trazer local de entrega
         String localEntrega = scanner.nextLine().trim();
 
-        List<Transportadora> transportadorasDisponiveis = new ArrayList<>();
-        System.out.println("\nTransportadoras disponíveis para " + localEntrega + ":");
-        int i = 1;
-        for (Transportadora t : transportadoras) {
-            if (t.atendeLocal(localEntrega)) {
-                transportadorasDisponiveis.add(t);
-                // Mostra o valor de frete fixo da transportadora
-                System.out.println(
-                        i + ". " + t.getNome() + " - Frete Fixo: R$" + String.format("%.2f", t.getValorFreteFixo()));
-                i++;
-            }
-        }
-
-        if (transportadorasDisponiveis.isEmpty()) {
-            System.out.println("Nenhuma transportadora parceira atende o local de entrega informado.");
-            System.out.println("Venda não pode ser concluída sem transportadora.");
-            return;
-        }
-
-        System.out.print("Escolha o número da transportadora desejada: ");
-        int escolhaTransportadora = scanner.nextInt();
-        scanner.nextLine(); // Consumir nova linha
-
-        if (escolhaTransportadora < 1 || escolhaTransportadora > transportadorasDisponiveis.size()) {
-            System.out.println("Escolha de transportadora inválida. Venda cancelada.");
-            return;
-        }
-
-        Transportadora transportadoraSelecionada = transportadorasDisponiveis.get(escolhaTransportadora - 1);
         // Obtém o valor de frete fixo diretamente da transportadora selecionada
-        double valorFrete = transportadoraSelecionada.getValorFreteFixo();
+        // double valorFrete = transportadoraSelecionada.getValorFreteFixo();
 
-        double valorTotalVenda = (produto.getValorVenda() * quantidade) + valorFrete; // Adiciona o frete aqui!
+        // Calculo do valor da venda e att do estoque
+        // double valorTotalVenda = (produto.getValorVenda() * quantidade) + valorFrete;
         produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - quantidade);
 
         // Registrar a entrada da venda (incluindo frete) no caixa
-        registrarEntradaCaixa(valorTotalVenda,
-                "Venda de " + quantidade + " un. de " + produto.getNome() + " + Frete (R$"
-                        + String.format("%.2f", valorFrete) + ") via " + transportadoraSelecionada.getNome() + " para "
-                        + localEntrega);
+        // registrarEntradaCaixa(valorTotalVenda, "Venda de " + quantidade + " un. de "
+        // + produto.getNome() + " + Frete (R$" + String.format("%.2f", valorFrete) + ")
+        // via " + transportadoraSelecionada.getNome() + " para " + localEntrega);
 
         // Criar um novo negócio em andamento para a venda
         String idNegocio = "VENDA-" + UUID.randomUUID().toString().substring(0, 8); // ID único
         NegocioEmAndamento novaVenda = new NegocioEmAndamento(idNegocio, "Venda", LocalDate.now());
         novaVenda.addProduto(produto, quantidade);
-        vendedoresEnvolvidos.forEach(novaVenda::addParticipanteVenda);
-        novaVenda.setStatus("Em andamento"); // Uma venda direta pode ser marcada como concluída imediatamente
-
+        vendedoresEnvolvidos.forEach(vendedor -> novaVenda.addParticipanteVenda(vendedor));
+        novaVenda.setStatus("Em andamento");
         negociosEmAndamento.add(novaVenda);
-
-        System.out.println("Venda de " + quantidade + " unidades de " + produto.getNome() + " para " + localEntrega
-                + " (Frete: R$" + String.format("%.2f", valorFrete) + ") registrada com sucesso.");
-        System.out.println("Valor total da transação: R$" + String.format("%.2f", valorTotalVenda));
     }
 
     public void registrarCompra() {
@@ -521,7 +461,7 @@ public class Empresa {
 
         double valorTotalCompra = produto.getValorCompra() * quantidade;
         produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + quantidade);
-        registrarSaidaCaixa(valorTotalCompra, "Compra de " + quantidade + " unidades de " + produto.getNome());
+        registrarSaidaCaixa(valorTotalCompra);
 
         // Criar um novo negócio em andamento para a compra
         String idNegocio = "COMPRA-" + UUID.randomUUID().toString().substring(0, 8);
@@ -881,7 +821,7 @@ public class Empresa {
                     scanner.nextLine();
                     System.out.print("Descrição da Entrada: ");
                     String descEntrada = scanner.nextLine();
-                    registrarEntradaCaixa(valorEntrada, descEntrada);
+                    registrarEntradaCaixa(valorEntrada);
                     break;
                 case 2:
                     System.out.print("Valor da Saída: ");
@@ -889,7 +829,7 @@ public class Empresa {
                     scanner.nextLine();
                     System.out.print("Descrição da Saída: ");
                     String descSaida = scanner.nextLine();
-                    registrarSaidaCaixa(valorSaida, descSaida);
+                    registrarSaidaCaixa(valorSaida);
                     break;
                 case 3:
                     System.out.println("Caixa Total Atual: R$" + String.format("%.2f", getCaixaTotal()));

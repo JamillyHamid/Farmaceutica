@@ -22,7 +22,7 @@ public class NegocioEmAndamento {
         this.participantesVenda = new ArrayList<>();
         this.participantesCompra = new ArrayList<>();
         this.produtosEnvolvidos = new HashMap<>();
-    }
+    } 
 
     public void addParticipanteVenda(Funcionario vendedor) {
         if ("Venda".equalsIgnoreCase(tipo)) {

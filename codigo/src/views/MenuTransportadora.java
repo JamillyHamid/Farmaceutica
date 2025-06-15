@@ -6,7 +6,6 @@ import java.awt.*;
 import sistema.Empresa;
 import views.funcs.AdicionarTransportadora;
 import views.funcs.AtualizarTransportadora;
-import views.funcs.ListarTodosProdutos;
 import views.funcs.ListarTransportadora;
 import views.funcs.RemoverTransportadora;
 

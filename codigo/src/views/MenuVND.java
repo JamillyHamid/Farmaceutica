@@ -3,19 +3,16 @@ package views;
 import javax.swing.*;
 
 import sistema.Empresa;
+import views.funcs.RegistrarVenda;
 
 import java.awt.*;
 
 public class MenuVND {
-    // "1. Registrar");
     // 1. Registrar Venda
-    // 2. Registrar Entrada de Caixa
-    // 3. Registrar Saída de Caixa
-
-    // 5. Atualizar Status de Negócio
-    // 4. Listar Negócios em Andamento
-    // 6. Listar Produtos em Estoque
-    // 7. Listar Transportadoras Parceiras
+    // 2. Atualizar Status de Negócio
+    // 3. Listar Negócios em Andamento
+    // 4. Listar Produtos em Estoque
+    // 5. Listar Transportadoras Parceiras
     public MenuVND(Empresa empresa) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
@@ -69,7 +66,7 @@ public class MenuVND {
         botao4.setBounds(margemLateral, 265, larguraBotao, alturaBotao);
         panel.add(botao4);
 
-        JButton botao5 = new JButton("Registrar");
+        JButton botao5 = new JButton("Registrar Venda");
         botao5.setBounds(margemLateral, 325, larguraBotao, alturaBotao);
         panel.add(botao5);
 
@@ -77,6 +74,10 @@ public class MenuVND {
             frame.dispose();
         });
         botao2.addActionListener(e -> {
+            frame.dispose();
+        });
+        botao5.addActionListener(e -> {
+            new RegistrarVenda(empresa);
             frame.dispose();
         });
 

@@ -11,24 +11,25 @@ public class MenuGDF {
     // Acesso geral
 
     // "1. Gerenciar Funcionários");
-    // 1. Adicionar Funcionário
-    // 2. Atualizar Dados do Funcionário
-    // 3. Remover Funcionário
-    // 4. Listar Funcionários por Setor
-    // 5. Listar Todos os Funcionários
-    // 6. Calcular Folha de Pagamento
+    // XXXXX 1. Adicionar Funcionário
+    // XXXXX 2. Atualizar Dados do Funcionário
+    // XXXXX 3. Remover Funcionário
+    // XXXXX 4. Listar Funcionários por Setor
+    // XXXXX 5. Listar Todos os Funcionários
+    // XXXXX 6. Calcular Folha de Pagamento
 
     // "2. Gerenciar Produtos/Estoque");
-    // 1. Adicionar Produto
-    // 2. Atualizar Produto
-    // 3. Remover Produto
-    // 4. Listar Produtos em Estoque
+    // XXXXX 2. Atualizar Produto
+    // XXXXX 3. Remover Produto
+    // XXXXX 4. Listar Produtos em Estoque
     // 5. Registrar Venda
-    // 6. Registrar Compra/Reabastecimento
+    // XXXXX 6. Registrar Compra/Reabastecimento
 
     // "3. Gerenciar Transportadoras");
-    // 1. Adicionar Transportadora
-    // 2. Listar Transportadoras Parceiras
+    // XXXXX 1. Adicionar Transportadora
+    // XXXXX 2. Listar Transportadoras Parceiras
+    // XXXXX 2. Atualizar Transportadoras
+    // XXXXX 3. Remover Transportadoras
 
     // "4. Gerenciar Fluxo de Caixa");
     // 1. Registrar Entrada de Caixa
@@ -59,7 +60,7 @@ public class MenuGDF {
         JButton botaoLogout = new JButton();
         botaoLogout.setBounds(20, 20, 20, 20);
         panel.add(botaoLogout);
-        
+
         botaoLogout.addActionListener(e -> {
             new Login(empresa);
             frame.dispose();
@@ -117,7 +118,7 @@ public class MenuGDF {
             frame.dispose();
         });
         botao4.addActionListener(e -> {
-
+            
         });
         botao5.addActionListener(e -> {
 
