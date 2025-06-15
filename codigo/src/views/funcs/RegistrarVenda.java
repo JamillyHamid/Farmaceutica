@@ -1,7 +1,10 @@
 package views.funcs;
 
 import sistema.Empresa;
+import sistema.Funcionario;
 import sistema.Produto;
+import sistema.Setor;
+import sistema.Transportadora;
 import views.MenuVND;
 
 import javax.swing.*;
@@ -17,6 +20,8 @@ public class RegistrarVenda {
 
     private int indexProd = 0;
     private int indexFunc = 0;
+    private List<String> idListaLocais = new ArrayList<>();
+
 
     public RegistrarVenda(Empresa empresa) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
@@ -41,7 +46,7 @@ public class RegistrarVenda {
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(subtitle);
 
-        // Lista de produtos
+        // Tabela de produtos
 
         String[] colunas = { "Nome", "ID", "Venda", "Estoque" };
         DefaultTableModel model = new DefaultTableModel(colunas, 0) {
@@ -62,6 +67,8 @@ public class RegistrarVenda {
             });
         }
 
+        // Lista para selecionar os produtos
+
         List<String> idListaProd = new ArrayList<>();
         for (Produto prod : empresa.getProdutos().values()) {
             idListaProd.add(prod.getCodigo());
@@ -75,10 +82,6 @@ public class RegistrarVenda {
         textFieldQtd.setBounds(170, 180, 50, 25);
         panel.add(textFieldQtd);
 
-        JButton botaoProd = new JButton("ADICIONAR");
-        botaoProd.setBounds(240, 180, 100, 25);
-        panel.add(botaoProd);
-
         DefaultListModel<String> prodLista = new DefaultListModel<>();
         JList<String> listaProd = new JList<>(prodLista);
         Border bordaProd = BorderFactory.createLineBorder(Color.BLACK, 1);
@@ -87,8 +90,13 @@ public class RegistrarVenda {
         scrollPaneProd.setBorder(bordaProd);
         panel.add(scrollPaneProd);
 
-        botaoProd.addActionListener(e -> {
-            prodLista.add(indexProd, comboBoxIdProd.getSelectedItem().toString());
+        JButton botaoAddProd = new JButton("ADICIONAR");
+        botaoAddProd.setBounds(240, 180, 100, 25);
+        panel.add(botaoAddProd);
+
+        botaoAddProd.addActionListener(e -> {
+            prodLista.add(indexProd,
+                    String.format("%s - %s", comboBoxIdProd.getSelectedItem().toString(), textFieldQtd.getText()));
             listaProd.setModel(prodLista);
             indexProd++;
         });
@@ -105,18 +113,18 @@ public class RegistrarVenda {
             }
         });
 
+        // Lista para adicionar funcionários
+
         List<String> idListaFunc = new ArrayList<>();
-        for (Produto prod : empresa.getProdutos().values()) {
-            idListaFunc.add(prod.getCodigo());
+        for (Setor setor : empresa.getSetores().values()) {
+            for (Funcionario fun : setor.getFuncionarios()) {
+                idListaFunc.add(fun.getId());
+            }
         }
 
         JComboBox<String> comboBoxIdFunc = new JComboBox<>(idListaFunc.toArray(new String[0]));
         comboBoxIdFunc.setBounds(360, 180, 170, 25);
         panel.add(comboBoxIdFunc);
-
-        JButton botaoFunc = new JButton("ADICIONAR");
-        botaoFunc.setBounds(550, 180, 100, 25);
-        panel.add(botaoFunc);
 
         DefaultListModel<String> funcLista = new DefaultListModel<>();
         JList<String> listaFunc = new JList<>(funcLista);
@@ -126,7 +134,11 @@ public class RegistrarVenda {
         scrollPaneFunc.setBorder(bordaFunc);
         panel.add(scrollPaneFunc);
 
-        botaoFunc.addActionListener(e -> {
+        JButton botaoAddFunc = new JButton("ADICIONAR");
+        botaoAddFunc.setBounds(550, 180, 100, 25);
+        panel.add(botaoAddFunc);
+
+        botaoAddFunc.addActionListener(e -> {
             funcLista.add(indexFunc, comboBoxIdFunc.getSelectedItem().toString());
             listaFunc.setModel(funcLista);
             indexFunc++;
@@ -144,13 +156,34 @@ public class RegistrarVenda {
             }
         });
 
-        JComboBox<String> comboBoxIdTransp = new JComboBox<>(idListaProd.toArray(new String[0]));
+        // Transportadora
+
+        List<String> idListaTransp = new ArrayList<>();
+        for (Transportadora transp : empresa.getTransportadoras()) {
+            idListaTransp.add(transp.getNome());
+        }
+
+        JComboBox<String> comboBoxIdTransp = new JComboBox<>(idListaTransp.toArray(new String[0]));
         comboBoxIdTransp.setBounds(50, 340, 290, 25);
         panel.add(comboBoxIdTransp);
 
-        JComboBox<String> comboBoxIdLocais = new JComboBox<>(idListaProd.toArray(new String[0]));
+        comboBoxIdTransp.addActionListener(e -> {
+            for (Transportadora transp : empresa.getTransportadoras()) {
+                if(transp.getNome().equals(comboBoxIdTransp.getSelectedItem().toString())){
+                    idListaLocais = transp.getLocaisAtendimento();
+                    break;
+                }
+            }
+        });
+
+        // Locais
+
+
+        JComboBox<String> comboBoxIdLocais = new JComboBox<>(idListaLocais.toArray(new String[0]));
         comboBoxIdLocais.setBounds(360, 340, 290, 25);
         panel.add(comboBoxIdLocais);
+
+        // Sair e Salvar
 
         JButton botaoSair = new JButton("VOLTAR");
         botaoSair.setBounds(50, 400, 100, 30);
