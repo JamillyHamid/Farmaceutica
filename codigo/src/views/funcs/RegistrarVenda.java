@@ -13,15 +13,17 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RegistrarVenda {
 
     private int indexProd = 0;
     private int indexFunc = 0;
-    private List<String> idListaLocais = new ArrayList<>();
-
+    private Map<Produto, Integer> map = new HashMap<>();
+    private double totalConta = 0;
+    private double memoria = 0;
 
     public RegistrarVenda(Empresa empresa) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
@@ -45,6 +47,13 @@ public class RegistrarVenda {
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(subtitle);
+
+        // Total
+
+        JLabel total = new JLabel(String.format("TOTAL DA VENDA: %.2f", totalConta));
+        total.setBounds(250, 400, 200, 30);
+        total.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(total);
 
         // Tabela de produtos
 
@@ -75,40 +84,63 @@ public class RegistrarVenda {
         }
 
         JComboBox<String> comboBoxIdProd = new JComboBox<>(idListaProd.toArray(new String[0]));
-        comboBoxIdProd.setBounds(50, 180, 100, 25);
+        comboBoxIdProd.setBounds(50, 195, 100, 25);
         panel.add(comboBoxIdProd);
 
         JTextField textFieldQtd = new JTextField();
-        textFieldQtd.setBounds(170, 180, 50, 25);
+        textFieldQtd.setBounds(170, 195, 50, 25);
         panel.add(textFieldQtd);
 
         DefaultListModel<String> prodLista = new DefaultListModel<>();
         JList<String> listaProd = new JList<>(prodLista);
         Border bordaProd = BorderFactory.createLineBorder(Color.BLACK, 1);
         JScrollPane scrollPaneProd = new JScrollPane(listaProd);
-        scrollPaneProd.setBounds(50, 220, 170, 80);
+        scrollPaneProd.setBounds(50, 235, 170, 80);
         scrollPaneProd.setBorder(bordaProd);
         panel.add(scrollPaneProd);
 
         JButton botaoAddProd = new JButton("ADICIONAR");
-        botaoAddProd.setBounds(240, 180, 100, 25);
+        botaoAddProd.setBounds(240, 195, 100, 25);
         panel.add(botaoAddProd);
 
         botaoAddProd.addActionListener(e -> {
-            prodLista.add(indexProd,
-                    String.format("%s - %s", comboBoxIdProd.getSelectedItem().toString(), textFieldQtd.getText()));
-            listaProd.setModel(prodLista);
-            indexProd++;
+            for (Produto prod : empresa.getProdutos().values()) {
+                if (prod.getCodigo().equals(comboBoxIdProd.getSelectedItem().toString())) {
+                    if (prod.getQuantidadeEstoque() < Integer.parseInt(textFieldQtd.getText())) {
+                        JOptionPane.showMessageDialog(null, "Quantidade de estoque insuficiente!");
+                    } else {
+                        prodLista.add(indexProd, String.format("%s - %s", comboBoxIdProd.getSelectedItem().toString(),
+                                textFieldQtd.getText()));
+                        map.put(prod, Integer.parseInt(textFieldQtd.getText()));
+                        listaProd.setModel(prodLista);
+                        totalConta += (prod.getValorVenda() * (Double.parseDouble(textFieldQtd.getText())));
+                        total.setText(String.format("TOTAL DA VENDA: %.2f", totalConta));
+                        textFieldQtd.setText("");
+                        indexProd++;
+                        System.out.println(map);
+                    }
+                }
+            }
         });
 
         JButton botaoRetrocederProd = new JButton("APAGAR");
-        botaoRetrocederProd.setBounds(240, 275, 100, 25);
+        botaoRetrocederProd.setBounds(240, 290, 100, 25);
         panel.add(botaoRetrocederProd);
 
         botaoRetrocederProd.addActionListener(e -> {
             if (!prodLista.isEmpty()) {
+                for (Produto prod : empresa.getProdutos().values()) {
+                    if (prod.getCodigo().equals(prodLista.get(indexProd - 1).split("-")[0].trim())) {
+                        map.remove(prod);
+                        totalConta -= (prod.getValorVenda()
+                                * (Double.parseDouble(prodLista.get(indexProd - 1).split("-")[1].trim())));
+                        total.setText(String.format("TOTAL DA VENDA: %.2f", totalConta));
+                        break;
+                    }
+                }
                 prodLista.remove(indexProd - 1);
                 listaProd.setModel(prodLista);
+                System.out.println(map);
                 indexProd--;
             }
         });
@@ -116,26 +148,25 @@ public class RegistrarVenda {
         // Lista para adicionar funcionários
 
         List<String> idListaFunc = new ArrayList<>();
-        for (Setor setor : empresa.getSetores().values()) {
-            for (Funcionario fun : setor.getFuncionarios()) {
-                idListaFunc.add(fun.getId());
-            }
+        Setor setor = empresa.getSetores().get("Vendas");
+        for (Funcionario fun : setor.getFuncionarios()) {
+            idListaFunc.add(fun.getId());
         }
 
         JComboBox<String> comboBoxIdFunc = new JComboBox<>(idListaFunc.toArray(new String[0]));
-        comboBoxIdFunc.setBounds(360, 180, 170, 25);
+        comboBoxIdFunc.setBounds(360, 195, 170, 25);
         panel.add(comboBoxIdFunc);
 
         DefaultListModel<String> funcLista = new DefaultListModel<>();
         JList<String> listaFunc = new JList<>(funcLista);
         Border bordaFunc = BorderFactory.createLineBorder(Color.BLACK, 1);
         JScrollPane scrollPaneFunc = new JScrollPane(listaFunc);
-        scrollPaneFunc.setBounds(360, 220, 170, 80);
+        scrollPaneFunc.setBounds(360, 235, 170, 80);
         scrollPaneFunc.setBorder(bordaFunc);
         panel.add(scrollPaneFunc);
 
         JButton botaoAddFunc = new JButton("ADICIONAR");
-        botaoAddFunc.setBounds(550, 180, 100, 25);
+        botaoAddFunc.setBounds(550, 195, 100, 25);
         panel.add(botaoAddFunc);
 
         botaoAddFunc.addActionListener(e -> {
@@ -145,7 +176,7 @@ public class RegistrarVenda {
         });
 
         JButton botaoRetrocederFunc = new JButton("APAGAR");
-        botaoRetrocederFunc.setBounds(550, 275, 100, 25);
+        botaoRetrocederFunc.setBounds(550, 290, 100, 25);
         panel.add(botaoRetrocederFunc);
 
         botaoRetrocederFunc.addActionListener(e -> {
@@ -156,32 +187,35 @@ public class RegistrarVenda {
             }
         });
 
-        // Transportadora
+        // Transportadora e locais
 
-        List<String> idListaTransp = new ArrayList<>();
+        List<String> nomeListaTransp = new ArrayList<>();
         for (Transportadora transp : empresa.getTransportadoras()) {
-            idListaTransp.add(transp.getNome());
+            nomeListaTransp.add(transp.getNome());
         }
 
-        JComboBox<String> comboBoxIdTransp = new JComboBox<>(idListaTransp.toArray(new String[0]));
-        comboBoxIdTransp.setBounds(50, 340, 290, 25);
-        panel.add(comboBoxIdTransp);
+        JComboBox<String> comboBoxNomeTransp = new JComboBox<>(nomeListaTransp.toArray(new String[0]));
+        comboBoxNomeTransp.setBounds(50, 350, 290, 25);
+        panel.add(comboBoxNomeTransp);
 
-        comboBoxIdTransp.addActionListener(e -> {
+        JComboBox<String> comboBoxNomeLocais = new JComboBox<>();
+        comboBoxNomeLocais.setBounds(360, 350, 290, 25);
+        panel.add(comboBoxNomeLocais);
+
+        comboBoxNomeTransp.addActionListener(e -> {
+            List<String> nomeListaLocais = new ArrayList<>();
+            DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(nomeListaLocais.toArray(new String[0]));
             for (Transportadora transp : empresa.getTransportadoras()) {
-                if(transp.getNome().equals(comboBoxIdTransp.getSelectedItem().toString())){
-                    idListaLocais = transp.getLocaisAtendimento();
+                if (transp.getNome().equals(comboBoxNomeTransp.getSelectedItem().toString())) {
+                    modelo.addAll(transp.getLocaisAtendimento());
+                    comboBoxNomeLocais.setModel(modelo);
+                    totalConta += transp.getValorFreteFixo() - memoria;
+                    memoria = transp.getValorFreteFixo();
+                    total.setText(String.format("TOTAL DA VENDA: %.2f", totalConta));
                     break;
                 }
             }
         });
-
-        // Locais
-
-
-        JComboBox<String> comboBoxIdLocais = new JComboBox<>(idListaLocais.toArray(new String[0]));
-        comboBoxIdLocais.setBounds(360, 340, 290, 25);
-        panel.add(comboBoxIdLocais);
 
         // Sair e Salvar
 
@@ -199,6 +233,12 @@ public class RegistrarVenda {
         });
 
         botaoSalvar.addActionListener(e -> {
+            List<String> ids = new ArrayList<>();
+            for (int i = 0; i < funcLista.size(); i++) {
+                ids.add(funcLista.get(i));
+            }
+            empresa.registrarVenda(map, ids, comboBoxNomeTransp.getSelectedItem().toString(),
+                    comboBoxNomeLocais.getSelectedItem().toString(), totalConta);
             new MenuVND(empresa);
             frame.dispose();
         });

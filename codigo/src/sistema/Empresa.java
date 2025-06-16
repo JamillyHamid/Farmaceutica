@@ -138,21 +138,25 @@ public class Empresa {
 
         // Adicionar vendas
 
-        String idNegocio = "VENDA-" + UUID.randomUUID().toString().substring(0, 8); // ID único
-        NegocioEmAndamento novaVenda = new NegocioEmAndamento(idNegocio, "Venda", LocalDate.now());
-        novaVenda.addProduto(produtos.get("PROD012"), 10);
-        Setor setor = setores.get("Vendas");
-        novaVenda.addParticipanteVenda(setor.buscarFuncionario("EMP00014"));
-        novaVenda.setStatus("Em andamento");
-        negociosEmAndamento.add(novaVenda);
+        // String idNegocio = "VENDA-" + UUID.randomUUID().toString().substring(0, 8);
+        // // ID único
+        // NegocioEmAndamento novaVenda = new NegocioEmAndamento(idNegocio, "Venda",
+        // LocalDate.now());
+        // novaVenda.addProduto(produtos.get("PROD012"), 10);
+        // Setor setor = setores.get("Vendas");
+        // novaVenda.addParticipanteVenda(setor.buscarFuncionario("EMP00014"));
+        // novaVenda.setStatus("Em andamento");
+        // negociosEmAndamento.add(novaVenda);
 
-        String idNegocio2 = "VENDA-" + UUID.randomUUID().toString().substring(0, 8); // ID único
-        NegocioEmAndamento novaVenda2 = new NegocioEmAndamento(idNegocio2, "Venda", LocalDate.now());
-        novaVenda2.addProduto(produtos.get("PROD016"), 10);
-        Setor setor2 = setores.get("Vendas");
-        novaVenda2.addParticipanteVenda(setor2.buscarFuncionario("EMP0001"));
-        novaVenda2.setStatus("Em andamento");
-        negociosEmAndamento.add(novaVenda2);
+        // String idNegocio2 = "VENDA-" + UUID.randomUUID().toString().substring(0, 8);
+        // // ID único
+        // NegocioEmAndamento novaVenda2 = new NegocioEmAndamento(idNegocio2, "Venda",
+        // LocalDate.now());
+        // novaVenda2.addProduto(produtos.get("PROD016"), 10);
+        // Setor setor2 = setores.get("Vendas");
+        // novaVenda2.addParticipanteVenda(setor2.buscarFuncionario("EMP0001"));
+        // novaVenda2.setStatus("Em andamento");
+        // negociosEmAndamento.add(novaVenda2);
 
     }
 
@@ -342,64 +346,31 @@ public class Empresa {
         produtos.values().forEach(System.out::println);
     }
 
-    public void registrarVenda() {
-        // Código produto
-        String codigoProduto = scanner.nextLine();
-        Produto produto = produtos.get(codigoProduto);
+    public void registrarVenda(Map<Produto, Integer> mapQtd, List<String> funcionarios, String transportadora,
+            String local, Double valorVenda) {
 
-        // Qtd produto
-        int quantidade = scanner.nextInt();
-
-        // Verificação ------ Fazer na view
-        // if (produto.getQuantidadeEstoque() < quantidade) {
-        // System.out.println("Estoque insuficiente. Disponível: " +
-        // produto.getQuantidadeEstoque() + " unidades.");
-        // return;
-        // }
-
-        // Vendedores
         List<Funcionario> vendedoresEnvolvidos = new ArrayList<>();
-        System.out.print("Digite os IDs dos vendedores envolvidos (separados por vírgula, ex: EMP013,EMP014): ");
-        String idsVendedores = scanner.nextLine();
-        String[] ids = idsVendedores.split(",");
-
-        // // Buscou o setor vendas
-        // Setor setor = setores.get("Vendas");
-        // List<Funcionario> funcionarios = setor.getFuncionarios();
-        // vendedoresEnvolvidos.add(funcionarios.get(3));
-
-        // Adicionar ids aos vendedores envolvidos
-        for (String id : ids) {
-            String trimmedId = id.trim();
-            Funcionario vendedor = buscarFuncionarioPorId(trimmedId);
+        for (String id : funcionarios) {
+            Funcionario vendedor = buscarFuncionarioPorId(id);
             vendedoresEnvolvidos.add(vendedor);
         }
 
-        // Trazer tranportadora
-        int escolhaTransportadora = scanner.nextInt();
+        for (Map.Entry<Produto, Integer> entrada : mapQtd.entrySet()) {
+            entrada.getKey().setQuantidadeEstoque(entrada.getKey().getQuantidadeEstoque() - entrada.getValue());
+        }
 
-        // Trazer local de entrega
-        String localEntrega = scanner.nextLine().trim();
-
-        // Obtém o valor de frete fixo diretamente da transportadora selecionada
-        // double valorFrete = transportadoraSelecionada.getValorFreteFixo();
-
-        // Calculo do valor da venda e att do estoque
-        // double valorTotalVenda = (produto.getValorVenda() * quantidade) + valorFrete;
-        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - quantidade);
-
-        // Registrar a entrada da venda (incluindo frete) no caixa
-        // registrarEntradaCaixa(valorTotalVenda, "Venda de " + quantidade + " un. de "
-        // + produto.getNome() + " + Frete (R$" + String.format("%.2f", valorFrete) + ")
-        // via " + transportadoraSelecionada.getNome() + " para " + localEntrega);
+        registrarEntradaCaixa(valorVenda);
+        System.out.println(getCaixaTotal());
 
         // Criar um novo negócio em andamento para a venda
-        String idNegocio = "VENDA-" + UUID.randomUUID().toString().substring(0, 8); // ID único
-        NegocioEmAndamento novaVenda = new NegocioEmAndamento(idNegocio, "Venda", LocalDate.now());
-        novaVenda.addProduto(produto, quantidade);
-        vendedoresEnvolvidos.forEach(vendedor -> novaVenda.addParticipanteVenda(vendedor));
-        novaVenda.setStatus("Em andamento");
+        String idNegocio = "VENDA-" + UUID.randomUUID().toString().substring(0, 8);
+        NegocioEmAndamento novaVenda = new NegocioEmAndamento(idNegocio, "Venda",
+                LocalDate.now(), mapQtd);
+
+        novaVenda.addParticipantesVenda(vendedoresEnvolvidos);
+
         negociosEmAndamento.add(novaVenda);
+
     }
 
     public void registrarCompra() {
@@ -459,21 +430,24 @@ public class Empresa {
             return;
         }
 
-        double valorTotalCompra = produto.getValorCompra() * quantidade;
-        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + quantidade);
-        registrarSaidaCaixa(valorTotalCompra);
+        // double valorTotalCompra = produto.getValorCompra() * quantidade;
+        // produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + quantidade);
+        // registrarSaidaCaixa(valorTotalCompra);
 
-        // Criar um novo negócio em andamento para a compra
-        String idNegocio = "COMPRA-" + UUID.randomUUID().toString().substring(0, 8);
-        NegocioEmAndamento novaCompra = new NegocioEmAndamento(idNegocio, "Compra", LocalDate.now());
-        novaCompra.addProduto(produto, quantidade);
-        almoxarifesEnvolvidos.forEach(novaCompra::addParticipanteCompra);
-        novaCompra.setStatus("Concluído"); // Uma compra de reabastecimento pode ser marcada como concluída
-                                           // imediatamente
+        // // Criar um novo negócio em andamento para a compra
+        // String idNegocio = "COMPRA-" + UUID.randomUUID().toString().substring(0, 8);
+        // NegocioEmAndamento novaCompra = new NegocioEmAndamento(idNegocio, "Compra",
+        // LocalDate.now());
+        // novaCompra.addProduto(produto, quantidade);
+        // almoxarifesEnvolvidos.forEach(novaCompra::addParticipanteCompra);
+        // novaCompra.setStatus("Concluído"); // Uma compra de reabastecimento pode ser
+        // marcada como concluída
+        // // imediatamente
 
-        negociosEmAndamento.add(novaCompra);
-        System.out
-                .println("Compra de " + quantidade + " unidades de " + produto.getNome() + " registrada com sucesso.");
+        // negociosEmAndamento.add(novaCompra);
+        // System.out
+        // .println("Compra de " + quantidade + " unidades de " + produto.getNome() + "
+        // registrada com sucesso.");
     }
 
     // Gerenciamento de Transportadoras
@@ -750,7 +724,7 @@ public class Empresa {
                     listarProdutosEmEstoque();
                     break;
                 case 5:
-                    registrarVenda();
+                    // registrarVenda();
                     break;
                 case 6:
                     registrarCompra();

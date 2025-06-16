@@ -1,7 +1,6 @@
 package sistema;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,34 +13,22 @@ public class NegocioEmAndamento {
     private String status; // Ex: "Em negociação", "Aguardando pagamento", "Concluído", "Cancelado"
     private Map<Produto, Integer> produtosEnvolvidos; // Produto e quantidade
 
-    public NegocioEmAndamento(String idNegocio, String tipo, LocalDate dataInicio) {
+    public NegocioEmAndamento(String idNegocio, String tipo, LocalDate dataInicio,  Map<Produto, Integer> produtosEnvolvidos) {
         this.idNegocio = idNegocio;
         this.tipo = tipo;
         this.dataInicio = dataInicio;
         this.status = "Em negociação";
         this.participantesVenda = new ArrayList<>();
         this.participantesCompra = new ArrayList<>();
-        this.produtosEnvolvidos = new HashMap<>();
+        this.produtosEnvolvidos = produtosEnvolvidos;
     } 
 
-    public void addParticipanteVenda(Funcionario vendedor) {
-        if ("Venda".equalsIgnoreCase(tipo)) {
-            this.participantesVenda.add(vendedor);
-        } else {
-            System.out.println("Erro: Este negócio não é uma venda.");
-        }
+    public void addParticipantesVenda(List<Funcionario> participantesVenda) {
+        this.participantesVenda = participantesVenda;
     }
 
-    public void addParticipanteCompra(Funcionario almoxarife) {
-        if ("Compra".equalsIgnoreCase(tipo)) {
-            this.participantesCompra.add(almoxarife);
-        } else {
-            System.out.println("Erro: Este negócio não é uma compra.");
-        }
-    }
-
-    public void addProduto(Produto produto, int quantidade) {
-        this.produtosEnvolvidos.put(produto, quantidade);
+    public void addParticipantesCompra(List<Funcionario> participantesCompra) {
+        this.participantesCompra = participantesCompra;
     }
 
     // --- Getters e Setters ---
