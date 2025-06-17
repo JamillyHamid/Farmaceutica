@@ -102,7 +102,6 @@ public class AtualizarStatusNegocio {
         botaoSalvar.addActionListener(e -> {
             empresa.atualizarStatusNegocio(comboBoxid.getSelectedItem().toString(),
                     comboBoxStatus.getSelectedItem().toString());
-            empresa.listarNegociosEmAndamento();
             new AtualizarStatusNegocio(empresa, setorLogin);
             frame.dispose();
         });

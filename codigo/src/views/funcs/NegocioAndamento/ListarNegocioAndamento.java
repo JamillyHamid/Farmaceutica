@@ -7,7 +7,6 @@ import javax.swing.table.DefaultTableModel;
 
 import sistema.Empresa;
 import sistema.NegocioEmAndamento;
-import sistema.Produto;
 import views.MenuNegocio;
 import views.AMX.MenuAMX;
 import views.ATC.MenuATC;
@@ -94,7 +93,7 @@ public class ListarNegocioAndamento {
                     }
                     i = 0;
                     negocio.getProdutosEnvolvidos().forEach((idprod, qtd) -> {
-                        prodLista.add(i, String.format("%s - %d", idprod, qtd));
+                        prodLista.add(i, String.format("%s, %s - %d", idprod.getCodigo(), idprod.getNome(), qtd));
                         i++;
                     });
 

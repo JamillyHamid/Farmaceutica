@@ -19,17 +19,14 @@ public class Empresa {
         this.negociosEmAndamento = new ArrayList<>();
         this.scanner = new Scanner(System.in);
 
-        // Inicializar setores
-        setores.put("Gerente de Filial", new Setor("Gerente de Filial")); // 1 funcionário
-        setores.put("Atendimento ao Cliente", new Setor("Atendimento ao Cliente")); // 4 funcionários
-        setores.put("Gestão de Pessoas", new Setor("Gestão de Pessoas")); // 4 funcionários
-        setores.put("Financeiro", new Setor("Financeiro")); // 3 funcionários
-        setores.put("Vendas", new Setor("Vendas")); // 5 funcionários
-        setores.put("Almoxarifado", new Setor("Almoxarifado")); // 3 funcionários
-        setores.put("Transportadoras", new Setor("Transportadoras")); // 0 funcionários (este é o setor interno que
-                                                                      // gerencia as transportadoras externas)
+        setores.put("Gerente de Filial", new Setor("Gerente de Filial"));
+        setores.put("Atendimento ao Cliente", new Setor("Atendimento ao Cliente"));
+        setores.put("Gestão de Pessoas", new Setor("Gestão de Pessoas"));
+        setores.put("Financeiro", new Setor("Financeiro"));
+        setores.put("Vendas", new Setor("Vendas"));
+        setores.put("Almoxarifado", new Setor("Almoxarifado"));
+        setores.put("Transportadoras", new Setor("Transportadoras"));
 
-        // Adicionar funcionários iniciais (total 20)
         // Gerente de Filial (1)
         adicionarFuncionario(
                 new Funcionario("Ana Paula Silva", "EMP001", 45, "Feminino", "Gerente de Filial", 10000.00),
@@ -81,7 +78,6 @@ public class Empresa {
         adicionarFuncionario(new Funcionario("Xavier Antunes", "EMP020", 29, "Masculino", "Conferente", 3000.00),
                 "Almoxarifado");
 
-        // --- Todos os Produtos em Ordem Crescente de Código (ID) --- Total de 30
         // produtos
         adicionarProduto(new Produto("Paracetamol 500mg (Cx c/20", 5.00, 12.50, 1000));
         adicionarProduto(new Produto("Dipirona Sódica 1g (Cx c/10)", 7.50, 18.00, 800));
@@ -114,7 +110,7 @@ public class Empresa {
         adicionarProduto(new Produto("Fralda Geriátrica G (Cx c/10)", 30.00, 70.00, 250));
         adicionarProduto(new Produto("Protetor Solar FPS 30 (120ml)", 15.00, 35.00, 400));
 
-        // Adicionar transportadoras (pelo menos 3)
+        // Adicionar transportadoras
         Transportadora t1 = new Transportadora("Transportes Veloz", 15.00); // Grande Londrina
         String[] locaist1 = { "Londrina - PR", "Cambé - PR", "Rolândia - PR", "Ibiporâ - PR" };
         for (String local : locaist1) {
@@ -135,29 +131,6 @@ public class Empresa {
             t3.addLocalAtendimento(local);
         }
         adicionarTransportadora(t3);
-
-        // Adicionar vendas
-
-        // String idNegocio = "VENDA-" + UUID.randomUUID().toString().substring(0, 8);
-        // // ID único
-        // NegocioEmAndamento novaVenda = new NegocioEmAndamento(idNegocio, "Venda",
-        // LocalDate.now());
-        // novaVenda.addProduto(produtos.get("PROD012"), 10);
-        // Setor setor = setores.get("Vendas");
-        // novaVenda.addParticipanteVenda(setor.buscarFuncionario("EMP00014"));
-        // novaVenda.setStatus("Em andamento");
-        // negociosEmAndamento.add(novaVenda);
-
-        // String idNegocio2 = "VENDA-" + UUID.randomUUID().toString().substring(0, 8);
-        // // ID único
-        // NegocioEmAndamento novaVenda2 = new NegocioEmAndamento(idNegocio2, "Venda",
-        // LocalDate.now());
-        // novaVenda2.addProduto(produtos.get("PROD016"), 10);
-        // Setor setor2 = setores.get("Vendas");
-        // novaVenda2.addParticipanteVenda(setor2.buscarFuncionario("EMP0001"));
-        // novaVenda2.setStatus("Em andamento");
-        // negociosEmAndamento.add(novaVenda2);
-
     }
 
     // --- Métodos de Gerenciamento ---
@@ -165,13 +138,8 @@ public class Empresa {
     // Gerenciamento de Funcionários
     public void adicionarFuncionario(Funcionario funcionario, String nomeSetor) {
         Setor setor = setores.get(nomeSetor);
-        if (setor != null) {
-            setor.addFuncionario(funcionario);
-            System.out.println("Funcionário " + funcionario.getNomeCompleto() + " (ID: " + funcionario.getId()
-                    + ") adicionado ao setor " + nomeSetor + ".");
-        } else {
-            System.out.println("Erro: Setor '" + nomeSetor + "' não encontrado.");
-        }
+        setor.addFuncionario(funcionario);
+
     }
 
     public void atualizarFuncionario(String idFuncionario, String nome, String senha, int idade, String genero,
@@ -200,38 +168,10 @@ public class Empresa {
     }
 
     public void removerFuncionario(String idFuncionario) {
-        boolean removido = false;
         for (Setor setor : setores.values()) {
-            Funcionario func = setor.buscarFuncionario(idFuncionario);
-            if (func != null) {
-                setor.removerFuncionario(idFuncionario);
-                removido = true;
-                System.out.println("Funcionário com ID " + idFuncionario + " removido com sucesso.");
-                break;
-            }
+            setor.removerFuncionario(idFuncionario);
+            break;
         }
-        if (!removido) {
-            System.out.println("Funcionário com ID " + idFuncionario + " não encontrado.");
-        }
-    }
-
-    public void listarFuncionariosPorSetor(String nomeSetor) {
-        Setor setor = setores.get(nomeSetor);
-        if (setor != null) {
-            System.out.println(
-                    "\n--- Funcionários do Setor: " + nomeSetor + " (" + setor.getQuantidadeFuncionarios() + ") ---");
-            setor.listarFuncionarios();
-        } else {
-            System.out.println("Setor '" + nomeSetor + "' não encontrado.");
-        }
-    }
-
-    public List<Funcionario> listarTodosFuncionarios() {
-        List<Funcionario> funcionario = new ArrayList<>();
-        for (Setor setor : setores.values()) {
-            funcionario.addAll(setor.getFuncionarios());
-        }
-        return funcionario;
     }
 
     public double[] calcularFolhaDePagamentoDetalhada() {
@@ -270,15 +210,7 @@ public class Empresa {
         this.caixaTotal -= valor;
     }
 
-    public double getCaixaTotal() {
-        return caixaTotal;
-    }
-
     public void estimarLucros(double vendasProgramadasMensais) {
-        // Para uma estimativa mais precisa, precisaríamos de mais detalhes sobre custos
-        // fixos e variáveis
-        // além do custo com pessoal.
-
         double custoMensalPessoal = calcularCustoMensalComPessoal();
         double lucroMensalEstimado = vendasProgramadasMensais - custoMensalPessoal;
         double lucroAnualEstimado = lucroMensalEstimado * 12;
@@ -294,10 +226,6 @@ public class Empresa {
         double custoTotalPessoal = 0;
         for (Setor setor : setores.values()) {
             for (Funcionario func : setor.getFuncionarios()) {
-                // Custo para a empresa inclui Salário Base + Bonificação + todos os benefícios
-                // (VT, VR, VA, PS, PO)
-                // O IR é uma retenção do salário do funcionário, não um custo adicional para a
-                // empresa (neste contexto simplificado)
                 custoTotalPessoal += func.getSalarioBase() + func.getBonificacaoLucros() +
                         func.getValeTransporte() + func.getValeRefeicao() +
                         func.getValeAlimentacao() + func.getPlanoSaude() +
@@ -309,13 +237,7 @@ public class Empresa {
 
     // Gerenciamento de Estoque/Produtos
     public void adicionarProduto(Produto produto) {
-        if (!produtos.containsKey(produto.getCodigo())) {
-            produtos.put(produto.getCodigo(), produto);
-            System.out.println(
-                    "Produto '" + produto.getNome() + "' (Cód: " + produto.getCodigo() + ") adicionado ao catálogo.");
-        } else {
-            System.out.println("Erro: Produto com código '" + produto.getCodigo() + "' já existe.");
-        }
+        produtos.put(produto.getCodigo(), produto);
     }
 
     public void atualizarProduto(String nome, String codigoProduto, Double compra, Double venda) {
@@ -330,20 +252,8 @@ public class Empresa {
     }
 
     public void removerProduto(String codigoProduto) {
-        if (produtos.remove(codigoProduto) != null) {
-            System.out.println("Produto com código " + codigoProduto + " removido do catálogo.");
-        } else {
-            System.out.println("Produto com código " + codigoProduto + " não encontrado.");
-        }
-    }
+        produtos.remove(codigoProduto);
 
-    public void listarProdutosEmEstoque() {
-        System.out.println("\n--- Produtos em Estoque ---");
-        if (produtos.isEmpty()) {
-            System.out.println("Nenhum produto cadastrado no estoque.");
-            return;
-        }
-        produtos.values().forEach(System.out::println);
     }
 
     public void registrarVenda(Map<Produto, Integer> mapQtd, List<String> funcionarios, String transportadora,
@@ -362,7 +272,6 @@ public class Empresa {
         registrarEntradaCaixa(valorVenda);
         System.out.println(getCaixaTotal());
 
-        // Criar um novo negócio em andamento para a venda
         String idNegocio = "VENDA-" + UUID.randomUUID().toString().substring(0, 8);
         NegocioEmAndamento novaVenda = new NegocioEmAndamento(idNegocio, "Venda",
                 LocalDate.now(), mapQtd);
@@ -476,24 +385,14 @@ public class Empresa {
     }
 
     // Gerenciamento de Negócios em Andamento
-    public void listarNegociosEmAndamento() {
-        System.out.println("\n--- Negócios em Andamento ---");
-        if (negociosEmAndamento.isEmpty()) {
-            System.out.println("Nenhum negócio em andamento.");
-            return;
-        }
-        negociosEmAndamento.forEach(System.out::println);
-    }
 
     public void atualizarStatusNegocio(String idNegocio, String novoStatus) {
         for (NegocioEmAndamento negocio : negociosEmAndamento) {
             if (negocio.getIdNegocio().equals(idNegocio)) {
                 negocio.setStatus(novoStatus);
-                System.out.println("Status do negócio " + idNegocio + " atualizado para: " + novoStatus);
                 return;
             }
         }
-        System.out.println("Negócio com ID " + idNegocio + " não encontrado.");
     }
 
     // Métodos Auxiliares
@@ -511,381 +410,10 @@ public class Empresa {
         return produtos.get(codigo);
     }
 
-    // --- Menu e Interação com o Usuário ---
-    public void exibirMenu() {
-        int opcao;
-        do {
-            System.out.println("\n========== MENU PRINCIPAL ==========");
-            System.out.println("1. Gerenciar Funcionários");
-            System.out.println("2. Gerenciar Produtos/Estoque");
-            System.out.println("3. Gerenciar Transportadoras");
-            System.out.println("4. Gerenciar Fluxo de Caixa");
-            System.out.println("5. Gerenciar Negócios em Andamento");
-            System.out.println("6. Relatórios");
-            System.out.println("0. Sair");
-            System.out.print("Escolha uma opção: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine(); // Consumir a nova linha
+    // getters e setters
 
-            switch (opcao) {
-                case 1:
-                    menuFuncionarios();
-                    break;
-                case 2:
-                    menuProdutosEstoque();
-                    break;
-                case 3:
-                    menuTransportadoras();
-                    break;
-                case 4:
-                    menuFluxoCaixa();
-                    break;
-                case 5:
-                    menuNegociosEmAndamento();
-                    break;
-                case 6:
-                    menuRelatorios();
-                    break;
-                case 0:
-                    System.out.println("Saindo do sistema. Até mais!");
-                    break;
-                default:
-                    System.out.println("Opção inválida. Tente novamente.");
-            }
-        } while (opcao != 0);
-    }
-
-    void menuFuncionarios() {
-        int opcao;
-        do {
-            System.out.println("\n--- Gerenciar Funcionários ---");
-            System.out.println("1. Adicionar Funcionário");
-            System.out.println("2. Atualizar Dados do Funcionário");
-            System.out.println("3. Remover Funcionário");
-            System.out.println("4. Listar Funcionários por Setor");
-            System.out.println("5. Listar Todos os Funcionários");
-            System.out.println("6. Calcular Folha de Pagamento");
-            System.out.println("0. Voltar ao Menu Principal");
-            System.out.print("Escolha uma opção: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine();
-            int opc;
-            switch (opcao) {
-
-                case 1:
-                    System.out.print("Nome Completo: ");
-                    String nome = scanner.nextLine();
-                    System.out.print("ID (ex: EMP00021): ");
-                    String id = scanner.nextLine();
-                    while (!id.matches("^EMP\\d{5}$")) {
-                        System.out.println("ID inválido! Use o formato EMP seguido de três dígitos (ex: EMP021).");
-                        System.out.print("ID (ex: EMP021): ");
-                        id = scanner.nextLine();
-                    }
-                    System.out.print("Idade: ");
-                    int idade = scanner.nextInt();
-                    while (idade < 15) {
-                        System.out.println("Idade inválida!");
-                        System.out.print("Idade: ");
-                        idade = scanner.nextInt();
-                    }
-                    scanner.nextLine();
-                    String genero = "";
-                    do {
-                        System.out.print("Gênero (1 - Feminino, 2 - Masculino, 3 - Outros): ");
-                        opc = scanner.nextInt();
-                        switch (opc) {
-                            case 1:
-                                genero = "Feminino";
-                                break;
-                            case 2:
-                                genero = "Masculino";
-                                break;
-                            case 3:
-                                genero = "Outros";
-                                break;
-                            default:
-                                System.out.println("Opção inválida!");
-                                break;
-                        }
-                    } while (opc != 1 && opc != 2 && opc != 3);
-                    System.out.print("Cargo: ");
-                    String cargo = scanner.nextLine();
-                    scanner.nextLine();
-                    System.out.print("Salário Bruto: ");
-                    double salario = scanner.nextDouble();
-                    while (salario < 0) {
-                        System.out.println("Salário não pode ser negativo!");
-                        System.out.print("Salário Bruto: ");
-                        salario = scanner.nextDouble();
-                    }
-                    scanner.nextLine();
-                    System.out.print(
-                            "Setor (1 - Gerente de Filial, 2 - Atendimento ao Cliente, 3 - Gestão de Pessoas, 4 - Financeiro, 5 - Vendas, 6 - Almoxarifado, 7 - Transportadoras): ");
-                    opc = scanner.nextInt();
-                    String setorNome = "";
-                    switch (opc) {
-                        case 1:
-                            setorNome = "Gerente de Filial";
-                            break;
-                        case 2:
-                            setorNome = "Atendimento ao Cliente";
-                            break;
-                        case 3:
-                            setorNome = "Gestão de Pessoas";
-                            break;
-                        case 4:
-                            setorNome = "Financeiro";
-                            break;
-                        case 5:
-                            setorNome = "Vendas";
-                            break;
-                        case 6:
-                            setorNome = "Almoxarifado";
-                            break;
-                        case 7:
-                            setorNome = "Transportadoras";
-                            break;
-                        default:
-                            System.out.println("Opção inválida!");
-                            break;
-                    }
-
-                    adicionarFuncionario(new Funcionario(nome, id, idade, genero, cargo, salario), setorNome);
-                    break;
-                case 2:
-                    System.out.print("Digite o ID do funcionário para atualizar: ");
-                    String idAtualizar = scanner.nextLine();
-                    // atualizarFuncionario(idAtualizar);
-                    break;
-                case 3:
-                    System.out.print("Digite o ID do funcionário para remover: ");
-                    String idRemover = scanner.nextLine();
-                    removerFuncionario(idRemover);
-                    break;
-                case 4:
-                    System.out.print("Digite o nome do setor para listar funcionários: ");
-                    String setorListar = scanner.nextLine();
-                    listarFuncionariosPorSetor(setorListar);
-                    break;
-                case 5:
-                    listarTodosFuncionarios();
-                    break;
-                case 6:
-                    // calcularFolhaDePagamento();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-            }
-        } while (opcao != 0);
-    }
-
-    private void menuProdutosEstoque() {
-        int opcao;
-        do {
-            System.out.println("\n--- Gerenciar Produtos/Estoque ---");
-            System.out.println("1. Adicionar Produto");
-            System.out.println("2. Atualizar Produto");
-            System.out.println("3. Remover Produto");
-            System.out.println("4. Listar Produtos em Estoque");
-            System.out.println("5. Registrar Venda");
-            System.out.println("6. Registrar Compra/Reabastecimento");
-            System.out.println("0. Voltar ao Menu Principal");
-            System.out.print("Escolha uma opção: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcao) {
-                case 1:
-                    System.out.print("Nome do Produto: ");
-                    String nome = scanner.nextLine();
-                    System.out.print("Valor de Compra: ");
-                    double vCompra = scanner.nextDouble();
-                    System.out.print("Valor de Venda: ");
-                    double vVenda = scanner.nextDouble();
-                    System.out.print("Quantidade Inicial em Estoque: ");
-                    int qtd = scanner.nextInt();
-                    scanner.nextLine();
-                    adicionarProduto(new Produto(nome, vCompra, vVenda, qtd));
-                    break;
-                case 2:
-                    System.out.print("Digite o código do produto para atualizar: ");
-                    String codAtualizar = scanner.nextLine();
-                    // atualizarProduto(codAtualizar);
-                    break;
-                case 3:
-                    System.out.print("Digite o código do produto para remover: ");
-                    String codRemover = scanner.nextLine();
-                    removerProduto(codRemover);
-                    break;
-                case 4:
-                    listarProdutosEmEstoque();
-                    break;
-                case 5:
-                    // registrarVenda();
-                    break;
-                case 6:
-                    registrarCompra();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-            }
-        } while (opcao != 0);
-    }
-
-    private void menuTransportadoras() {
-        int opcao;
-        do {
-            System.out.println("\n--- Gerenciar Transportadoras ---");
-            System.out.println("1. Adicionar Transportadora");
-            System.out.println("2. Listar Transportadoras Parceiras");
-            System.out.println("0. Voltar ao Menu Principal");
-            System.out.print("Escolha uma opção: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcao) {
-                case 1:
-                    System.out.print("Nome da Transportadora: ");
-                    String nomeTransp = scanner.nextLine();
-                    System.out.println("Infome o valor do FRETE partindo de Londrina - PR: ");
-                    double freteTransp = scanner.nextDouble();
-                    scanner.nextLine();
-                    Transportadora novaTransp = new Transportadora(nomeTransp, freteTransp);
-                    System.out.print("Adicionar locais de atendimento (separados por vírgula): ");
-                    String locais = scanner.nextLine();
-                    String[] arrayLocais = locais.split(",");
-                    for (String local : arrayLocais) {
-                        novaTransp.addLocalAtendimento(local.trim());
-                    }
-                    // adicionarTransportadora(novaTransp);
-                    break;
-                case 2:
-                    // listarTransportadoras();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-            }
-        } while (opcao != 0);
-    }
-
-    private void menuFluxoCaixa() {
-        int opcao;
-        do {
-            System.out.println("\n--- Gerenciar Fluxo de Caixa ---");
-            System.out.println("1. Registrar Entrada de Caixa");
-            System.out.println("2. Registrar Saída de Caixa");
-            System.out.println("3. Ver Caixa Total");
-            System.out.println("4. Estimar Lucros Anuais");
-            System.out.println("0. Voltar ao Menu Principal");
-            System.out.print("Escolha uma opção: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcao) {
-                case 1:
-                    System.out.print("Valor da Entrada: ");
-                    double valorEntrada = scanner.nextDouble();
-                    scanner.nextLine();
-                    System.out.print("Descrição da Entrada: ");
-                    String descEntrada = scanner.nextLine();
-                    registrarEntradaCaixa(valorEntrada);
-                    break;
-                case 2:
-                    System.out.print("Valor da Saída: ");
-                    double valorSaida = scanner.nextDouble();
-                    scanner.nextLine();
-                    System.out.print("Descrição da Saída: ");
-                    String descSaida = scanner.nextLine();
-                    registrarSaidaCaixa(valorSaida);
-                    break;
-                case 3:
-                    System.out.println("Caixa Total Atual: R$" + String.format("%.2f", getCaixaTotal()));
-                    break;
-                case 4:
-                    System.out.print("Digite o valor das vendas programadas mensais para estimativa de lucros: R$");
-                    double vendasProj = scanner.nextDouble();
-                    scanner.nextLine();
-                    estimarLucros(vendasProj);
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-            }
-        } while (opcao != 0);
-    }
-
-    private void menuNegociosEmAndamento() {
-        int opcao;
-        do {
-            System.out.println("\n--- Gerenciar Negócios em Andamento ---");
-            System.out.println("1. Listar Negócios em Andamento");
-            System.out.println("2. Atualizar Status de Negócio");
-            System.out.println("0. Voltar ao Menu Principal");
-            System.out.print("Escolha uma opção: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcao) {
-                case 1:
-                    listarNegociosEmAndamento();
-                    break;
-                case 2:
-                    System.out.print("Digite o ID do negócio para atualizar o status: ");
-                    String idNegocio = scanner.nextLine();
-                    System.out.print("Digite o novo status (Ex: Concluído, Cancelado, Em negociação): ");
-                    String novoStatus = scanner.nextLine();
-                    atualizarStatusNegocio(idNegocio, novoStatus);
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-            }
-        } while (opcao != 0);
-    }
-
-    private void menuRelatorios() {
-        int opcao;
-        do {
-            System.out.println("\n--- Relatórios ---");
-            System.out.println("1. Relatório Financeiro (Caixa)");
-            System.out.println("2. Relatório de Estoque");
-            System.out.println("3. Relatório de Funcionários");
-            System.out.println("4. Folha de Pagamento Detalhada");
-            System.out.println("0. Voltar ao Menu Principal");
-            System.out.print("Escolha uma opção: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcao) {
-                case 1:
-                    System.out.println("\n--- Relatório Financeiro ---");
-                    System.out.println("Caixa Total Atual: R$" + String.format("%.2f", getCaixaTotal()));
-                    // Aqui poderíamos adicionar histórico de entradas e saídas
-                    break;
-                case 2:
-                    listarProdutosEmEstoque();
-                    break;
-                case 3:
-                    listarTodosFuncionarios();
-                    break;
-                case 4:
-                    // calcularFolhaDePagamento();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-            }
-        } while (opcao != 0);
+    public double getCaixaTotal() {
+        return caixaTotal;
     }
 
     public Map<String, Setor> getSetores() {
