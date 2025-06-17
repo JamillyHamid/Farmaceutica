@@ -8,6 +8,12 @@ import java.util.List;
 import sistema.Empresa;
 import sistema.Funcionario;
 import sistema.Setor;
+import views.AMX.MenuAMX;
+import views.ATC.MenuATC;
+import views.FNC.MenuFNC;
+import views.GDF.MenuGDF;
+import views.GDP.MenuGDP;
+import views.VND.MenuVND;
 
 public class Login extends JFrame {
 
@@ -77,22 +83,22 @@ public class Login extends JFrame {
                 // if (fun.getId().equals(idField.getText()) && fun.getSenha().equals(senha)) {
                     switch (escolha) {
                         case "Gerente de Filial":
-                            new MenuGDF(empresa);
+                            new MenuGDF(empresa, "GERENTE");
                             break;
                         case "Atendimento ao Cliente":
-                            new MenuATC(empresa);
+                            new MenuATC(empresa, "ATENDIMENTO AO CLIENTE");
                             break;
                         case "Gestão de Pessoas":
-                            new MenuGDP(empresa);
+                            new MenuGDP(empresa, "GESTÃO DE PESSOAS");
                             break;
                         case "Financeiro":
-                            new MenuFNC(empresa);
+                            new MenuFNC(empresa, "FINANCEIRO");
                             break;
                         case "Vendas":
-                            new MenuVND(empresa);
+                            new MenuVND(empresa, "VENDAS");
                             break;
                         case "Almoxarifado":
-                            new MenuAMX(empresa);
+                            new MenuAMX(empresa, "ALMOXARIFADO");
                             break;
                     }
                     frame.dispose();

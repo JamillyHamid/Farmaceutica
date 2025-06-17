@@ -1,4 +1,10 @@
-package views;
+package views.AMX;
+
+import views.Login;
+import views.MenuEstoque;
+import views.funcs.NegocioAndamento.AtualizarStatusNegocio;
+import views.funcs.NegocioAndamento.ListarNegocioAndamento;
+import views.funcs.Transportadora.ListarTransportadora;
 
 import javax.swing.*;
 
@@ -6,14 +12,20 @@ import sistema.Empresa;
 
 import java.awt.*;
 
-public class MenuFNC {
-    // 1. Listar Produtos em Estoque
-    // 2. Listar Transportadoras Parceiras
-    // 3. Ver Caixa Total
-    // 4. Estimar Lucros Anuais
-    // 5. Folha de Pagamento Detalhada
-    public MenuFNC(Empresa empresa) {
+public class MenuAMX {
 
+    // "1. Gerenciar Estoque");
+    // 1. XXXXX Adicionar Produto
+    // 2. XXXXX Atualizar Produto
+    // 3. XXXXX Remover Produto
+    // 4. XXXXX Listar Produtos em Estoque
+    // 5. ? Registrar Compra/Reabastecimento
+
+    // 1. XXXXX Listar Transportadoras Parceiras
+    // 2. Listar Negócios em Andamento
+    // 3. Atualizar Status de Negócio
+
+    public MenuAMX(Empresa empresa, String setorLogin) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -39,7 +51,7 @@ public class MenuFNC {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("FINANCEIRO");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -49,15 +61,15 @@ public class MenuFNC {
         int alturaBotao = 30;
         int margemLateral = 225;
 
-        JButton botao1 = new JButton("Estimar Lucros Anuais");
+        JButton botao1 = new JButton("Atualizar Status de Negócio");
         botao1.setBounds(margemLateral, 85, larguraBotao, alturaBotao);
         panel.add(botao1);
 
-        JButton botao2 = new JButton("Folha de Pagamento Detalhada");
+        JButton botao2 = new JButton("Gerenciar Estoque");
         botao2.setBounds(margemLateral, 145, larguraBotao, alturaBotao);
         panel.add(botao2);
 
-        JButton botao3 = new JButton("Listar Produtos em Estoque");
+        JButton botao3 = new JButton("Listar Negócios em Andamento");
         botao3.setBounds(margemLateral, 205, larguraBotao, alturaBotao);
         panel.add(botao3);
 
@@ -65,14 +77,20 @@ public class MenuFNC {
         botao4.setBounds(margemLateral, 265, larguraBotao, alturaBotao);
         panel.add(botao4);
 
-        JButton botao5 = new JButton("Ver Caixa Total");
-        botao5.setBounds(margemLateral, 265, larguraBotao, alturaBotao);
-        panel.add(botao5);
-
         botao1.addActionListener(e -> {
+            new AtualizarStatusNegocio(empresa, setorLogin);
             frame.dispose();
         });
         botao2.addActionListener(e -> {
+            new MenuEstoque(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao3.addActionListener(e -> {
+            new ListarNegocioAndamento(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao4.addActionListener(e -> {
+            new ListarTransportadora(empresa, setorLogin);
             frame.dispose();
         });
 

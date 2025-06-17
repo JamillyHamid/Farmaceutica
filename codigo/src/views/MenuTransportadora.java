@@ -4,13 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 import sistema.Empresa;
-import views.funcs.AdicionarTransportadora;
-import views.funcs.AtualizarTransportadora;
-import views.funcs.ListarTransportadora;
-import views.funcs.RemoverTransportadora;
+import views.GDF.MenuGDF;
+import views.funcs.Transportadora.AdicionarTransportadora;
+import views.funcs.Transportadora.AtualizarTransportadora;
+import views.funcs.Transportadora.ListarTransportadora;
+import views.funcs.Transportadora.RemoverTransportadora;
 
 public class MenuTransportadora {
-    public MenuTransportadora(Empresa empresa) {
+    public MenuTransportadora(Empresa empresa, String setorLogin) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
@@ -28,7 +29,7 @@ public class MenuTransportadora {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("GERENTE");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -54,28 +55,28 @@ public class MenuTransportadora {
         botao4.setBounds(margemLateral, 265, larguraBotao, alturaBotao);
         panel.add(botao4);
 
-        JButton botaoSair = new JButton("Voltar");
-        botaoSair.setBounds(margemLateral, 325, larguraBotao, alturaBotao);
-        panel.add(botaoSair);
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
 
         botao1.addActionListener(e -> {
-            new AdicionarTransportadora(empresa);
+            new AdicionarTransportadora(empresa, setorLogin);
             frame.dispose();
         });
         botao2.addActionListener(e -> {
-            new AtualizarTransportadora(empresa);
+            new AtualizarTransportadora(empresa, setorLogin);
             frame.dispose();
         });
         botao3.addActionListener(e -> {
-            new ListarTransportadora(empresa);
+            new ListarTransportadora(empresa, setorLogin);
             frame.dispose();
         });
         botao4.addActionListener(e -> {
-            new RemoverTransportadora(empresa);
+            new RemoverTransportadora(empresa, setorLogin);
             frame.dispose();
         });
-        botaoSair.addActionListener(e -> {
-            new MenuGDF(empresa);
+        botaoVoltar.addActionListener(e -> {
+            new MenuGDF(empresa, setorLogin);
             frame.dispose();
         });
 

@@ -1,18 +1,30 @@
-package views;
+package views.GDP;
 
 import javax.swing.*;
 
 import sistema.Empresa;
+import views.Login;
+import views.MenuFuncionarios;
+import views.funcs.Calculos.CalcularFolha;
+import views.funcs.Produto.ListarTodosProdutos;
+import views.funcs.Transportadora.ListarTransportadora;
 
 import java.awt.*;
 
-public class MenuATC {
-    // 1. Listar Produtos em Estoque
-    // 2. Listar Transportadoras Parceiras
-    // 3. Listar Negócios em Andamento
-    // 4. Atualizar Status de Negócio
+public class MenuGDP {
 
-    public MenuATC(Empresa empresa) {
+    // "1. Funcionarios");
+    // 1. XXXXX Adicionar Funcionário
+    // 2. XXXXX Atualizar Dados do Funcionário
+    // 3. XXXXX Remover Funcionário
+    // 4. XXXXX Listar Funcionários por Setor
+    // 5. XXXXX Listar Todos os Funcionários
+
+    // 1. XXXXX Calcular Folha de Pagamento
+    // 2. XXXXX Listar Produtos em Estoque
+    // 3. XXXXX Listar Transportadoras Parceiras
+
+    public MenuGDP(Empresa empresa, String setorLogin) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
@@ -39,7 +51,7 @@ public class MenuATC {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("ATENDIMENTO AO CLIENTE");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -49,11 +61,11 @@ public class MenuATC {
         int alturaBotao = 30;
         int margemLateral = 225;
 
-        JButton botao1 = new JButton("Atualizar Status de Negócio");
+        JButton botao1 = new JButton("Calcular Folha de Pagamento");
         botao1.setBounds(margemLateral, 85, larguraBotao, alturaBotao);
         panel.add(botao1);
 
-        JButton botao2 = new JButton("Listar Negócios em Andamento");
+        JButton botao2 = new JButton("Funcionarios");
         botao2.setBounds(margemLateral, 145, larguraBotao, alturaBotao);
         panel.add(botao2);
 
@@ -66,9 +78,19 @@ public class MenuATC {
         panel.add(botao4);
 
         botao1.addActionListener(e -> {
+            new CalcularFolha(empresa, setorLogin);
             frame.dispose();
         });
         botao2.addActionListener(e -> {
+            new MenuFuncionarios(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao3.addActionListener(e -> {
+            new ListarTodosProdutos(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao4.addActionListener(e -> {
+            new ListarTransportadora(empresa, setorLogin);
             frame.dispose();
         });
 

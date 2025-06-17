@@ -1,12 +1,13 @@
-package views.funcs;
+package views.funcs.Calculos;
 
 import javax.swing.*;
 import java.awt.*;
 import sistema.Empresa;
-import views.MenuGDP;
+import views.MenuCaixa;
+import views.GDP.MenuGDP;
 
 public class CalcularFolha {
-    public CalcularFolha(Empresa empresa) {
+    public CalcularFolha(Empresa empresa, String setorLogin) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -23,7 +24,7 @@ public class CalcularFolha {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("GESTÃO DE PESSOAS");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -50,12 +51,19 @@ public class CalcularFolha {
         labelTotal.setBounds(150, 260, 450, 20);
         panel.add(labelTotal);
 
-        JButton botaoSair = new JButton("VOLTAR");
-        botaoSair.setBounds(305, 400, 100, 30);
-        panel.add(botaoSair);
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
 
-        botaoSair.addActionListener(e -> {
-            new MenuGDP(empresa);
+        botaoVoltar.addActionListener(e -> {
+            switch (setorLogin) {
+                case "GERENTE":
+                    new MenuCaixa(empresa, setorLogin);
+                    break;
+                case "GESTÃO DE PESSOAS":
+                    new MenuGDP(empresa, setorLogin);
+                    break;
+            }
             frame.dispose();
         });
 

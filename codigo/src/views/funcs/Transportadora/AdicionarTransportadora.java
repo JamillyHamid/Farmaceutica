@@ -1,4 +1,4 @@
-package views.funcs;
+package views.funcs.Transportadora;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -7,13 +7,12 @@ import java.awt.*;
 
 import sistema.Empresa;
 import sistema.Transportadora;
-import views.MenuEstoque;
 import views.MenuTransportadora;
 
 public class AdicionarTransportadora {
     private int index = 0;
 
-    public AdicionarTransportadora(Empresa empresa) {
+    public AdicionarTransportadora(Empresa empresa, String setorLogin) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -30,7 +29,7 @@ public class AdicionarTransportadora {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("GERENTE");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -91,27 +90,27 @@ public class AdicionarTransportadora {
             }
         });
 
-        JButton botaoSair = new JButton("VOLTAR");
-        botaoSair.setBounds(50, 400, 100, 30);
-        panel.add(botaoSair);
-
         JButton botaoSalvar = new JButton("SALVAR");
         botaoSalvar.setBounds(550, 400, 100, 30);
         panel.add(botaoSalvar);
-
-        botaoSair.addActionListener(e -> {
-            new MenuTransportadora(empresa);
-            frame.dispose();
-        });
 
         botaoSalvar.addActionListener(e -> {
             Transportadora t1 = new Transportadora(textFieldNome.getText().toString(),
                     Double.parseDouble(textFieldValorFrete.getText()));
             empresa.adicionarTransportadora(t1);
-            for(int i = 0; i < locaisLista.size(); i++){
+            for (int i = 0; i < locaisLista.size(); i++) {
                 t1.addLocalAtendimento(locaisLista.get(i));
             }
-            new MenuEstoque(empresa);
+            new AdicionarTransportadora(empresa, setorLogin);
+            frame.dispose();
+        });
+
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
+
+        botaoVoltar.addActionListener(e -> {
+            new MenuTransportadora(empresa, setorLogin);
             frame.dispose();
         });
 

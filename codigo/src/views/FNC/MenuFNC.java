@@ -1,26 +1,23 @@
-package views;
+package views.FNC;
 
 import javax.swing.*;
 
 import sistema.Empresa;
-import views.funcs.CalcularFolha;
+import views.Login;
+import views.funcs.Calculos.EstimarLucros;
+import views.funcs.Calculos.VerCaixaTotal;
+import views.funcs.Produto.ListarTodosProdutos;
+import views.funcs.Transportadora.ListarTransportadora;
 
 import java.awt.*;
 
-public class MenuGDP {
+public class MenuFNC {
+    // 1. XXXXX Listar Produtos em Estoque
+    // 2. XXXXX Listar Transportadoras Parceiras
+    // 3. Ver Caixa Total
+    // 4. Estimar Lucros Anuais
 
-    // "1. Funcionarios");
-    // 1. Adicionar Funcionário
-    // 2. Atualizar Dados do Funcionário
-    // 3. Remover Funcionário
-    // 4. Listar Funcionários por Setor
-    // 5. Listar Todos os Funcionários
-
-    // 1. Calcular Folha de Pagamento
-    // 2. Listar Produtos em Estoque
-    // 3. Listar Transportadoras Parceiras
-
-    public MenuGDP(Empresa empresa) {
+    public MenuFNC(Empresa empresa, String setorLogin) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
@@ -47,7 +44,7 @@ public class MenuGDP {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("GESTÃO DE PESSOAS");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -57,28 +54,36 @@ public class MenuGDP {
         int alturaBotao = 30;
         int margemLateral = 225;
 
-        JButton botao1 = new JButton("Calcular Folha de Pagamento");
+        JButton botao1 = new JButton("Estimar Lucros Anuais");
         botao1.setBounds(margemLateral, 85, larguraBotao, alturaBotao);
         panel.add(botao1);
 
-        JButton botao2 = new JButton("Funcionarios");
+        JButton botao2 = new JButton("Listar Produtos em Estoque");
         botao2.setBounds(margemLateral, 145, larguraBotao, alturaBotao);
         panel.add(botao2);
 
-        JButton botao3 = new JButton("Listar Produtos em Estoque");
+        JButton botao3 = new JButton("Listar Transportadoras Parceiras");
         botao3.setBounds(margemLateral, 205, larguraBotao, alturaBotao);
         panel.add(botao3);
 
-        JButton botao4 = new JButton("Listar Transportadoras Parceiras");
+        JButton botao4 = new JButton("Ver Caixa Total");
         botao4.setBounds(margemLateral, 265, larguraBotao, alturaBotao);
         panel.add(botao4);
 
         botao1.addActionListener(e -> {
-            new CalcularFolha(empresa);
+            new EstimarLucros(empresa, setorLogin);
             frame.dispose();
         });
         botao2.addActionListener(e -> {
-            new MenuFuncionarios(empresa);
+            new ListarTodosProdutos(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao3.addActionListener(e -> {
+            new ListarTransportadora(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao4.addActionListener(e -> {
+            new VerCaixaTotal(empresa, setorLogin);
             frame.dispose();
         });
 

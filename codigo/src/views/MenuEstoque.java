@@ -1,9 +1,12 @@
 package views;
 
-import views.funcs.AdicionarProduto;
-import views.funcs.AtualizarProduto;
-import views.funcs.ListarTodosProdutos;
-import views.funcs.RemoverProduto;
+import views.AMX.MenuAMX;
+import views.GDF.MenuGDF;
+import views.funcs.Produto.AdicionarProduto;
+import views.funcs.Produto.AtualizarProduto;
+import views.funcs.Produto.ListarTodosProdutos;
+import views.funcs.Produto.RemoverProduto;
+import views.funcs.Registrar.RegistrarVenda;
 
 import javax.swing.*;
 
@@ -13,18 +16,21 @@ import java.awt.*;
 
 public class MenuEstoque {
 
-    // "1. Gerenciar Estoque");
+    // 1. Gerenciar Estoque");
     // 1. Adicionar Produto
     // 2. Atualizar Produto
     // 3. Remover Produto
     // 4. Listar Produtos em Estoque
     // 5. Registrar Compra/Reabastecimento
 
-    // 1. Listar Transportadoras Parceiras
-    // 2. Listar Negócios em Andamento
-    // 3. Atualizar Status de Negócio
+    // 1. Adicionar Produto
+    // XXXXX 2. Atualizar Produto
+    // XXXXX 3. Remover Produto
+    // XXXXX 4. Listar Produtos em Estoque
+    // 5. Registrar Venda
+    // 6. Registrar Compra/Reabastecimento
 
-    public MenuEstoque(Empresa empresa) {
+    public MenuEstoque(Empresa empresa, String setorLogin) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
@@ -42,7 +48,7 @@ public class MenuEstoque {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("ALMOXARIFADO");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -68,28 +74,45 @@ public class MenuEstoque {
         botao4.setBounds(margemLateral, 265, larguraBotao, alturaBotao);
         panel.add(botao4);
 
-        JButton botaoSair = new JButton("Voltar");
-        botaoSair.setBounds(margemLateral, 325, larguraBotao, alturaBotao);
-        panel.add(botaoSair);
+        JButton botao5 = new JButton("Registrar venda");
+        if (setorLogin.equals("GERENTE")) {
+            botao5.setBounds(margemLateral, 325, larguraBotao, alturaBotao);
+            panel.add(botao5);
+        }
+
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
 
         botao1.addActionListener(e -> {
-            new AtualizarProduto(empresa);
+            new AtualizarProduto(empresa, setorLogin);
             frame.dispose();
         });
         botao2.addActionListener(e -> {
-            new ListarTodosProdutos(empresa);
+            new ListarTodosProdutos(empresa, setorLogin);
             frame.dispose();
         });
         botao3.addActionListener(e -> {
-            new AdicionarProduto(empresa);
+            new AdicionarProduto(empresa, setorLogin);
             frame.dispose();
         });
         botao4.addActionListener(e -> {
-            new RemoverProduto(empresa);
+            new RemoverProduto(empresa, setorLogin);
             frame.dispose();
         });
-        botaoSair.addActionListener(e -> {
-            new MenuAMX(empresa);
+        botao5.addActionListener(e -> {
+            new RegistrarVenda(empresa, setorLogin);
+            frame.dispose();
+        });
+        botaoVoltar.addActionListener(e -> {
+            switch (setorLogin) {
+                case "GERENTE":
+                    new MenuGDF(empresa, setorLogin);
+                    break;
+                case "ALMOXARIFADO":
+                    new MenuAMX(empresa, setorLogin);
+                    break;
+            }
             frame.dispose();
         });
 

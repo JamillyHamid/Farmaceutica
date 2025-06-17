@@ -1,4 +1,4 @@
-package views.funcs;
+package views.funcs.Transportadora;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -15,7 +15,7 @@ public class AtualizarTransportadora {
     private int index = 0;
     private String nomeFixo;
 
-    public AtualizarTransportadora(Empresa empresa) {
+    public AtualizarTransportadora(Empresa empresa, String setorLogin) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -32,7 +32,7 @@ public class AtualizarTransportadora {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("GERENTE");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -121,16 +121,16 @@ public class AtualizarTransportadora {
             }
         });
 
-        JButton botaoSair = new JButton("VOLTAR");
-        botaoSair.setBounds(50, 400, 100, 30);
-        panel.add(botaoSair);
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
 
         JButton botaoSalvar = new JButton("SALVAR");
         botaoSalvar.setBounds(550, 400, 100, 30);
         panel.add(botaoSalvar);
 
-        botaoSair.addActionListener(e -> {
-            new MenuTransportadora(empresa);
+        botaoVoltar.addActionListener(e -> {
+            new MenuTransportadora(empresa, setorLogin);
             frame.dispose();
         });
 
@@ -141,7 +141,7 @@ public class AtualizarTransportadora {
             }
             empresa.atualizarTransportadora(nomeFixo, textFieldNome.getText().toString(),
                     Double.parseDouble(textFieldValorFrete.getText()), locaisList);
-            new AtualizarTransportadora(empresa);
+            new AtualizarTransportadora(empresa, setorLogin);
             frame.dispose();
         });
 

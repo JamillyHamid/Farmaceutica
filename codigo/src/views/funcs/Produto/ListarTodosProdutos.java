@@ -1,4 +1,4 @@
-package views.funcs;
+package views.funcs.Produto;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,9 +8,13 @@ import javax.swing.table.DefaultTableModel;
 import sistema.Empresa;
 import sistema.Produto;
 import views.MenuEstoque;
+import views.ATC.MenuATC;
+import views.FNC.MenuFNC;
+import views.GDP.MenuGDP;
+import views.VND.MenuVND;
 
 public class ListarTodosProdutos {
-    public ListarTodosProdutos(Empresa empresa) {
+    public ListarTodosProdutos(Empresa empresa, String setorLogin) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
@@ -28,7 +32,7 @@ public class ListarTodosProdutos {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("ALMOXARIFADO");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -53,12 +57,31 @@ public class ListarTodosProdutos {
             });
         }
 
-        JButton botaoSair = new JButton("VOLTAR");
-        botaoSair.setBounds(305, 400, 100, 30);
-        panel.add(botaoSair);
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
 
-        botaoSair.addActionListener(e -> {
-            new MenuEstoque(empresa);
+        botaoVoltar.addActionListener(e -> {
+            switch (setorLogin) {
+                case "GERENTE":
+                    new MenuEstoque(empresa, setorLogin);
+                    break;
+                case "ATENDIMENTO AO CLIENTE":
+                    new MenuATC(empresa, setorLogin);
+                    break;
+                case "GESTÃO DE PESSOAS":
+                    new MenuGDP(empresa, setorLogin);
+                    break;
+                case "FINANCEIRO":
+                    new MenuFNC(empresa, setorLogin);
+                    break;
+                case "VENDAS":
+                    new MenuVND(empresa, setorLogin);
+                    break;
+                case "ALMOXARIFADO":
+                    new MenuEstoque(empresa, setorLogin);
+                    break;
+            }
             frame.dispose();
         });
 

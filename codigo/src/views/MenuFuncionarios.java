@@ -3,11 +3,13 @@ package views;
 import javax.swing.*;
 
 import sistema.Empresa;
-import views.funcs.AdicionarFuncionario;
-import views.funcs.AtualizarFuncionario;
-import views.funcs.ListarFuncionarioPorId;
-import views.funcs.ListarTodosFuncionarios;
-import views.funcs.RemoverFuncionario;
+import views.GDF.MenuGDF;
+import views.GDP.MenuGDP;
+import views.funcs.Funcionario.AdicionarFuncionario;
+import views.funcs.Funcionario.AtualizarFuncionario;
+import views.funcs.Funcionario.ListarFuncionarioPorId;
+import views.funcs.Funcionario.ListarTodosFuncionarios;
+import views.funcs.Funcionario.RemoverFuncionario;
 
 import java.awt.*;
 
@@ -19,7 +21,7 @@ public class MenuFuncionarios {
     // 4. Listar Funcionários por Setor
     // 5. Listar Todos os Funcionários
 
-    public MenuFuncionarios(Empresa empresa) {
+    public MenuFuncionarios(Empresa empresa, String setorLogin) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
@@ -37,7 +39,7 @@ public class MenuFuncionarios {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("GESTÃO DE PESSOAS");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -58,7 +60,7 @@ public class MenuFuncionarios {
         JButton botao3 = new JButton("Listar Funcionário por ID");
         botao3.setBounds(margemLateral, 205, larguraBotao, alturaBotao);
         panel.add(botao3);
-        
+
         JButton botao4 = new JButton("Listar Todos os Funcionários");
         botao4.setBounds(margemLateral, 265, larguraBotao, alturaBotao);
         panel.add(botao4);
@@ -67,32 +69,39 @@ public class MenuFuncionarios {
         botao5.setBounds(margemLateral, 325, larguraBotao, alturaBotao);
         panel.add(botao5);
 
-        JButton botaoVoltar = new JButton("Voltar");
-        botaoVoltar.setBounds(margemLateral, 385, larguraBotao, alturaBotao);
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
         panel.add(botaoVoltar);
 
         botao1.addActionListener(e -> {
-            new AdicionarFuncionario(empresa);
+            new AdicionarFuncionario(empresa, setorLogin);
             frame.dispose();
         });
         botao2.addActionListener(e -> {
-            new AtualizarFuncionario(empresa);
+            new AtualizarFuncionario(empresa, setorLogin);
             frame.dispose();
         });
         botao3.addActionListener(e -> {
-            new ListarFuncionarioPorId(empresa);
+            new ListarFuncionarioPorId(empresa, setorLogin);
             frame.dispose();
         });
         botao4.addActionListener(e -> {
-            new ListarTodosFuncionarios(empresa);
+            new ListarTodosFuncionarios(empresa, setorLogin);
             frame.dispose();
         });
         botao5.addActionListener(e -> {
-            new RemoverFuncionario(empresa);
+            new RemoverFuncionario(empresa, setorLogin);
             frame.dispose();
         });
         botaoVoltar.addActionListener(e -> {
-            new MenuGDP(empresa);
+            switch (setorLogin) {
+                case "GERENTE":
+                    new MenuGDF(empresa, setorLogin);
+                    break;
+                case "GESTÃO DE PESSOAS":
+                    new MenuGDP(empresa, setorLogin);
+                    break;
+            }
             frame.dispose();
         });
 

@@ -1,9 +1,9 @@
-package views.funcs;
+package views.funcs.Funcionario;
 
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +13,7 @@ import sistema.Setor;
 import views.MenuFuncionarios;
 
 public class ListarFuncionarioPorId {
-    public ListarFuncionarioPorId(Empresa empresa) {
+    public ListarFuncionarioPorId(Empresa empresa, String setorLogin) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
@@ -31,7 +31,7 @@ public class ListarFuncionarioPorId {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("GESTÃO DE PESSOAS");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -101,12 +101,12 @@ public class ListarFuncionarioPorId {
             }
         });
 
-        JButton botaoSair = new JButton("VOLTAR");
-        botaoSair.setBounds(305, 400, 100, 30);
-        panel.add(botaoSair);
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
 
-        botaoSair.addActionListener(e -> {
-            new MenuFuncionarios(empresa);
+        botaoVoltar.addActionListener(e -> {
+            new MenuFuncionarios(empresa, setorLogin);
             frame.dispose();
         });
 

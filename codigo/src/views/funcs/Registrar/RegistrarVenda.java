@@ -1,11 +1,12 @@
-package views.funcs;
+package views.funcs.Registrar;
 
 import sistema.Empresa;
 import sistema.Funcionario;
 import sistema.Produto;
 import sistema.Setor;
 import sistema.Transportadora;
-import views.MenuVND;
+import views.MenuEstoque;
+import views.VND.MenuVND;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -25,7 +26,7 @@ public class RegistrarVenda {
     private double totalConta = 0;
     private double memoria = 0;
 
-    public RegistrarVenda(Empresa empresa) {
+    public RegistrarVenda(Empresa empresa, String setorLogin) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -42,7 +43,7 @@ public class RegistrarVenda {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("VENDAS");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -104,23 +105,22 @@ public class RegistrarVenda {
         panel.add(botaoAddProd);
 
         botaoAddProd.addActionListener(e -> {
-            for (Produto prod : empresa.getProdutos().values()) {
-                if (prod.getCodigo().equals(comboBoxIdProd.getSelectedItem().toString())) {
-                    if (prod.getQuantidadeEstoque() < Integer.parseInt(textFieldQtd.getText())) {
-                        JOptionPane.showMessageDialog(null, "Quantidade de estoque insuficiente!");
-                    } else {
-                        prodLista.add(indexProd, String.format("%s - %s", comboBoxIdProd.getSelectedItem().toString(),
-                                textFieldQtd.getText()));
-                        map.put(prod, Integer.parseInt(textFieldQtd.getText()));
-                        listaProd.setModel(prodLista);
-                        totalConta += (prod.getValorVenda() * (Double.parseDouble(textFieldQtd.getText())));
-                        total.setText(String.format("TOTAL DA VENDA: %.2f", totalConta));
-                        textFieldQtd.setText("");
-                        indexProd++;
-                        System.out.println(map);
-                    }
+            if (!textFieldQtd.getText().isEmpty()) {
+                Produto prod = empresa.getProdutos().get(comboBoxIdProd.getSelectedItem().toString());
+                if (prod.getQuantidadeEstoque() < Integer.parseInt(textFieldQtd.getText())) {
+                    JOptionPane.showMessageDialog(null, "Quantidade de estoque insuficiente!");
+                } else {
+                    prodLista.add(indexProd, String.format("%s - %s", comboBoxIdProd.getSelectedItem().toString(),
+                            textFieldQtd.getText()));
+                    map.put(prod, Integer.parseInt(textFieldQtd.getText()));
+                    listaProd.setModel(prodLista);
+                    totalConta += (prod.getValorVenda() * (Double.parseDouble(textFieldQtd.getText())));
+                    total.setText(String.format("TOTAL DA VENDA: %.2f", totalConta));
+                    textFieldQtd.setText("");
+                    indexProd++;
                 }
             }
+
         });
 
         JButton botaoRetrocederProd = new JButton("APAGAR");
@@ -129,15 +129,11 @@ public class RegistrarVenda {
 
         botaoRetrocederProd.addActionListener(e -> {
             if (!prodLista.isEmpty()) {
-                for (Produto prod : empresa.getProdutos().values()) {
-                    if (prod.getCodigo().equals(prodLista.get(indexProd - 1).split("-")[0].trim())) {
-                        map.remove(prod);
-                        totalConta -= (prod.getValorVenda()
-                                * (Double.parseDouble(prodLista.get(indexProd - 1).split("-")[1].trim())));
-                        total.setText(String.format("TOTAL DA VENDA: %.2f", totalConta));
-                        break;
-                    }
-                }
+                Produto prod = empresa.getProdutos().get(comboBoxIdProd.getSelectedItem().toString());
+                map.remove(prod);
+                totalConta -= (prod.getValorVenda()
+                        * (Double.parseDouble(prodLista.get(indexProd - 1).split("-")[1].trim())));
+                total.setText(String.format("TOTAL DA VENDA: %.2f", totalConta));
                 prodLista.remove(indexProd - 1);
                 listaProd.setModel(prodLista);
                 System.out.println(map);
@@ -228,7 +224,14 @@ public class RegistrarVenda {
         panel.add(botaoSalvar);
 
         botaoSair.addActionListener(e -> {
-            new MenuVND(empresa);
+            switch (setorLogin) {
+                case "GERENTE":
+                    new MenuEstoque(empresa, setorLogin);
+                    break;
+                case "VENDAS":
+                    new MenuVND(empresa, setorLogin);
+                    break;
+            }
             frame.dispose();
         });
 
@@ -239,7 +242,7 @@ public class RegistrarVenda {
             }
             empresa.registrarVenda(map, ids, comboBoxNomeTransp.getSelectedItem().toString(),
                     comboBoxNomeLocais.getSelectedItem().toString(), totalConta);
-            new MenuVND(empresa);
+            new RegistrarVenda(empresa, setorLogin);
             frame.dispose();
         });
 

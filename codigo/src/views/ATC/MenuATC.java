@@ -1,27 +1,23 @@
-package views;
-
-import views.funcs.AtualizarStatusNegocio;
+package views.ATC;
 
 import javax.swing.*;
 
 import sistema.Empresa;
+import views.Login;
+import views.funcs.NegocioAndamento.AtualizarStatusNegocio;
+import views.funcs.NegocioAndamento.ListarNegocioAndamento;
+import views.funcs.Produto.ListarTodosProdutos;
+import views.funcs.Transportadora.ListarTransportadora;
 
 import java.awt.*;
 
-public class MenuAMX {
+public class MenuATC {
+    // 1. XXXXX Listar Produtos em Estoque
+    // 2. XXXXX Listar Transportadoras Parceiras
+    // 3. Listar Negócios em Andamento
+    // 4. Atualizar Status de Negócio
 
-    // "1. Gerenciar Estoque");
-    // 1. Adicionar Produto
-    // 2. Atualizar Produto
-    // 3. Remover Produto
-    // 4. Listar Produtos em Estoque
-    // 5. Registrar Compra/Reabastecimento
-
-    // 1. Listar Transportadoras Parceiras
-    // 2. Listar Negócios em Andamento
-    // 3. Atualizar Status de Negócio
-
-    public MenuAMX(Empresa empresa) {
+    public MenuATC(Empresa empresa, String setorLogin) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
@@ -48,7 +44,7 @@ public class MenuAMX {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("ALMOXARIFADO");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -62,11 +58,11 @@ public class MenuAMX {
         botao1.setBounds(margemLateral, 85, larguraBotao, alturaBotao);
         panel.add(botao1);
 
-        JButton botao2 = new JButton("Gerenciar Estoque");
+        JButton botao2 = new JButton("Listar Negócios em Andamento");
         botao2.setBounds(margemLateral, 145, larguraBotao, alturaBotao);
         panel.add(botao2);
 
-        JButton botao3 = new JButton("Listar Negócios em Andamento");
+        JButton botao3 = new JButton("Listar Produtos em Estoque");
         botao3.setBounds(margemLateral, 205, larguraBotao, alturaBotao);
         panel.add(botao3);
 
@@ -75,11 +71,19 @@ public class MenuAMX {
         panel.add(botao4);
 
         botao1.addActionListener(e -> {
-            new AtualizarStatusNegocio(empresa);
+            new AtualizarStatusNegocio(empresa, setorLogin);
             frame.dispose();
         });
         botao2.addActionListener(e -> {
-            new MenuEstoque(empresa);
+            new ListarNegocioAndamento(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao3.addActionListener(e -> {
+            new ListarTodosProdutos(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao4.addActionListener(e -> {
+            new ListarTransportadora(empresa, setorLogin);
             frame.dispose();
         });
 

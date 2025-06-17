@@ -1,4 +1,4 @@
-package views.funcs;
+package views.funcs.Transportadora;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -6,11 +6,16 @@ import javax.swing.table.DefaultTableModel;
 import sistema.Empresa;
 import sistema.Transportadora;
 import views.MenuTransportadora;
+import views.AMX.MenuAMX;
+import views.ATC.MenuATC;
+import views.FNC.MenuFNC;
+import views.GDP.MenuGDP;
+import views.VND.MenuVND;
 
 import java.awt.*;
 
 public class ListarTransportadora {
-    public ListarTransportadora(Empresa empresa) {
+    public ListarTransportadora(Empresa empresa, String setorLogin) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -27,7 +32,7 @@ public class ListarTransportadora {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("GERENTE");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -56,12 +61,31 @@ public class ListarTransportadora {
             });
         }
 
-        JButton botaoSair = new JButton("VOLTAR");
-        botaoSair.setBounds(305, 400, 100, 30);
-        panel.add(botaoSair);
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
 
-        botaoSair.addActionListener(e -> {
-            new MenuTransportadora(empresa);
+        botaoVoltar.addActionListener(e -> {
+            switch (setorLogin) {
+                case "GERENTE":
+                    new MenuTransportadora(empresa, setorLogin);
+                    break;
+                case "ATENDIMENTO AO CLIENTE":
+                    new MenuATC(empresa, setorLogin);
+                    break;
+                case "GESTÃO DE PESSOAS":
+                    new MenuGDP(empresa, setorLogin);
+                    break;
+                case "FINANCEIRO":
+                    new MenuFNC(empresa, setorLogin);
+                    break;
+                case "VENDAS":
+                    new MenuVND(empresa, setorLogin);
+                    break;
+                case "ALMOXARIFADO":
+                    new MenuAMX(empresa, setorLogin);
+                    break;
+            }
             frame.dispose();
         });
 

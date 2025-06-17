@@ -1,4 +1,4 @@
-package views.funcs;
+package views.funcs.Produto;
 
 import javax.swing.*;
 
@@ -9,7 +9,7 @@ import views.MenuEstoque;
 import java.awt.*;
 
 public class AdicionarProduto {
-    public AdicionarProduto(Empresa empresa) {
+    public AdicionarProduto(Empresa empresa, String setorLogin) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -26,7 +26,7 @@ public class AdicionarProduto {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("ALMOXARIFADO");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -64,16 +64,16 @@ public class AdicionarProduto {
         textFieldQtd.setBounds(350, 250, 150, 25);
         panel.add(textFieldQtd);
 
-        JButton botaoSair = new JButton("VOLTAR");
-        botaoSair.setBounds(50, 400, 100, 30);
-        panel.add(botaoSair);
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
 
         JButton botaoSalvar = new JButton("SALVAR");
         botaoSalvar.setBounds(550, 400, 100, 30);
         panel.add(botaoSalvar);
 
-        botaoSair.addActionListener(e -> {
-            new MenuEstoque(empresa);
+        botaoVoltar.addActionListener(e -> {
+            new MenuEstoque(empresa, setorLogin);
             frame.dispose();
         });
 
@@ -82,8 +82,8 @@ public class AdicionarProduto {
                     new Produto(textFieldNome.getText(), Double.parseDouble(textFieldValorCompra.getText()),
                             Double.parseDouble(textFieldValorVenda.getText()),
                             Integer.parseInt(textFieldQtd.getText())));
+            new AdicionarProduto(empresa, setorLogin);
             frame.dispose();
-            new MenuEstoque(empresa);
         });
 
         frame.add(panel);

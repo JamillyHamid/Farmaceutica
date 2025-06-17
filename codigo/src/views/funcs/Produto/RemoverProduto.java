@@ -1,4 +1,4 @@
-package views.funcs;
+package views.funcs.Produto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import sistema.Produto;
 import views.MenuEstoque;
 
 public class RemoverProduto {
-    public RemoverProduto(Empresa empresa) {
+    public RemoverProduto(Empresa empresa, String setorLogin) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -28,7 +28,7 @@ public class RemoverProduto {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("ALMOXARIFADO");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -41,23 +41,23 @@ public class RemoverProduto {
         List<String> idLista = new ArrayList<>();
 
         for (Produto produto : empresa.getProdutos().values()) {
-                idLista.add(produto.getCodigo());
+            idLista.add(produto.getCodigo());
         }
 
         JComboBox<String> comboBoxid = new JComboBox<>(idLista.toArray(new String[0]));
         comboBoxid.setBounds(360, 100, 150, 25);
         panel.add(comboBoxid);
 
-        JButton botaoSair = new JButton("VOLTAR");
-        botaoSair.setBounds(225, 400, 100, 30);
-        panel.add(botaoSair);
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
 
         JButton botaoDeletar = new JButton("DELETAR");
         botaoDeletar.setBounds(375, 400, 100, 30);
         panel.add(botaoDeletar);
 
-        botaoSair.addActionListener(e -> {
-            new MenuEstoque(empresa);
+        botaoVoltar.addActionListener(e -> {
+            new MenuEstoque(empresa, setorLogin);
             frame.dispose();
         });
 
@@ -65,7 +65,7 @@ public class RemoverProduto {
             int popup = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esse produto?");
             if (popup == JOptionPane.YES_OPTION) {
                 empresa.removerProduto(comboBoxid.getSelectedItem().toString());
-                new MenuEstoque(empresa);
+                new RemoverProduto(empresa, setorLogin);
                 frame.dispose();
             }
         });

@@ -1,19 +1,24 @@
-package views;
+package views.VND;
 
 import javax.swing.*;
 
 import sistema.Empresa;
-import views.funcs.RegistrarVenda;
+import views.Login;
+import views.funcs.NegocioAndamento.AtualizarStatusNegocio;
+import views.funcs.NegocioAndamento.ListarNegocioAndamento;
+import views.funcs.Produto.ListarTodosProdutos;
+import views.funcs.Registrar.RegistrarVenda;
+import views.funcs.Transportadora.ListarTransportadora;
 
 import java.awt.*;
 
 public class MenuVND {
-    // 1. Registrar Venda
+    // 1. XXXXX Registrar Venda
     // 2. Atualizar Status de Negócio
     // 3. Listar Negócios em Andamento
-    // 4. Listar Produtos em Estoque
-    // 5. Listar Transportadoras Parceiras
-    public MenuVND(Empresa empresa) {
+    // 4. XXXXX Listar Produtos em Estoque
+    // 5. XXXXX Listar Transportadoras Parceiras
+    public MenuVND(Empresa empresa, String setorLogin) {
 
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
@@ -40,7 +45,7 @@ public class MenuVND {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("VENDAS");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -71,13 +76,23 @@ public class MenuVND {
         panel.add(botao5);
 
         botao1.addActionListener(e -> {
+            new AtualizarStatusNegocio(empresa, setorLogin);
             frame.dispose();
         });
         botao2.addActionListener(e -> {
+            new ListarNegocioAndamento(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao3.addActionListener(e -> {
+            new ListarTodosProdutos(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao4.addActionListener(e -> {
+            new ListarTransportadora(empresa, setorLogin);
             frame.dispose();
         });
         botao5.addActionListener(e -> {
-            new RegistrarVenda(empresa);
+            new RegistrarVenda(empresa, setorLogin);
             frame.dispose();
         });
 

@@ -1,4 +1,4 @@
-package views.funcs;
+package views.funcs.Produto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import views.MenuEstoque;
 
 public class AtualizarProduto {
 
-    public AtualizarProduto(Empresa empresa) {
+    public AtualizarProduto(Empresa empresa, String setorLogin) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -30,7 +30,7 @@ public class AtualizarProduto {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("ALMOXARIFADO");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -83,9 +83,9 @@ public class AtualizarProduto {
         textFieldQtd.setEditable(false);
         panel.add(textFieldQtd);
 
-        JButton botaoSair = new JButton("VOLTAR");
-        botaoSair.setBounds(50, 400, 100, 30);
-        panel.add(botaoSair);
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
 
         JButton botaoSalvar = new JButton("SALVAR");
         botaoSalvar.setBounds(550, 400, 100, 30);
@@ -104,8 +104,8 @@ public class AtualizarProduto {
             }
         });
 
-        botaoSair.addActionListener(e -> {
-            new MenuEstoque(empresa);
+        botaoVoltar.addActionListener(e -> {
+            new MenuEstoque(empresa, setorLogin);
             frame.dispose();
         });
 
@@ -113,7 +113,7 @@ public class AtualizarProduto {
             empresa.atualizarProduto(textFieldNome.getText(), comboBoxid.getSelectedItem().toString(),
                     Double.parseDouble(textFieldValorCompra.getText()),
                     Double.parseDouble(textFieldValorVenda.getText()));
-            new AtualizarProduto(empresa);
+            new AtualizarProduto(empresa, setorLogin);
             frame.dispose();
         });
 

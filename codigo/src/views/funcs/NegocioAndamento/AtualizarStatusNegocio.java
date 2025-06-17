@@ -1,14 +1,16 @@
-package views.funcs;
+package views.funcs.NegocioAndamento;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import views.MenuAMX;
-
 import sistema.Empresa;
 import sistema.NegocioEmAndamento;
+import views.MenuNegocio;
+import views.AMX.MenuAMX;
+import views.ATC.MenuATC;
+import views.VND.MenuVND;
 
 public class AtualizarStatusNegocio {
 
@@ -19,7 +21,7 @@ public class AtualizarStatusNegocio {
     // String novoStatus = scanner.nextLine();
     // atualizarStatusNegocio(idNegocio, novoStatus);
 
-    public AtualizarStatusNegocio(Empresa empresa) {
+    public AtualizarStatusNegocio(Empresa empresa, String setorLogin) {
         JFrame frame = new JFrame("Sistema Farmacêutico");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -36,7 +38,7 @@ public class AtualizarStatusNegocio {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
 
-        JLabel subtitle = new JLabel("ALMOXARIFADO");
+        JLabel subtitle = new JLabel(setorLogin);
         subtitle.setFont(new Font("Arial", Font.BOLD, 10));
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -71,24 +73,37 @@ public class AtualizarStatusNegocio {
         comboBoxStatus.setBounds(350, 150, 150, 25);
         panel.add(comboBoxStatus);
 
-        JButton botaoSair = new JButton("VOLTAR");
-        botaoSair.setBounds(225, 220, 100, 30);
-        panel.add(botaoSair);
+        JButton botaoVoltar = new JButton("VOLTAR");
+        botaoVoltar.setBounds(50, 400, 100, 30);
+        panel.add(botaoVoltar);
 
         JButton botaoSalvar = new JButton("SALVAR");
         botaoSalvar.setBounds(375, 220, 100, 30);
         panel.add(botaoSalvar);
 
-        botaoSair.addActionListener(e -> {
-            new MenuAMX(empresa);
+        botaoVoltar.addActionListener(e -> {
+            switch (setorLogin) {
+                case "GERENTE":
+                    new MenuNegocio(empresa, setorLogin);
+                    break;
+                case "ATENDIMENTO AO CLIENTE":
+                    new MenuATC(empresa, setorLogin);
+                    break;
+                case "VENDAS":
+                    new MenuVND(empresa, setorLogin);
+                    break;
+                case "ALMOXARIFADO":
+                    new MenuAMX(empresa, setorLogin);
+                    break;
+            }
             frame.dispose();
         });
 
         botaoSalvar.addActionListener(e -> {
             empresa.atualizarStatusNegocio(comboBoxid.getSelectedItem().toString(),
-            comboBoxStatus.getSelectedItem().toString());
+                    comboBoxStatus.getSelectedItem().toString());
             empresa.listarNegociosEmAndamento();
-            new AtualizarStatusNegocio(empresa);
+            new AtualizarStatusNegocio(empresa, setorLogin);
             frame.dispose();
         });
 

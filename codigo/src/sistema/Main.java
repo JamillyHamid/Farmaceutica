@@ -5,7 +5,6 @@ import java.util.Scanner;
 import javax.swing.*;
 
 import views.Login;
-import views.MenuRH;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
