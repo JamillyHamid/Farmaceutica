@@ -19,7 +19,6 @@ public class Produto {
     }
 
     private String gerarId() {
-        // Padrão PROD00001
         String valor = Integer.toString(count);
         String idNumber = "";
         for (int i = 0; i < (5 - valor.length()); i++) {
@@ -28,7 +27,6 @@ public class Produto {
         return String.format("PROD".concat(idNumber).concat(valor));
     }
 
-    // --- Getters e Setters ---
     public String getNome() {
         return nome;
     }

@@ -27,11 +27,9 @@ public class Empresa {
         setores.put("Almoxarifado", new Setor("Almoxarifado"));
         setores.put("Transportadoras", new Setor("Transportadoras"));
 
-        // Gerente de Filial (1)
         adicionarFuncionario(
                 new Funcionario("Ana Paula Silva", "EMP001", 45, "Feminino", "Gerente de Filial", 10000.00),
                 "Gerente de Filial");
-        // Atendimento ao Cliente (4)
         adicionarFuncionario(new Funcionario("Carlos Alberto Mendes", "EMP002", 28, "Masculino", "Atendente", 2500.00),
                 "Atendimento ao Cliente");
         adicionarFuncionario(new Funcionario("Beatriz Costa Lima", "EMP003", 32, "Feminino", "Atendente", 2600.00),
@@ -41,7 +39,6 @@ public class Empresa {
         adicionarFuncionario(
                 new Funcionario("Gabriela Oliveira", "EMP005", 30, "Feminino", "Atendente Sênior", 2800.00),
                 "Atendimento ao Cliente");
-        // Gestão de Pessoas (4)
         adicionarFuncionario(new Funcionario("Heloísa Dantas", "EMP006", 38, "Feminino", "Analista RH", 4000.00),
                 "Gestão de Pessoas");
         adicionarFuncionario(new Funcionario("Igor Rodrigues", "EMP007", 35, "Masculino", "Assistente RH", 3200.00),
@@ -50,7 +47,6 @@ public class Empresa {
                 "Gestão de Pessoas");
         adicionarFuncionario(new Funcionario("Leandro Gomes", "EMP009", 29, "Masculino", "Recrutador", 3500.00),
                 "Gestão de Pessoas");
-        // Financeiro (3)
         adicionarFuncionario(new Funcionario("Márcia Fernandes", "EMP010", 42, "Feminino", "Contador", 5500.00),
                 "Financeiro");
         adicionarFuncionario(
@@ -58,7 +54,6 @@ public class Empresa {
                 "Financeiro");
         adicionarFuncionario(new Funcionario("Olívia Souza", "EMP012", 27, "Feminino", "Auxiliar Financeiro", 3000.00),
                 "Financeiro");
-        // Vendas (5)
         adicionarFuncionario(new Funcionario("Paulo Roberto", "EMP013", 31, "Masculino", "Vendedor", 3500.00),
                 "Vendas");
         adicionarFuncionario(new Funcionario("Quiteria Barbosa", "EMP014", 36, "Feminino", "Vendedor Sênior", 4000.00),
@@ -68,7 +63,6 @@ public class Empresa {
         adicionarFuncionario(new Funcionario("Sara Vieira", "EMP016", 30, "Feminino", "Vendedor", 3600.00), "Vendas");
         adicionarFuncionario(new Funcionario("Thiago Martins", "EMP017", 40, "Masculino", "Gerente de Vendas", 7000.00),
                 "Vendas");
-        // Almoxarifado (3)
         adicionarFuncionario(
                 new Funcionario("Úrsula Costa", "EMP018", 34, "Feminino", "Encarregado Almoxarifado", 3800.00),
                 "Almoxarifado");
@@ -78,7 +72,6 @@ public class Empresa {
         adicionarFuncionario(new Funcionario("Xavier Antunes", "EMP020", 29, "Masculino", "Conferente", 3000.00),
                 "Almoxarifado");
 
-        // produtos
         adicionarProduto(new Produto("Paracetamol 500mg (Cx c/20", 5.00, 12.50, 1000));
         adicionarProduto(new Produto("Dipirona Sódica 1g (Cx c/10)", 7.50, 18.00, 800));
         adicionarProduto(new Produto("Amoxicilina 500mg (Cx c/21)", 15.00, 35.00, 500));
@@ -110,22 +103,21 @@ public class Empresa {
         adicionarProduto(new Produto("Fralda Geriátrica G (Cx c/10)", 30.00, 70.00, 250));
         adicionarProduto(new Produto("Protetor Solar FPS 30 (120ml)", 15.00, 35.00, 400));
 
-        // Adicionar transportadoras
-        Transportadora t1 = new Transportadora("Transportes Veloz", 15.00); // Grande Londrina
+        Transportadora t1 = new Transportadora("Transportes Veloz", 15.00);
         String[] locaist1 = { "Londrina - PR", "Cambé - PR", "Rolândia - PR", "Ibiporâ - PR" };
         for (String local : locaist1) {
             t1.addLocalAtendimento(local);
         }
         adicionarTransportadora(t1);
 
-        Transportadora t2 = new Transportadora("Entrega Nacional LTDA", 25.00); // Estado Paraná
+        Transportadora t2 = new Transportadora("Entrega Nacional LTDA", 25.00);
         String[] locaist2 = { "Curitiba - PR", "Maringá - PR", "Cascavel - PR", "Ponta Grossa - PR" };
         for (String local : locaist2) {
             t2.addLocalAtendimento(local);
         }
         adicionarTransportadora(t2);
 
-        Transportadora t3 = new Transportadora("Logística Ágil Brasil", 35.00); // Estado São Paulo
+        Transportadora t3 = new Transportadora("Logística Ágil Brasil", 35.00);
         String[] locaist3 = { "São Paulo - SP", "Ourinhos - SP", "Assis - SP", "Marilha - SP" };
         for (String local : locaist3) {
             t3.addLocalAtendimento(local);
@@ -133,9 +125,6 @@ public class Empresa {
         adicionarTransportadora(t3);
     }
 
-    // --- Métodos de Gerenciamento ---
-
-    // Gerenciamento de Funcionários
     public void adicionarFuncionario(Funcionario funcionario, String nomeSetor) {
         Setor setor = setores.get(nomeSetor);
         setor.addFuncionario(funcionario);
@@ -191,7 +180,7 @@ public class Empresa {
             }
         }
 
-        double custoTotal = calcularCustoMensalComPessoal(); // se esse método já soma tudo
+        double custoTotal = calcularCustoMensalComPessoal();
 
         return new double[] {
                 totalSalariosLiquidos,
@@ -201,7 +190,6 @@ public class Empresa {
         };
     }
 
-    // Gerenciamento Financeiro
     public void registrarEntradaCaixa(double valor) {
         this.caixaTotal += valor;
     }
@@ -235,7 +223,6 @@ public class Empresa {
         return custoTotalPessoal;
     }
 
-    // Gerenciamento de Estoque/Produtos
     public void adicionarProduto(Produto produto) {
         produtos.put(produto.getCodigo(), produto);
     }
@@ -300,11 +287,11 @@ public class Empresa {
                 double valorVenda = scanner.nextDouble();
                 System.out.print("Quantidade inicial: ");
                 int quantidadeInicial = scanner.nextInt();
-                scanner.nextLine(); // Consumir nova linha
+                scanner.nextLine();
                 produto = new Produto(nome, valorCompra, valorVenda, quantidadeInicial);
                 adicionarProduto(produto);
                 System.out.println("Novo produto cadastrado e estoque inicial adicionado.");
-                return; // Compra inicial já foi a adição ao estoque
+                return;
             } else {
                 return;
             }
@@ -328,7 +315,7 @@ public class Empresa {
             String trimmedId = id.trim();
             Funcionario almoxarife = buscarFuncionarioPorId(trimmedId);
             if (almoxarife != null && almoxarife.getCargo().contains("Almoxarifado")
-                    || almoxarife.getCargo().equals("Conferente")) { // Confere se é do almoxarifado
+                    || almoxarife.getCargo().equals("Conferente")) {
                 almoxarifesEnvolvidos.add(almoxarife);
             } else {
                 System.out.println("ID de funcionário do almoxarifado inválido ou não encontrado: " + trimmedId);
@@ -359,7 +346,6 @@ public class Empresa {
         // registrada com sucesso.");
     }
 
-    // Gerenciamento de Transportadoras
     public void adicionarTransportadora(Transportadora transportadora) {
         transportadoras.add(transportadora);
     }
@@ -384,8 +370,6 @@ public class Empresa {
         }
     }
 
-    // Gerenciamento de Negócios em Andamento
-
     public void atualizarStatusNegocio(String idNegocio, String novoStatus) {
         for (NegocioEmAndamento negocio : negociosEmAndamento) {
             if (negocio.getIdNegocio().equals(idNegocio)) {
@@ -395,7 +379,6 @@ public class Empresa {
         }
     }
 
-    // Métodos Auxiliares
     public Funcionario buscarFuncionarioPorId(String id) {
         for (Setor setor : setores.values()) {
             Funcionario func = setor.buscarFuncionario(id);
@@ -409,8 +392,6 @@ public class Empresa {
     public Produto buscarProdutoPorCodigo(String codigo) {
         return produtos.get(codigo);
     }
-
-    // getters e setters
 
     public double getCaixaTotal() {
         return caixaTotal;

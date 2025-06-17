@@ -40,7 +40,6 @@ public class Funcionario {
     }
 
     private String gerarId() {
-        // Padrão EMP00001
         String valor = Integer.toString(count);
         String idNumber = "";
         for (int i = 0; i < (5 - valor.length()); i++) {
@@ -54,14 +53,12 @@ public class Funcionario {
             case "Gerente de Filial":
                 this.valeRefeicao = 500.0;
                 this.valeAlimentacao = 500.0;
-                this.planoSaude = 5000.0; // Cobertura maior
+                this.planoSaude = 5000.0;
                 break;
             case "Vendas":
                 this.valeRefeicao = 350.0;
                 this.valeAlimentacao = 350.0;
-                // Plano de saúde e odontológico podem ter progressão menor ou permanecer padrão
                 break;
-            // Adicione mais casos para outros cargos conforme a necessidade de progressão
         }
     }
 
@@ -75,9 +72,8 @@ public class Funcionario {
         return this.salarioBase * 0.06; // Um percentual como benefício ou custo da empresa
     }
 
-    // Método para calcular o Imposto de Renda com base na tabela
     public void calcularImpostoRenda() {
-        double baseCalculo = salarioBase + bonificacaoLucros; // A base de cálculo para o IR
+        double baseCalculo = salarioBase + bonificacaoLucros;
 
         if (baseCalculo <= 2428.80) {
             this.impostoRenda = 0;
@@ -91,10 +87,9 @@ public class Funcionario {
             this.impostoRenda = (baseCalculo * 0.275) - 908.75;
         }
         if (this.impostoRenda < 0)
-            this.impostoRenda = 0; // Imposto não pode ser negativo
+            this.impostoRenda = 0;
     }
 
-    // Método para calcular o salário líquido
     public void calcularSalarioLiquido() {
         // Salário líquido = Salário Base + Bonificação - Imposto de Renda - Vale
         // Transporte (se for um desconto)
@@ -105,12 +100,10 @@ public class Funcionario {
         this.salarioLiquido = salarioBase + bonificacaoLucros - impostoRenda;
     }
 
-    // Método para mudar senha
     public void mudarSenha(String novaSenha) {
         this.senha = novaSenha;
     }
 
-    // --- Getters e Setters ---
     public String getNomeCompleto() {
         return nomeCompleto;
     }
@@ -149,10 +142,10 @@ public class Funcionario {
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
-        ajustarBeneficiosPorCargo(); // Recalcula benefícios ao mudar de cargo
-        calcularValeTransporte(); // Recalcula VT
-        calcularImpostoRenda(); // Recalcula IR
-        calcularSalarioLiquido(); // Recalcula líquido
+        ajustarBeneficiosPorCargo();
+        calcularValeTransporte();
+        calcularImpostoRenda();
+        calcularSalarioLiquido();
     }
 
     public double getSalarioBase() {
@@ -161,9 +154,9 @@ public class Funcionario {
 
     public void setSalarioBase(double salarioBase) {
         this.salarioBase = salarioBase;
-        calcularValeTransporte(); // Recalcula VT
-        calcularImpostoRenda(); // Recalcula IR
-        calcularSalarioLiquido(); // Recalcula líquido
+        calcularValeTransporte();
+        calcularImpostoRenda();
+        calcularSalarioLiquido();
     }
 
     public double getValeTransporte() {
@@ -192,8 +185,8 @@ public class Funcionario {
 
     public void setBonificacaoLucros(double bonificacaoLucros) {
         this.bonificacaoLucros = bonificacaoLucros;
-        calcularImpostoRenda(); // Recalcula IR
-        calcularSalarioLiquido(); // Recalcula líquido
+        calcularImpostoRenda();
+        calcularSalarioLiquido();
     }
 
     public double getImpostoRenda() {

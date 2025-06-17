@@ -6,9 +6,9 @@ import java.util.List;
 public class Transportadora {
     private String nome;
     private List<String> locaisAtendimento;
-    private double valorFreteFixo; // Novo: Valor de frete único para a transportadora
+    private double valorFreteFixo;
 
-    public Transportadora(String nome, double valorFreteFixo) { // Construtor modificado
+    public Transportadora(String nome, double valorFreteFixo) {
         this.nome = nome;
         this.valorFreteFixo = valorFreteFixo;
         this.locaisAtendimento = new ArrayList<>();
@@ -18,12 +18,10 @@ public class Transportadora {
         this.locaisAtendimento.add(local);
     }
 
-    // Método para verificar se a transportadora atende um local
     public boolean atendeLocal(String local) {
         return locaisAtendimento.stream().anyMatch(l -> l.equalsIgnoreCase(local.trim()));
     }
 
-    // --- Getters ---
     public String getNome() {
         return nome;
     }
@@ -34,8 +32,7 @@ public class Transportadora {
 
     public double getValorFreteFixo() {
         return valorFreteFixo;
-    } // Novo getter
-      // Opcional: Setter para valorFreteFixo se precisar mudar dinamicamente
+    }
 
     public void setNome(String nome) {
         this.nome = nome;

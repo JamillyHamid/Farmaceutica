@@ -6,12 +6,12 @@ import java.util.Map;
 
 public class NegocioEmAndamento {
     private String idNegocio;
-    private String tipo; // "Venda" ou "Compra"
-    private List<Funcionario> participantesVenda; // Vendedores
-    private List<Funcionario> participantesCompra; // Pessoal do almoxarifado
+    private String tipo;
+    private List<Funcionario> participantesVenda;
+    private List<Funcionario> participantesCompra;
     private LocalDate dataInicio;
-    private String status; // Ex: "Em negociação", "Aguardando pagamento", "Concluído", "Cancelado"
-    private Map<Produto, Integer> produtosEnvolvidos; // Produto e quantidade
+    private String status;
+    private Map<Produto, Integer> produtosEnvolvidos;
 
     public NegocioEmAndamento(String idNegocio, String tipo, LocalDate dataInicio,  Map<Produto, Integer> produtosEnvolvidos) {
         this.idNegocio = idNegocio;
@@ -31,7 +31,6 @@ public class NegocioEmAndamento {
         this.participantesCompra = participantesCompra;
     }
 
-    // --- Getters e Setters ---
     public String getIdNegocio() { return idNegocio; }
     public String getTipo() { return tipo; }
     public List<Funcionario> getParticipantesVenda() { return participantesVenda; }
