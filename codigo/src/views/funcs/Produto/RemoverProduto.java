@@ -53,7 +53,7 @@ public class RemoverProduto {
         panel.add(botaoVoltar);
 
         JButton botaoDeletar = new JButton("DELETAR");
-        botaoDeletar.setBounds(375, 400, 100, 30);
+        botaoDeletar.setBounds(550, 400, 100, 30);
         panel.add(botaoDeletar);
 
         botaoVoltar.addActionListener(e -> {

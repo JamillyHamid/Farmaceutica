@@ -144,8 +144,12 @@ public class RegistrarVenda {
         // Lista para adicionar funcionários
 
         List<String> idListaFunc = new ArrayList<>();
-        Setor setor = empresa.getSetores().get("Vendas");
-        for (Funcionario fun : setor.getFuncionarios()) {
+        Setor setorVND = empresa.getSetores().get("Vendas");
+        Setor setorGDF = empresa.getSetores().get("Gerente de Filial");
+        for (Funcionario fun : setorVND.getFuncionarios()) {
+            idListaFunc.add(fun.getId());
+        }
+        for (Funcionario fun : setorGDF.getFuncionarios()) {
             idListaFunc.add(fun.getId());
         }
 

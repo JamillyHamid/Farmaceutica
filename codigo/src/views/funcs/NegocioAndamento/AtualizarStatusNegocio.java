@@ -78,7 +78,7 @@ public class AtualizarStatusNegocio {
         panel.add(botaoVoltar);
 
         JButton botaoSalvar = new JButton("SALVAR");
-        botaoSalvar.setBounds(375, 220, 100, 30);
+        botaoSalvar.setBounds(550, 400, 100, 30);
         panel.add(botaoSalvar);
 
         botaoVoltar.addActionListener(e -> {

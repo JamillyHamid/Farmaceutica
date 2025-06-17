@@ -6,6 +6,7 @@ import views.funcs.Produto.AdicionarProduto;
 import views.funcs.Produto.AtualizarProduto;
 import views.funcs.Produto.ListarTodosProdutos;
 import views.funcs.Produto.RemoverProduto;
+import views.funcs.Registrar.RegistrarCompra;
 import views.funcs.Registrar.RegistrarVenda;
 
 import javax.swing.*;
@@ -58,26 +59,30 @@ public class MenuEstoque {
         int alturaBotao = 30;
         int margemLateral = 225;
 
-        JButton botao1 = new JButton("Editar Produto");
+        JButton botao1 = new JButton("Adicionar Produto");
         botao1.setBounds(margemLateral, 85, larguraBotao, alturaBotao);
         panel.add(botao1);
 
-        JButton botao2 = new JButton("Listar Produtos em Estoque");
+        JButton botao2 = new JButton("Editar Produto");
         botao2.setBounds(margemLateral, 145, larguraBotao, alturaBotao);
         panel.add(botao2);
 
-        JButton botao3 = new JButton("Registrar Compra/Reabastecimento");
+        JButton botao3 = new JButton("Listar Produtos em Estoque");
         botao3.setBounds(margemLateral, 205, larguraBotao, alturaBotao);
         panel.add(botao3);
 
-        JButton botao4 = new JButton("Remover Produto");
+        JButton botao4 = new JButton("Registrar Compra");
         botao4.setBounds(margemLateral, 265, larguraBotao, alturaBotao);
         panel.add(botao4);
 
-        JButton botao5 = new JButton("Registrar venda");
+        JButton botao5 = new JButton("Remover Produto");
+        botao5.setBounds(margemLateral, 325, larguraBotao, alturaBotao);
+        panel.add(botao5);
+
+        JButton botao6 = new JButton("Registrar venda");
         if (setorLogin.equals("GERENTE")) {
-            botao5.setBounds(margemLateral, 325, larguraBotao, alturaBotao);
-            panel.add(botao5);
+            botao6.setBounds(margemLateral, 385, larguraBotao, alturaBotao);
+            panel.add(botao6);
         }
 
         JButton botaoVoltar = new JButton("VOLTAR");
@@ -85,22 +90,26 @@ public class MenuEstoque {
         panel.add(botaoVoltar);
 
         botao1.addActionListener(e -> {
-            new AtualizarProduto(empresa, setorLogin);
-            frame.dispose();
-        });
-        botao2.addActionListener(e -> {
-            new ListarTodosProdutos(empresa, setorLogin);
-            frame.dispose();
-        });
-        botao3.addActionListener(e -> {
             new AdicionarProduto(empresa, setorLogin);
             frame.dispose();
         });
+        botao2.addActionListener(e -> {
+            new AtualizarProduto(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao3.addActionListener(e -> {
+            new ListarTodosProdutos(empresa, setorLogin);
+            frame.dispose();
+        });
         botao4.addActionListener(e -> {
-            new RemoverProduto(empresa, setorLogin);
+            new RegistrarCompra(empresa, setorLogin);
             frame.dispose();
         });
         botao5.addActionListener(e -> {
+            new RemoverProduto(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao6.addActionListener(e -> {
             new RegistrarVenda(empresa, setorLogin);
             frame.dispose();
         });
