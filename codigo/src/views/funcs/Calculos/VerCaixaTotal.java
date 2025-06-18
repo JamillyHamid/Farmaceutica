@@ -31,6 +31,11 @@ public class VerCaixaTotal {
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(subtitle);
 
+        JLabel labelCaixaTotal = new JLabel(String.format("Caixa total da empresa: R$%.2f", empresa.getCaixaTotal()));
+        labelCaixaTotal.setBounds(100, 220, 500, 20);
+        labelCaixaTotal.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(labelCaixaTotal);
+
         JButton botaoVoltar = new JButton("VOLTAR");
         botaoVoltar.setBounds(50, 400, 100, 30);
         panel.add(botaoVoltar);

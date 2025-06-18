@@ -79,7 +79,7 @@ public class MenuEstoque {
         botao5.setBounds(margemLateral, 325, larguraBotao, alturaBotao);
         panel.add(botao5);
 
-        JButton botao6 = new JButton("Registrar venda");
+        JButton botao6 = new JButton("Registrar Venda");
         if (setorLogin.equals("GERENTE")) {
             botao6.setBounds(margemLateral, 385, larguraBotao, alturaBotao);
             panel.add(botao6);

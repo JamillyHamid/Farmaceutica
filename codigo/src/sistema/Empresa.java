@@ -9,7 +9,6 @@ public class Empresa {
     private Map<String, Produto> produtos;
     private List<Transportadora> transportadoras;
     private List<NegocioEmAndamento> negociosEmAndamento;
-    private Scanner scanner;
 
     public Empresa() {
         this.caixaTotal = 200000.00;
@@ -17,7 +16,6 @@ public class Empresa {
         this.produtos = new HashMap<>();
         this.transportadoras = new ArrayList<>();
         this.negociosEmAndamento = new ArrayList<>();
-        this.scanner = new Scanner(System.in);
 
         setores.put("Gerente de Filial", new Setor("Gerente de Filial"));
         setores.put("Atendimento ao Cliente", new Setor("Atendimento ao Cliente"));
@@ -265,8 +263,8 @@ public class Empresa {
             vendedoresEnvolvidos.add(vendedor);
         }
 
-        for (Map.Entry<Produto, Integer> entrada : mapQtd.entrySet()) {
-            entrada.getKey().setQuantidadeEstoque(entrada.getKey().getQuantidadeEstoque() - entrada.getValue());
+        for (Map.Entry<Produto, Integer> saida : mapQtd.entrySet()) {
+            saida.getKey().setQuantidadeEstoque(saida.getKey().getQuantidadeEstoque() - saida.getValue());
         }
 
         registrarEntradaCaixa(valorVenda);
@@ -282,81 +280,27 @@ public class Empresa {
 
     }
 
-    public void registrarCompra() {
-        System.out.print("Digite o código do produto a ser comprado/reabastecido: ");
-        String codigoProduto = scanner.nextLine();
-        Produto produto = produtos.get(codigoProduto);
-
-        if (produto == null) {
-            System.out
-                    .println("Produto com código " + codigoProduto + " não encontrado. Deseja cadastrá-lo? (sim/não)");
-            String resposta = scanner.nextLine();
-            if (resposta.equalsIgnoreCase("sim")) {
-                System.out.print("Nome do novo produto: ");
-                String nome = scanner.nextLine();
-                System.out.print("Valor de Compra: ");
-                double valorCompra = scanner.nextDouble();
-                System.out.print("Valor de Venda: ");
-                double valorVenda = scanner.nextDouble();
-                System.out.print("Quantidade inicial: ");
-                int quantidadeInicial = scanner.nextInt();
-                scanner.nextLine(); // Consumir nova linha
-                produto = new Produto(nome, valorCompra, valorVenda, quantidadeInicial);
-                adicionarProduto(produto);
-                System.out.println("Novo produto cadastrado e estoque inicial adicionado.");
-                return; // Compra inicial já foi a adição ao estoque
-            } else {
-                return;
-            }
+    public void registrarCompra(Map<Produto, Integer> mapQtd, List<String> funcionarios, String transportadora,
+            String local, Double valorCompra) {
+        List<Funcionario> vendedoresEnvolvidos = new ArrayList<>();
+        for (String id : funcionarios) {
+            Funcionario vendedor = buscarFuncionarioPorId(id);
+            vendedoresEnvolvidos.add(vendedor);
         }
 
-        System.out.print("Digite a quantidade a ser comprada/reabastecida: ");
-        int quantidade = scanner.nextInt();
-        scanner.nextLine();
-
-        if (quantidade <= 0) {
-            System.out.println("Quantidade de compra inválida.");
-            return;
+        for (Map.Entry<Produto, Integer> entrada : mapQtd.entrySet()) {
+            entrada.getKey().setQuantidadeEstoque(entrada.getKey().getQuantidadeEstoque() + entrada.getValue());
         }
 
-        List<Funcionario> almoxarifesEnvolvidos = new ArrayList<>();
-        System.out.print(
-                "Digite os IDs dos funcionários do almoxarifado envolvidos (separados por vírgula, ex: EMP018,EMP019): ");
-        String idsAlmoxarifes = scanner.nextLine();
-        String[] ids = idsAlmoxarifes.split(",");
-        for (String id : ids) {
-            String trimmedId = id.trim();
-            Funcionario almoxarife = buscarFuncionarioPorId(trimmedId);
-            if (almoxarife != null && almoxarife.getCargo().contains("Almoxarifado")
-                    || almoxarife.getCargo().equals("Conferente")) { // Confere se é do almoxarifado
-                almoxarifesEnvolvidos.add(almoxarife);
-            } else {
-                System.out.println("ID de funcionário do almoxarifado inválido ou não encontrado: " + trimmedId);
-            }
-        }
-        if (almoxarifesEnvolvidos.isEmpty()) {
-            System.out.println("Nenhum funcionário do almoxarifado válido encontrado para registrar a compra.");
-            return;
-        }
+        registrarSaidaCaixa(valorCompra);
 
-        // double valorTotalCompra = produto.getValorCompra() * quantidade;
-        // produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + quantidade);
-        // registrarSaidaCaixa(valorTotalCompra);
+        String idNegocio = "COMPRA-" + UUID.randomUUID().toString().substring(0, 8);
+        NegocioEmAndamento novaCompra = new NegocioEmAndamento(idNegocio, "Compra",
+                LocalDate.now(), mapQtd);
 
-        // // Criar um novo negócio em andamento para a compra
-        // String idNegocio = "COMPRA-" + UUID.randomUUID().toString().substring(0, 8);
-        // NegocioEmAndamento novaCompra = new NegocioEmAndamento(idNegocio, "Compra",
-        // LocalDate.now());
-        // novaCompra.addProduto(produto, quantidade);
-        // almoxarifesEnvolvidos.forEach(novaCompra::addParticipanteCompra);
-        // novaCompra.setStatus("Concluído"); // Uma compra de reabastecimento pode ser
-        // marcada como concluída
-        // // imediatamente
+        novaCompra.addParticipantesCompra(vendedoresEnvolvidos);
 
-        // negociosEmAndamento.add(novaCompra);
-        // System.out
-        // .println("Compra de " + quantidade + " unidades de " + produto.getNome() + "
-        // registrada com sucesso.");
+        negociosEmAndamento.add(novaCompra);
     }
 
     // Gerenciamento de Transportadoras

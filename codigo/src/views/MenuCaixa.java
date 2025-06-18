@@ -5,6 +5,9 @@ import java.awt.*;
 
 import sistema.Empresa;
 import views.GDF.MenuGDF;
+import views.funcs.Calculos.CalcularFolha;
+import views.funcs.Calculos.EstimarLucros;
+import views.funcs.Calculos.VerCaixaTotal;
 
 public class MenuCaixa {
     public MenuCaixa(Empresa empresa, String setorLogin) {
@@ -29,6 +32,35 @@ public class MenuCaixa {
         subtitle.setBounds(100, 45, 500, 20);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(subtitle);
+
+        int larguraBotao = 250;
+        int alturaBotao = 30;
+        int margemLateral = 225;
+
+        JButton botao1 = new JButton("Calcular Folha de Pagamento");
+        botao1.setBounds(margemLateral, 85, larguraBotao, alturaBotao);
+        panel.add(botao1);
+
+        JButton botao2 = new JButton("Estimar Lucros Anuais");
+        botao2.setBounds(margemLateral, 145, larguraBotao, alturaBotao);
+        panel.add(botao2);
+
+        JButton botao3 = new JButton("Ver Caixa Total");
+        botao3.setBounds(margemLateral, 205, larguraBotao, alturaBotao);
+        panel.add(botao3);
+
+        botao1.addActionListener(e -> {
+            new CalcularFolha(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao2.addActionListener(e -> {
+            new EstimarLucros(empresa, setorLogin);
+            frame.dispose();
+        });
+        botao3.addActionListener(e -> {
+            new VerCaixaTotal(empresa, setorLogin);
+            frame.dispose();
+        });
 
         JButton botaoVoltar = new JButton("VOLTAR");
         botaoVoltar.setBounds(50, 400, 100, 30);

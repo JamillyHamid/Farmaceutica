@@ -38,8 +38,6 @@ public class MenuGDF {
     // XXXXX 3. Remover Transportadoras
 
     // "4. Gerenciar Fluxo de Caixa");
-    // 1. Registrar Entrada de Caixa **********
-    // 2. Registrar Saída de Caixa **********
     // 3. Ver Caixa Total
     // 4. Estimar Lucros Anuais
     // XXXXX 6. Calcular Folha de Pagamento

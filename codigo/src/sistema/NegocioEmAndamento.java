@@ -17,7 +17,7 @@ public class NegocioEmAndamento {
         this.idNegocio = idNegocio;
         this.tipo = tipo;
         this.dataInicio = dataInicio;
-        this.status = "Em negociação";
+        this.status = "Concluído";
         this.participantesVenda = new ArrayList<>();
         this.participantesCompra = new ArrayList<>();
         this.produtosEnvolvidos = produtosEnvolvidos;
