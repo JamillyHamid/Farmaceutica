@@ -70,7 +70,7 @@ public class ListarTodosFuncionarios {
             for (Funcionario fun : setor.getFuncionarios()) {
                 model.addRow(new Object[] { fun.getId(), fun.getNomeCompleto(), fun.getIdade(), fun.getGenero(),
                         setor.getNomeSetor(),
-                        fun.getCargo(), fun.getSalarioBase() });
+                        fun.getCargo(), String.format("R$ %.2f", fun.getSalarioBase()) });
             }
         }
 
@@ -82,7 +82,7 @@ public class ListarTodosFuncionarios {
                     for (Funcionario fun : setor.getFuncionarios()) {
                         model.addRow(new Object[] { fun.getId(), fun.getNomeCompleto(), fun.getIdade(), fun.getGenero(),
                                 setor.getNomeSetor(),
-                                fun.getCargo(), fun.getSalarioBase() });
+                                fun.getCargo(), String.format("R$ %.2f", fun.getSalarioBase()) });
                     }
                 }
             } else {
@@ -93,7 +93,7 @@ public class ListarTodosFuncionarios {
                 for (Funcionario fun : funcionarios) {
                     model.addRow(new Object[] { fun.getId(), fun.getNomeCompleto(), fun.getIdade(), fun.getGenero(),
                             setor.getNomeSetor(),
-                            fun.getCargo(), fun.getSalarioBase() });
+                            fun.getCargo(), String.format("R$ %.2f", fun.getSalarioBase()) });
                 }
             }
         });

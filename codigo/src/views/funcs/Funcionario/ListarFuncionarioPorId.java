@@ -74,9 +74,15 @@ public class ListarFuncionarioPorId {
             for (Funcionario fun : setor.getFuncionarios()) {
                 if (fun.getId().equals(comboBoxid.getSelectedItem().toString())) {
                     model.addRow(new Object[] { fun.getId(), fun.getNomeCompleto(), fun.getCargo(),
-                            fun.getSalarioBase(), fun.getBonificacaoLucros(), fun.getImpostoRenda(),
-                            fun.getSalarioLiquido(), fun.getValeTransporte(), fun.getValeRefeicao(),
-                            fun.getValeAlimentacao(), fun.getPlanoSaude(), fun.getPlanoOdontologico()
+                            String.format("R$ %.2f", fun.getSalarioBase()),
+                            String.format("R$ %.2f", fun.getBonificacaoLucros()),
+                            String.format("R$ %.2f", fun.getImpostoRenda()),
+                            String.format("R$ %.2f", fun.getSalarioLiquido()),
+                            String.format("R$ %.2f", fun.getValeTransporte()),
+                            String.format("R$ %.2f", fun.getValeRefeicao()),
+                            String.format("R$ %.2f", fun.getValeAlimentacao()),
+                            String.format("R$ %.2f", fun.getPlanoSaude()),
+                            String.format("R$ %.2f", fun.getPlanoOdontologico()),
                     });
                     break;
                 }

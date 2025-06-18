@@ -57,7 +57,7 @@ public class ListarTransportadora {
         frame.add(scrollPane);
 
         for (Transportadora transp : empresa.getTransportadoras()) {
-            model.addRow(new Object[] { transp.getNome(), transp.getValorFreteFixo(), transp.getLocaisAtendimento()
+            model.addRow(new Object[] { transp.getNome(), String.format("R$ %.2f", transp.getValorFreteFixo()), transp.getLocaisAtendimento()
             });
         }
 

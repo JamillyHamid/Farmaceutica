@@ -51,7 +51,7 @@ public class RegistrarVenda {
 
         // Total
 
-        JLabel total = new JLabel(String.format("TOTAL DA VENDA: %.2f", totalConta));
+        JLabel total = new JLabel(String.format("TOTAL DA VENDA: R$ %.2f", totalConta));
         total.setBounds(250, 400, 200, 30);
         total.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(total);
@@ -72,7 +72,7 @@ public class RegistrarVenda {
 
         for (Produto produto : empresa.getProdutos().values()) {
             model.addRow(new Object[] { produto.getNome(), produto.getCodigo(),
-                    produto.getValorVenda(),
+                    String.format("R$ %.2f", produto.getValorVenda()),
                     produto.getQuantidadeEstoque()
             });
         }
@@ -115,7 +115,7 @@ public class RegistrarVenda {
                     map.put(prod, Integer.parseInt(textFieldQtd.getText()));
                     listaProd.setModel(prodLista);
                     totalConta += (prod.getValorVenda() * (Double.parseDouble(textFieldQtd.getText())));
-                    total.setText(String.format("TOTAL DA VENDA: %.2f", totalConta));
+                    total.setText(String.format("TOTAL DA VENDA: R$ %.2f", totalConta));
                     textFieldQtd.setText("");
                     indexProd++;
                 }
@@ -133,7 +133,7 @@ public class RegistrarVenda {
                 map.remove(prod);
                 totalConta -= (prod.getValorVenda()
                         * (Double.parseDouble(prodLista.get(indexProd - 1).split("-")[1].trim())));
-                total.setText(String.format("TOTAL DA VENDA: %.2f", totalConta));
+                total.setText(String.format("TOTAL DA VENDA: R$ %.2f", totalConta));
                 prodLista.remove(indexProd - 1);
                 listaProd.setModel(prodLista);
                 System.out.println(map);
@@ -211,7 +211,7 @@ public class RegistrarVenda {
                     comboBoxNomeLocais.setModel(modelo);
                     totalConta += transp.getValorFreteFixo() - memoria;
                     memoria = transp.getValorFreteFixo();
-                    total.setText(String.format("TOTAL DA VENDA: %.2f", totalConta));
+                    total.setText(String.format("TOTAL DA VENDA: R$ %.2f", totalConta));
                     break;
                 }
             }

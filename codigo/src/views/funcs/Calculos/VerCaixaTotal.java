@@ -31,10 +31,17 @@ public class VerCaixaTotal {
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(subtitle);
 
-        JLabel labelCaixaTotal = new JLabel(String.format("Caixa total da empresa: R$%.2f", empresa.getCaixaTotal()));
-        labelCaixaTotal.setBounds(100, 220, 500, 20);
+        JLabel labelCaixaTotal = new JLabel("Caixa total da empresa");
+        labelCaixaTotal.setFont(new Font("Arial", Font.BOLD, 15));
+        labelCaixaTotal.setBounds(100, 200, 500, 20);
         labelCaixaTotal.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(labelCaixaTotal);
+
+        JLabel subtitleCaixaTotal = new JLabel(String.format("R$ %.2f", empresa.getCaixaTotal()));
+        subtitleCaixaTotal.setFont(new Font("Arial", Font.BOLD, 12));
+        subtitleCaixaTotal.setBounds(100, 220, 500, 20);
+        subtitleCaixaTotal.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(subtitleCaixaTotal);
 
         JButton botaoVoltar = new JButton("VOLTAR");
         botaoVoltar.setBounds(50, 400, 100, 30);

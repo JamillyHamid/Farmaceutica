@@ -32,24 +32,53 @@ public class CalcularFolha {
 
         double[] valores = empresa.calcularFolhaDePagamento();
 
-        JLabel labelSalario = new JLabel("Total de Salários Líquidos Pagos: R$ " + String.format("%.2f", valores[0]));
-        labelSalario.setBounds(150, 140, 350, 20);
+        JLabel labelSalario = new JLabel("Total de Salários Líquidos Pagos");
+        labelSalario.setFont(new Font("Arial", Font.BOLD, 15));
+        labelSalario.setBounds(100, 120, 500, 20);
+        labelSalario.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(labelSalario);
 
-        JLabel labelImposto = new JLabel("Total de Impostos de Renda Retidos: R$" + String.format("%.2f", valores[1]));
-        labelImposto.setBounds(150, 180, 350, 20);
+        JLabel subtitleSalario = new JLabel("R$ " + String.format("%.2f", valores[0]));
+        subtitleSalario.setFont(new Font("Arial", Font.BOLD, 12));
+        subtitleSalario.setBounds(100, 140, 500, 20);
+        subtitleSalario.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(subtitleSalario);
+
+        JLabel labelImposto = new JLabel("Total de Impostos de Renda Retidos");
+        labelImposto.setFont(new Font("Arial", Font.BOLD, 15));
+        labelImposto.setBounds(100, 180, 500, 20);
+        labelImposto.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(labelImposto);
 
-        JLabel labelCusto = new JLabel(
-                "Total de Custos com Benefícios (Empresa): R$" + String.format("%.2f", valores[2]));
-        labelCusto.setBounds(150, 220, 350, 20);
+        JLabel subtitleImposto = new JLabel("R$ " + String.format("%.2f", valores[1]));
+        subtitleImposto.setFont(new Font("Arial", Font.BOLD, 12));
+        subtitleImposto.setBounds(100, 200, 500, 20);
+        subtitleImposto.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(subtitleImposto);
+
+        JLabel labelCusto = new JLabel("Total de Custos com Benefícios");
+        labelCusto.setFont(new Font("Arial", Font.BOLD, 15));
+        labelCusto.setBounds(100, 240, 500, 20);
+        labelCusto.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(labelCusto);
 
-        JLabel labelTotal = new JLabel(
-                "Custo Total Estimado com Pessoal (Salário Base + Benefícios): R$"
-                        + String.format("%.2f", valores[3]));
-        labelTotal.setBounds(150, 260, 450, 20);
+        JLabel subtitleCusto = new JLabel("R$ " + String.format("%.2f", valores[2]));
+        subtitleCusto.setFont(new Font("Arial", Font.BOLD, 12));
+        subtitleCusto.setBounds(100, 260, 500, 20);
+        subtitleCusto.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(subtitleCusto);
+
+        JLabel labelTotal = new JLabel("Custo Total Estimado com Pessoal");
+        labelTotal.setFont(new Font("Arial", Font.BOLD, 15));
+        labelTotal.setBounds(100, 300, 500, 20);
+        labelTotal.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(labelTotal);
+
+        JLabel subtitleTotal = new JLabel("R$ " + String.format("%.2f", valores[3]));
+        subtitleTotal.setFont(new Font("Arial", Font.BOLD, 12));
+        subtitleTotal.setBounds(100, 320, 500, 20);
+        subtitleTotal.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(subtitleTotal);
 
         JButton botaoVoltar = new JButton("VOLTAR");
         botaoVoltar.setBounds(50, 400, 100, 30);

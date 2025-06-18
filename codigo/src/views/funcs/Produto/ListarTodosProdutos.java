@@ -51,8 +51,8 @@ public class ListarTodosProdutos {
         frame.add(scrollPane);
 
         for (Produto produto : empresa.getProdutos().values()) {
-            model.addRow(new Object[] { produto.getNome(), produto.getCodigo(), produto.getValorCompra(),
-                    produto.getValorVenda(),
+            model.addRow(new Object[] { produto.getNome(), produto.getCodigo(), String.format("R$ %.2f", produto.getValorCompra()),
+                    String.format("R$ %.2f", produto.getValorVenda()),
                     produto.getQuantidadeEstoque()
             });
         }
