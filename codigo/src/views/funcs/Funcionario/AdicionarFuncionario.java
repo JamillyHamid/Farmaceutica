@@ -53,7 +53,7 @@ public class AdicionarFuncionario {
         passwordFieldNome.setBounds(350, 150, 150, 25);
         panel.add(passwordFieldNome);
 
-        JLabel labelIdade = new JLabel("Informe a idade em anos:");
+        JLabel labelIdade = new JLabel("Informe a idade:");
         labelIdade.setBounds(180, 200, 350, 20);
         panel.add(labelIdade);
 

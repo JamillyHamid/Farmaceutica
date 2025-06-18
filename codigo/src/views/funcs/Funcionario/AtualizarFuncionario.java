@@ -70,7 +70,7 @@ public class AtualizarFuncionario {
         passwordFieldSenha.setBounds(350, 180, 150, 25);
         panel.add(passwordFieldSenha);
 
-        JLabel labelIdade = new JLabel("Informe a idade em anos:");
+        JLabel labelIdade = new JLabel("Informe a idade:");
         labelIdade.setBounds(180, 225, 350, 20);
         panel.add(labelIdade);
 

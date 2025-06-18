@@ -32,11 +32,11 @@ public class EstimarLucros {
         panel.add(subtitle);
 
         JLabel labelValorEstimado = new JLabel("Valor para estipular:");
-        labelValorEstimado.setBounds(150, 90, 150, 20);
+        labelValorEstimado.setBounds(220, 90, 150, 20);
         panel.add(labelValorEstimado);
 
         JTextField textFieldValorEstimado = new JTextField();
-        textFieldValorEstimado.setBounds(320, 90, 150, 20);
+        textFieldValorEstimado.setBounds(350, 90, 150, 20);
         panel.add(textFieldValorEstimado);
 
         JButton botaoEstimar = new JButton("ESTIMAR");
