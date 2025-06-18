@@ -31,6 +31,44 @@ public class EstimarLucros {
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(subtitle);
 
+        JLabel labelValorEstimado = new JLabel("Valor para estipular:");
+        labelValorEstimado.setBounds(150, 100, 150, 20);
+        panel.add(labelValorEstimado);
+
+        JTextField textFieldValorEstimado = new JTextField();
+        textFieldValorEstimado.setBounds(320, 100, 150, 20);
+        panel.add(textFieldValorEstimado);
+
+        JButton botaoEstimar = new JButton("ESTIMAR");
+        botaoEstimar.setBounds(550, 400, 100, 30);
+        panel.add(botaoEstimar);
+
+        JLabel labelVendas = new JLabel();
+        labelVendas.setBounds(150, 180, 350, 20);
+        panel.add(labelVendas);
+
+        JLabel labelCusto = new JLabel();
+        labelCusto.setBounds(150, 220, 350, 20);
+        panel.add(labelCusto);
+
+        JLabel labelLucroMensal = new JLabel();
+        labelLucroMensal.setBounds(150, 260, 350, 20);
+        panel.add(labelLucroMensal);
+
+        JLabel labelLucroAnual = new JLabel();
+        labelLucroAnual.setBounds(150, 300, 450, 20);
+        panel.add(labelLucroAnual);
+
+        botaoEstimar.addActionListener(e -> {
+            double[] valores = empresa.estimarLucros(Double.parseDouble(textFieldValorEstimado.getText()));
+            labelVendas.setText("Vendas Programadas Mensais: R$" + String.format("%.2f", valores[0]));
+            labelCusto.setText("Custo Mensal Estimado com Pessoal: R$" + String.format("%.2f", valores[1]));
+            labelLucroMensal.setText("Lucro Mensal Estimado: R$" + String.format("%.2f", valores[2]));
+            labelLucroAnual.setText("Lucro Anual Estimado : R$"
+                    + String.format("%.2f", valores[3]));
+
+        });
+
         JButton botaoVoltar = new JButton("VOLTAR");
         botaoVoltar.setBounds(50, 400, 100, 30);
         panel.add(botaoVoltar);

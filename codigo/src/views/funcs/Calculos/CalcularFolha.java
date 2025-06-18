@@ -30,7 +30,7 @@ public class CalcularFolha {
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(subtitle);
 
-        double[] valores = empresa.calcularFolhaDePagamentoDetalhada();
+        double[] valores = empresa.calcularFolhaDePagamento();
 
         JLabel labelSalario = new JLabel("Total de Salários Líquidos Pagos: R$ " + String.format("%.2f", valores[0]));
         labelSalario.setBounds(150, 140, 350, 20);

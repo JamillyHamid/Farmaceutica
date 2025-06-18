@@ -161,7 +161,7 @@ public class Empresa {
         }
     }
 
-    public double[] calcularFolhaDePagamentoDetalhada() {
+    public double[] calcularFolhaDePagamento() {
         double totalSalariosLiquidos = 0;
         double totalImpostosRetidos = 0;
         double totalCustosBeneficiosEmpresa = 0;
@@ -196,16 +196,17 @@ public class Empresa {
         this.caixaTotal -= valor;
     }
 
-    public void estimarLucros(double vendasProgramadasMensais) {
+    public double[] estimarLucros(double vendasProgramadasMensais) {
         double custoMensalPessoal = calcularCustoMensalComPessoal();
         double lucroMensalEstimado = vendasProgramadasMensais - custoMensalPessoal;
         double lucroAnualEstimado = lucroMensalEstimado * 12;
-
-        System.out.println("\n--- Estimativa de Lucros ---");
-        System.out.println("Vendas Programadas Mensais: R$" + String.format("%.2f", vendasProgramadasMensais));
-        System.out.println("Custo Mensal Estimado com Pessoal: R$" + String.format("%.2f", custoMensalPessoal));
-        System.out.println("Lucro Mensal Estimado: R$" + String.format("%.2f", lucroMensalEstimado));
-        System.out.println("Lucro Anual Estimado: R$" + String.format("%.2f", lucroAnualEstimado));
+        
+        return new double[] {
+                vendasProgramadasMensais,
+                custoMensalPessoal,
+                lucroMensalEstimado,
+                lucroAnualEstimado
+        };
     }
 
     private double calcularCustoMensalComPessoal() {
