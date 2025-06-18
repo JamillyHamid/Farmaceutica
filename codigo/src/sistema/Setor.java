@@ -38,7 +38,6 @@ public class Setor {
         funcionarios.forEach(System.out::println);
     }
 
-    // --- Getters ---
     public String getNomeSetor() {
         return nomeSetor;
     }
